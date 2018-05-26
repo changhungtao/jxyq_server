@@ -1,0 +1,144 @@
+<div class="modal-header">
+  <div class="row">
+    <div class="col-md-6">
+      <h4 class="modal-title">修改模式时段</h4>
+    </div>
+    <div class="col-md-6 text-right">
+      <h4 class="modal-title"></h4>
+    </div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <form class="form-horizontal" id="modifyVoiceForm" role="form" ng-submit="modifyVoicePeriod()">
+      <div class="form-group">
+        <div class="form-group">
+          <div class="col-md-3 text-right">
+            <label class="control-label">提醒事件：</label>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group">
+              <ui-select ng-model="modifyplayvoice.eventname" theme="bootstrap" style="width:284px">
+                <ui-select-match placeholder="选择事件类型">{{$select.selected.event_name}}</ui-select-match>
+                <ui-select-choices repeat="item.event_id as item in alarm_events | filter: $select.search">
+                  <div ng-bind-html="item.event_name | highlight: $select.search"></div>
+                </ui-select-choices>
+              </ui-select>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-3 text-right">
+            <label class="control-label">开始时间：</label>
+          </div>
+          <div class="col-md-6">
+            <input class="form-control" type="text" placeholder="24小时制时间" ng-model="modifyplayvoice.start" required="required">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-3 text-right">
+            <label class="control-label">内容：</label>
+          </div>
+          <div class="col-md-6">
+            <textarea class="form-control" type="text" placeholder="请设置提醒内容" ng-model="modifyplayvoice.msg"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-3 text-right">
+            <label class="control-label">间隔：</label>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group" style="width:196px">
+              <ui-select ng-model="modifyplayvoice.times" theme="bootstrap" ng-disabled="disabled">
+                <ui-select-match>{{$select.selected.time_name}}</ui-select-match>
+                <ui-select-choices repeat="item.time_id as item in defaulttime | filter: $select.search">
+                  <div ng-bind-html="item.time_name | highlight: $select.search"></div>
+                </ui-select-choices>
+              </ui-select>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-3 text-right">
+            <label class="control-label">次数：</label>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group" style="width:196px">
+              <ui-select ng-model="modifyplayvoice.interval" theme="bootstrap" ng-disabled="disabled">
+                <ui-select-match>{{$select.selected.interval_name}}</ui-select-match>
+                <ui-select-choices repeat="item.interval_id as item in defaultinterval | filter: $select.search">
+                  <div ng-bind-html="item.interval_name | highlight: $select.search"></div>
+                </ui-select-choices>
+              </ui-select>
+            </div>
+          </div>
+          <div class="col-md-3 text-left">
+            <label class="control-label">次</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-3 text-right">
+            <label class="control-label">星期选择：</label>
+          </div>
+          <div class="col-md-9">
+            <!--  <label class="checkbox-inline">
+            <input type="checkbox" name="weeks" id="week_check1" value="1"> 一
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="weeks" id="week_check2" value="2"> 二
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="weeks" id="week_check3" value="3"> 三
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="weeks" id="week_check4" value="4"> 四
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="weeks" id="week_check5" value="5"> 五
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="weeks" id="week_check6" value="6"> 六
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="weeks" id="week_check7" value="7"> 日
+          </label> -->
+            <div class="input-group input-group ">
+              <ui-select multiple ng-model="weekdays.week" theme="bootstrap" ng-disabled="disabled" close-on-select="false" style="height:68px; width:284px">
+                <ui-select-match placeholder="选择星期">{{$item.day_cn_t}}</ui-select-match>
+                <ui-select-choices repeat="dtype.day_id as dtype in week_days | filter: $select.search">
+                  <div ng-bind-html="dtype.day_cn_t | highlight: $select.search"></div>
+                </ui-select-choices>
+              </ui-select>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-3 text-right">
+            <label class="control-label">激活状态：</label>
+          </div>
+          <div class="col-md-6">
+            <!--  <label class="radio-inline">
+              <input type="radio" name="defaultstate" id="defaultstate_check1" checked="true"> 打开
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="defaultstate" id="defaultstate_check2"> 关闭
+            </label> -->
+            <div class="input-group" style="width:196px">
+              <ui-select ng-model="modifyplayvoice.playvoice_en" theme="bootstrap" ng-disabled="disabled">
+                <ui-select-match>{{$select.selected.state_name}}</ui-select-match>
+                <ui-select-choices repeat="item.state_id as item in period_states | filter: $select.search">
+                  <div ng-bind-html="item.state_name | highlight: $select.search"></div>
+                </ui-select-choices>
+              </ui-select>
+            </div>
+          </div>
+        </div>
+    </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="col-sm-offset-7 col-sm-5 text-right">
+      <button form="modifyVoiceForm" type="submit" class="btn btn-success">保存</button>
+      <button ng-click="cancel()" type="button" class="btn btn-default">关闭</button>
+    </div>
+  </div>

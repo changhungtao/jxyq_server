@@ -1,0 +1,29 @@
+</br>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h1 class="panel-title">医生权限列表</h1>
+  </div>
+  <div class="panel-body">
+    <div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <form class="form-horizontal">
+                <div class="row">
+                  <div class="col-md-4">
+                    <span>医生姓名：&nbsp;<strong>{{full_name}}</strong></span>
+                  </div>
+                  <div class="col-md-offset-4 col-md-4">
+                    <button class="btn btn-primary col-md-offset-4 col-md-8" ng-click="openAddPermissionModal()">添加权限</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div ui-grid="gridOptions" class="gridStyle" ui-grid-pagination ui-grid-pinning></div>
+  </div>
+</div>

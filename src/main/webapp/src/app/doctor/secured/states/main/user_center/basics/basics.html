@@ -1,0 +1,230 @@
+<div class="panel panel-default">
+  <!--start of alert block-->
+  <div class="alert alert-{{alert.type}} alert-dismissable" style="text-align: center;" role="alert" ng-repeat="alert in alerts" type="{{alert.type}}">
+    <button type="button" class="close" ng-click="closeAlert($index)">
+    </button>
+    {{alert.msg}}
+  </div>
+  <!--end of alert block-->
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-offset-2 col-md-8">
+        <form class="form-horizontal" role="form" ng-submit="saveDoctorBasic()">
+        <div class="row">
+            <div class="col-md-offset-6">
+                <div class="col-sm-3 text-right">
+                    <label for="last_login" class="control-label">上次登录</label>
+                </div>
+                <div class="col-sm-7">
+                    <div class="input-group input-group ">
+                        <!--<input type="text" class="form-control" id="last_login" placeholder="" ng-model="doctor.last_login" required="required" ng-disabled="true">-->
+                        <label class="control-label text-right">{{doctor.last_login}}</label>
+                        <!--<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+          <div class="row">
+            <div class="form-group">
+              <div class="col-sm-3 text-right">
+                <label for="full_name" class="control-label">医生姓名:</label>
+              </div>
+              <div class="col-sm-7">
+                <div class="input-group input-group ">
+                <input type="text" class="form-control" placeholder="" ng-model="doctor.full_name" required="required">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <div class="col-sm-3 text-right">
+                <label for="identification_number" class="control-label">工号:</label>
+              </div>
+              <div class="col-sm-7">
+               <div class="input-group input-group ">
+                <input type="text" class="form-control" placeholder="" ng-model="doctor.identification_number" required="required">
+                 <span class="input-group-addon"><i class="fa fa-user-md"></i></span>
+                 </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <div class="col-sm-3 text-right">
+                <label for="gender" class="control-label">性别:</label>
+              </div>
+              <div class="col-sm-7">
+                <div class="input-group input-group ">
+                  <ui-select ng-model="doctor.gender" theme="bootstrap">
+                    <ui-select-match placeholder="选择性别">{{$select.selected.gender_name}}</ui-select-match>
+                    <ui-select-choices repeat="item.gender_id as item in genders | filter: $select.search">
+                      <div ng-bind-html="item.gender_name | highlight: $select.search"></div>
+                    </ui-select-choices>
+                  </ui-select>
+                  <span class="input-group-addon"><i class="fa fa-venus-mars"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <div class="col-sm-3 text-right">
+                <label for="birthday" class="control-label">出生日期:</label>
+              </div>
+              <div class="col-sm-7">
+                <!-- <input type="text" class="form-control" placeholder="" ng-model="doctor.birthday" required="required"> -->
+                <div class="input-group">
+                  <input class="form-control" disabled datepicker-popup="{{format}}" ng-model="doctor.birthday" is-open="opened" max-date="maxDate" datepicker-options="dateOptions" clear-text="清除" current-text="今天" close-text="关闭" />
+                  <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                </div>
+              </div>
+            </div>
+          </div>
+            <!--<div class="row">-->
+                <!--<div class="form-group">-->
+                    <!--<div class="col-sm-3 text-right">-->
+                        <!--<label for="last_login" class="control-label">上次登录时间:</label>-->
+                    <!--</div>-->
+                    <!--<div class="col-sm-7">-->
+                        <!--<div class="input-group input-group ">-->
+                            <!--<input type="text" class="form-control" id="last_login" placeholder="" ng-model="doctor.last_login" required="required" ng-disabled="true">-->
+                            <!--<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+          <div class="row">
+            <div class="form-group">
+              <div class="col-sm-3 text-right">
+                <label for="email" class="control-label">邮箱:</label>
+              </div>
+              <div class="col-sm-7">
+               <div class="input-group input-group ">
+                <input type="email" class="form-control" placeholder="" ng-model="doctor.email" required="required">
+                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+               </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <div class="col-sm-3 text-right">
+                <label for="phone" class="control-label">联系电话:</label>
+              </div>
+              <div class="col-sm-7">
+              <div class="input-group input-group ">
+                <input type="text" class="form-control" placeholder="" ng-model="doctor.phone" required="required">
+                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <div class="col-sm-3 text-right">
+                <label for="department_id" class="control-label">科室编号:</label>
+              </div>
+              <div class="col-sm-7">
+                <!-- <input type="text" class="form-control"  placeholder="" ng-model="doctor.department_id" required="required"> -->
+                <div class="input-group input-group ">
+                  <ui-select ng-model="doctor.department_id" id="department" theme="bootstrap">
+                    <ui-select-match placeholder="选择科室">{{$select.selected.department_name}}</ui-select-match>
+                    <ui-select-choices repeat="item.department_id as item in departments | filter: $select.search">
+                      <div ng-bind-html="item.department_name | highlight: $select.search"></div>
+                    </ui-select-choices>
+                  </ui-select>
+                  <span class="input-group-addon"><i class="fa fa-institution"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <div class="col-sm-3 text-right">
+                <label for="district_id" class="control-label">地区编号:</label>
+              </div>
+              <div class="col-sm-7">
+                <!-- <input type="text" class="form-control" placeholder="" ng-model="doctor.district_id" required="required"> -->
+                <div class="input-group input-group ">
+                  <ui-select ng-model="doctor.district_id" id="reply_selected" theme="bootstrap">
+                    <ui-select-match placeholder="选择地区">{{$select.selected.district_name}}</ui-select-match>
+                    <ui-select-choices repeat="item.district_id as item in distrits | filter: $select.search">
+                      <div ng-bind-html="item.district_name | highlight: $select.search"></div>
+                    </ui-select-choices>
+                  </ui-select>
+                  <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <div class="col-sm-3 text-right">
+                <label for="profile" class="control-label">医生简介:</label>
+              </div>
+              <div class="col-sm-7">
+                <textarea type="" style="height:100px" class="form-control" ng-model="doctor.profile" required="required"> </textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+              <div class="col-sm-offset-2 col-md-8">
+                  <div class="alert alert-info" role="alert" style="text-align: center">
+                      <label style="text-align:center">修改资格证书、执业证书，请联系管理员。</label>
+                  </div>
+              </div>
+          </div>
+          <!--<div class="row">-->
+            <!--<div class="form-group">-->
+              <!--<div class="col-sm-3 text-right">-->
+                <!--<label for="physician_certificate" class="control-label">资格证书:</label>-->
+              <!--</div>-->
+              <!--<div class="col-sm-7">-->
+                <!--<div class="row">-->
+                  <!--<div class="col-md-4">-->
+                    <!--<img ng-src={{doctor.physician_certificate}} style="width: 50px">-->
+                  <!--</div>-->
+                  <!--<div class="col-md-6" style="margin-top: 10px">-->
+                    <!--<input type="file" file-model="physician_certificate" />-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="row">-->
+            <!--<div class="form-group">-->
+              <!--<div class="col-sm-3 text-right">-->
+                <!--<label for="practicing_certificate" class="control-label">执业证书:</label>-->
+              <!--</div>-->
+              <!--<div class="col-sm-7">-->
+                <!--<div class="row">-->
+                  <!--<div class="col-md-4">-->
+                    <!--<img ng-src={{doctor.practicing_certificate}} style="width: 50px">-->
+                  <!--</div>-->
+                  <!--<div class="col-md-6" style="margin-top: 10px">-->
+                    <!--<input type="file" file-model="practicing_certificate" />-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+          <div class="row">
+            <div class="form-group">
+              <div class="col-sm-offset-3 col-sm-7">
+                <div class="row">
+                  <div class="col-sm-offset-8 col-sm-4 text-right">
+                    <button type="submit" class="btn btn-block btn-success">保存</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

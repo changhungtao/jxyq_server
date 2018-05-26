@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxyq.mapper.normal_mapper.FileMapper">
+
+    <resultMap id="selectFileMap" type="map">
+        <result column="file_id" property="file_id"/>
+        <result column="file_path" property="file_path"/>
+    </resultMap>
+
+    <select id="selectFileById" parameterType="map" resultMap="selectFileMap">
+        select file_id, file_path
+        from file
+        where file_id = #{file_id}
+    </select>
+
+    <insert id="insertFile" useGeneratedKeys="true" keyProperty="id" parameterType="map">
+        insert into  file(file_id, file_path)
+        values(0, #{file_path,jdbcType=VARCHAR});
+    </insert>
+</mapper>

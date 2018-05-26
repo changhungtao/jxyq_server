@@ -1,0 +1,50 @@
+</br>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title">终端型号模板</h4>
+  </div>
+  <div class="panel-body">
+    <div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">查询条件</h3>
+            </div>
+            <div class="panel-body">
+              <form class="form-horizontal">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <ui-select ng-model="dbOperation.device_type_id" theme="bootstrap">
+                        <ui-select-match placeholder="选择设备类型">{{$select.selected.device_type_name}}</ui-select-match>
+                        <ui-select-choices repeat="item.device_type_id as item in  device_types | filter: $select.search">
+                          <div ng-bind-html="item.device_type_name"></div>
+                        </ui-select-choices>
+                      </ui-select>
+                      <span class="input-group-btn">
+                   <button type="button" ng-click="dbOperation.device_type_id = undefined" class="btn btn-default">
+                     <span class="glyphicon glyphicon-trash"></span>
+                      </button>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <input type="text" ng-model="dbOperation.terminal_catagory_name" class="form-control" placeholder="终端型号">
+                </div>
+                <div class="col-md-offset-1 col-md-3">
+                  <div class="form-group">
+                    <button class="btn btn-success" style="width:120px" ng-click="getTerminalList()">查询</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div ui-grid="gridOptions" class="gridStyle" ui-grid-pagination>
+    </div>
+  </div>
+</div>

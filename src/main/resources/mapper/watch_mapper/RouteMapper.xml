@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxyq.mapper.watch_mapper.RouteMapper">
+
+    <sql id="route_list">
+        id, user_id, lon, lat, lon_of,
+        lat_of, user_pen_id, user_pen_flag, sub_time, sub_mode,
+        sub_number, address, county, pic_url, type,
+        display
+    </sql>
+
+    <sql id="pen_set_list">
+        id, user_id, pen_name, pen_type, center_lon,
+        center_lat, center_lon_of, center_lat_of, bd_lon, bd_lat,
+        radius, rec_number, address1, country, update_time,
+        mode, hexagon_id, deleted_flag
+    </sql>
+
+    <sql id="pen_set_hexagon_list">
+        id, user_id, p2_lon, p2_lat, p2_lon_of,
+        p2_lat_of, p2_bd_lon, p2_bd_lat, p3_lon, p3_lat,
+        p3_lon_of, p3_lat_of, p3_bd_lon, p3_bd_lat, p4_lon,
+        p4_lat, p4_lon_of, p4_lat_of, p4_bd_lon, p4_bd_lat,
+        p5_lon, p5_lat, p5_lon_of, p5_lat_of, p5_bd_lon,
+        p5_bd_lat, p6_lon, p6_lat, p6_lon_of, p6_lat_of,
+        p6_bd_lon, p6_bd_lat
+    </sql>
+
+    <resultMap id="selPenSetMap" type="com.jxyq.model.watch.PenSet">
+        <result column="id" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="pen_name" property="pen_name"/>
+        <result column="pen_type" property="pen_type"/>
+        <result column="center_lon" property="center_lon"/>
+        <result column="center_lat" property="center_lat"/>
+        <result column="center_lon_of" property="center_lon_of"/>
+        <result column="center_lat_of" property="center_lat_of"/>
+        <result column="bd_lon" property="bd_lon"/>
+        <result column="bd_lat" property="bd_lat"/>
+        <result column="radius" property="radius"/>
+        <result column="rec_number" property="rec_number"/>
+        <result column="address1" property="address1"/>
+        <result column="country" property="country"/>
+        <result column="update_time" property="update_time"/>
+        <result column="mode" property="mode"/>
+        <result column="hexagon_id" property="hexagon_id"/>
+        <result column="deleted_flag" property="deleted_flag"/>
+    </resultMap>
+
+    <resultMap id="selPenSetHexagonMap" type="com.jxyq.model.watch.PenSetHexagon">
+        <result column="id" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="pen_name" property="pen_name"/>
+        <result column="pen_type" property="pen_type"/>
+        <result column="center_lon" property="center_lon"/>
+        <result column="center_lat" property="center_lat"/>
+        <result column="center_lon_of" property="center_lon_of"/>
+        <result column="center_lat_of" property="center_lat_of"/>
+        <result column="bd_lon" property="bd_lon"/>
+        <result column="bd_lat" property="bd_lat"/>
+        <result column="radius" property="radius"/>
+        <result column="rec_number" property="rec_number"/>
+        <result column="address1" property="address1"/>
+        <result column="country" property="country"/>
+        <result column="update_time" property="update_time"/>
+        <result column="mode" property="mode"/>
+        <result column="hexagon_id" property="hexagon_id"/>
+        <result column="deleted_flag" property="deleted_flag"/>
+        <result column="p2_lon" property="p2_lon"/>
+        <result column="p2_lat" property="p2_lat"/>
+        <result column="p2_lon_of" property="p2_lon_of"/>
+        <result column="p2_lat_of" property="p2_lat_of"/>
+        <result column="p2_bd_lon" property="p2_bd_lon"/>
+        <result column="p2_bd_lat" property="p2_bd_lat"/>
+        <result column="p3_lon" property="p3_lon"/>
+        <result column="p3_lat" property="p3_lat"/>
+        <result column="p3_lon_of" property="p3_lon_of"/>
+        <result column="p3_lat_of" property="p3_lat_of"/>
+        <result column="p3_bd_lon" property="p3_bd_lon"/>
+        <result column="p3_bd_lat" property="p3_bd_lat"/>
+        <result column="p4_lon" property="p4_lon"/>
+        <result column="p4_lat" property="p4_lat"/>
+        <result column="p4_lon_of" property="p4_lon_of"/>
+        <result column="p4_lat_of" property="p4_lat_of"/>
+        <result column="p4_bd_lon" property="p4_bd_lon"/>
+        <result column="p4_bd_lat" property="p4_bd_lat"/>
+        <result column="p5_lon" property="p5_lon"/>
+        <result column="p5_lat" property="p5_lat"/>
+        <result column="p5_lon_of" property="p5_lon_of"/>
+        <result column="p5_lat_of" property="p5_lat_of"/>
+        <result column="p5_bd_lon" property="p5_bd_lon"/>
+        <result column="p5_bd_lat" property="p5_bd_lat"/>
+        <result column="p6_lon" property="p6_lon"/>
+        <result column="p6_lat" property="p6_lat"/>
+        <result column="p6_lon_of" property="p6_lon_of"/>
+        <result column="p6_lat_of" property="p6_lat_of"/>
+        <result column="p6_bd_lon" property="p6_bd_lon"/>
+        <result column="p6_bd_lat" property="p6_bd_lat"/>
+    </resultMap>
+
+    <resultMap id="CountMap" type="map">
+        <result column="count" property="count"/>
+    </resultMap>
+
+    <resultMap id="selRouteListMap" type="com.jxyq.model.watch.Route">
+        <result column="id" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="lon" property="lon"/>
+        <result column="lat" property="lat"/>
+        <result column="lon_of" property="lon_of"/>
+        <result column="lat_of" property="lat_of"/>
+        <result column="user_pen_id" property="user_pen_id"/>
+        <result column="user_pen_flag" property="user_pen_flag"/>
+        <result column="sub_time" property="sub_time"/>
+        <result column="sub_mode" property="sub_mode"/>
+        <result column="sub_number" property="sub_number"/>
+        <result column="address" property="address"/>
+        <result column="county" property="county"/>
+        <result column="pic_url" property="pic_url"/>
+        <result column="type" property="type"/>
+        <result column="display" property="display"/>
+    </resultMap>
+
+    <insert id="insertRoute" parameterType="com.jxyq.model.watch.Route">
+        insert into ${table_name}(
+            <include refid="route_list"/>
+        )
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id}, #{user_id}, #{lon}, #{lat}, #{lon_of},
+            #{lat_of}, #{user_pen_id}, #{user_pen_flag}, #{sub_time}, #{sub_mode},
+            #{sub_number}, #{address}, #{county}, #{pic_url}, #{type},
+            #{display},
+        </trim>
+    </insert>
+
+    <select id="selRouteList" parameterType="map" resultMap="selRouteListMap" statementType="STATEMENT">
+        select <include refid="route_list"/> from ${table_name} where user_id = ${user_id}
+    </select>
+
+    <select id="selPenSet" parameterType="map" resultMap="selPenSetMap">
+        select
+            <include refid="pen_set_list"/>
+        from pen_set
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+    </select>
+
+    <select id="selPenSetCnt" parameterType="map" resultMap="CountMap">
+        select count(*) as count from pen_set where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+        <if test="deleted_flag != null">
+            <![CDATA[and deleted_flag in (#{deleted_flag})]]>
+        </if>
+    </select>
+
+    <select id="selPenSetHexagon" parameterType="map" resultMap="selPenSetHexagonMap">
+        select a.id, a.user_id, a.pen_name, a.pen_type, a.center_lon,
+            a.center_lat, a.center_lon_of, a.center_lat_of, a.bd_lon, a.bd_lat,
+            a.radius, a.rec_number, a.address1, a.country, a.update_time,
+            a.mode, a.hexagon_id, a.deleted_flag, b.p2_lon, b.p2_lat,
+            b.p2_lon_of, b.p2_lat_of, b.p2_bd_lon, b.p2_bd_lat, b.p3_lon,
+            b.p3_lat, b.p3_lon_of, b.p3_lat_of, b.p3_bd_lon, b.p3_bd_lat,
+            b.p4_lon, b.p4_lat, b.p4_lon_of, b.p4_lat_of, b.p4_bd_lon,
+            b.p4_bd_lat, b.p5_lon, b.p5_lat, b.p5_lon_of, b.p5_lat_of,
+            b.p5_bd_lon, b.p5_bd_lat, b.p6_lon, b.p6_lat, b.p6_lon_of,
+            b.p6_lat_of, b.p6_bd_lon, b.p6_bd_lat
+        from pen_set a left join pen_set_hexagon b on a.hexagon_id = b.id
+        where 1 = 1
+        <if test="id != null">
+            <![CDATA[and a.id in (#{id})]]>
+        </if>
+        <if test="user_id != null">
+            <![CDATA[and a.user_id in (#{user_id})]]>
+        </if>
+        <if test="deleted_flag != null">
+            <![CDATA[and a.deleted_flag = #{deleted_flag}]]>
+        </if>
+    </select>
+
+    <insert id="repPenSet" useGeneratedKeys="true" keyProperty="id" parameterType="com.jxyq.model.watch.PenSet">
+        replace into pen_set(
+            <include refid="pen_set_list" />
+        )
+        values(#{id}, #{user_id}, #{pen_name}, #{pen_type}, #{center_lon},
+            #{center_lat}, #{center_lon_of}, #{center_lat_of}, #{bd_lon}, #{bd_lat},
+            #{radius}, #{rec_number}, #{address1}, #{country}, #{update_time},
+            #{mode}, #{hexagon_id}, #{deleted_flag}
+        );
+    </insert>
+
+    <insert id="repPenSetHexagon" useGeneratedKeys="true" keyProperty="id" parameterType="com.jxyq.model.watch.PenSetHexagon">
+        replace into pen_set_hexagon(
+            <include refid="pen_set_hexagon_list" />
+        )
+        values(#{id}, #{user_id}, #{p2_lon}, #{p2_lat}, #{p2_lon_of},
+            #{p2_lat_of}, #{p2_bd_lon}, #{p2_bd_lat}, #{p3_lon}, #{p3_lat},
+            #{p3_lon_of}, #{p3_lat_of}, #{p3_bd_lon}, #{p3_bd_lat}, #{p4_lon},
+            #{p4_lat}, #{p4_lon_of}, #{p4_lat_of}, #{p4_bd_lon}, #{p4_bd_lat},
+            #{p5_lon}, #{p5_lat}, #{p5_lon_of}, #{p5_lat_of}, #{p5_bd_lon},
+            #{p5_bd_lat}, #{p6_lon}, #{p6_lat}, #{p6_lon_of}, #{p6_lat_of},
+            #{p6_bd_lon}, #{p6_bd_lat}
+        );
+    </insert>
+
+    <select id="selPenSetById" parameterType="map" resultMap="selPenSetHexagonMap">
+        select a.id, a.user_id, a.pen_name, a.pen_type, a.center_lon,
+            a.center_lat, a.center_lon_of, a.center_lat_of, a.bd_lon, a.bd_lat,
+            a.radius, a.rec_number, a.address1, a.country, a.update_time,
+            a.mode, a.hexagon_id, a.deleted_flag, b.p2_lon, b.p2_lat,
+            b.p2_lon_of, b.p2_lat_of, b.p2_bd_lon, b.p2_bd_lat, b.p3_lon,
+            b.p3_lat, b.p3_lon_of, b.p3_lat_of, b.p3_bd_lon, b.p3_bd_lat,
+            b.p4_lon, b.p4_lat, b.p4_lon_of, b.p4_lat_of, b.p4_bd_lon,
+            b.p4_bd_lat, b.p5_lon, b.p5_lat, b.p5_lon_of, b.p5_lat_of,
+            b.p5_bd_lon, b.p5_bd_lat, b.p6_lon, b.p6_lat, b.p6_lon_of,
+            b.p6_lat_of, b.p6_bd_lon, b.p6_bd_lat
+        from pen_set a left join pen_set_hexagon b on a.hexagon_id = b.id
+        where a.id = #{id}
+    </select>
+
+    <delete id="delPenSetHexagon" parameterType="map">
+        delete from pen_set_hexagon where id = #{id}
+    </delete>
+
+    <delete id="delPenSetFlag" parameterType="map">
+        update pen_set set deleted_flag = #{deleted_flag} where id = #{id}
+    </delete>
+
+    <delete id="delPenSet" parameterType="map">
+        delete from pen_set where id = #{id}
+    </delete>
+
+    <select id="selTableCnt" parameterType="map" resultMap="CountMap">
+        select count(1) as count
+        from information_schema.tables
+        where table_schema = #{schema_name}
+        and table_name = #{table_name}
+    </select>
+</mapper>

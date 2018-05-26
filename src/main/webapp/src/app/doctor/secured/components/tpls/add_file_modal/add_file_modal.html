@@ -1,0 +1,790 @@
+<div class="modal-header">
+    <div class="row">
+        <div class="col-md-4">
+            <h4 class="modal-title">录入数据</h4>
+        </div>
+        <div class="col-md-8">
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <div class="col-sm-4 text-right">
+                        <label for="terminal_name" class="control-label">选择档案类型：</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <ui-select ng-model="file_type.selected" theme="bootstrap" ng-change="changePage()">
+                        <ui-select-match placeholder="选择档案类型">{{$select.selected.file_type_name}}</ui-select-match>
+                        <ui-select-choices repeat="item in file_types | filter: $select.search">
+                        <div ng-bind-html="item.file_type_name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <!-- fat_file -->
+    <div id="fat" ng-if="!fat">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4>
+                脂肪数据档案录入
+                </h4>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" id="{{formName}}" ng-submit="saveFat()">
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">测量时间：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <!--<timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>-->
+                            <div class="input-group">
+                                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="fatFiles.measured_at" ng-disabled="true"/>
+                                <span class="btn input-group-addon" ng-click="fat_open($event)">
+                                <i class="fa fa-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">BMI指数：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <input type="number" min="1" class="form-control" ng-model="fatFiles.bmi_value" ng-required="true">
+                                <span class="input-group-addon">
+                                <i>kg/m^2</i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">体重：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <input type="number" min="1" class="form-control" ng-model="fatFiles.weight_value" ng-required="true">
+                                <span class="input-group-addon">
+                                <i>kg</i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">脂肪含量：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <input type="number" min="1" class="form-control" ng-model="fatFiles.fat_value" ng-required="true">
+                                <span class="input-group-addon">
+                                <i>%</i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">卡路里：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <input type="number" min="1" class="form-control" ng-model="fatFiles.calorie_value" ng-required="true">
+                                <span class="input-group-addon">
+                                <i>kJ</i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">水分含量：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <input type="number" min="1" class="form-control" ng-model="fatFiles.moisture_value" ng-required="true">
+                                <span class="input-group-addon">
+                                <i>%</i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">肌肉含量：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <input type="number" min="1" class="form-control" ng-model="fatFiles.muscle_value" ng-required="true">
+                                <span class="input-group-addon">
+                                <i>%</i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">内脏脂肪含量：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <input type="number" min="1" class="form-control" ng-model="fatFiles.visceral_fat_value" ng-required="true">
+                                <span class="input-group-addon">
+                                <i>%</i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">骨骼：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <input type="number" min="1" class="form-control" ng-model="fatFiles.bone_value" ng-required="true">
+                                <span class="input-group-addon">
+                                <i>kg</i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">症状：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <textarea class="form-control"ng-model="fatFiles.symptom" ng-required="true">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">医生建议：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <textarea class="form-control" ng-model="fatFiles.proposal" ng-required="true">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button form="{{formName}}" type="button" class="btn btn-primary col-md-offset-2 col-md-3" ng-click="clearSomeFields()">重置</button>
+                            <!-- <button form="{{formName}}" type="button" class="btn btn-primary col-md-offset-2 col-md-3" ng-click="reset()">重置</button> -->
+                            <button form="{{formName}}" type="submit" class="btn btn-success col-md-offset-2 col-md-3">保存</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- glucosemeter -->
+    <div id="glucosemeter" ng-if="!glucosemeter">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4>
+                血糖数据档案录入
+                </h4>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" id="{{formName}}" ng-submit="saveGlucosemeter()">
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">测量时间：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="glucosemeterFiles.measured_at" ng-disabled="true"/>
+                                <span class="btn input-group-addon" ng-click="glucosemeter_open($event)">
+                                <i class="fa fa-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">测量时段：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <ui-select ng-model="glucosemeterFiles.period"  required="required" theme="bootstrap">
+                                    <ui-select-match>{{$select.selected.period_name}}</ui-select-match>
+                                    <ui-select-choices repeat="item.period_id as item in periods | filter: $select.search">
+                                        <div ng-bind-html="item.period_name | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="input-group-addon">
+                                <i>时段</i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">血糖值：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <input type="number" min="1" class="form-control" ng-model="glucosemeterFiles.glucosemeter_value" ng-required="true">
+                                <span class="input-group-addon">
+                                <i>mmol/l</i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">症状：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <textarea class="form-control"ng-model="glucosemeterFiles.symptom" ng-required="true">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">医生建议：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <textarea class="form-control" ng-model="glucosemeterFiles.proposal" ng-required="true">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button form="{{formName}}" type="button" class="btn btn-primary col-md-offset-2 col-md-3" ng-click="clearSomeFields()">重置</button>
+                            <!-- <button form="{{formName}}" type="button" class="btn btn-primary col-md-offset-2 col-md-3" ng-click="reset()">重置</button> -->
+                            <button form="{{formName}}" type="submit" class="btn btn-success col-md-offset-2 col-md-3">保存</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- oximeter -->
+    <div id="oximeter" ng-if="!oximeter">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4>
+                血氧数据档案录入
+                </h4>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" id="{{formName}}" ng-submit="saveOximeter()">
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">测量时间：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="oximeterFiles.measured_at" ng-disabled="true"/>
+                                <span class="btn input-group-addon" ng-click="oximeter_open($event)">
+                                <i class="fa fa-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">血氧：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <input type="number" min="1" class="form-control" ng-model="oximeterFiles.oximeter_value" ng-required="true">
+                                <span class="input-group-addon">
+                                <i>%</i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">症状：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <textarea class="form-control" ng-model="oximeterFiles.symptom" ng-required="true">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">医生建议：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <textarea class="form-control" ng-model="oximeterFiles.proposal" ng-required="true">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button form="{{formName}}" type="button" class="btn btn-primary col-md-offset-2 col-md-3" ng-click="clearSomeFields()">重置</button>
+                            <!-- <button form="{{formName}}" type="button" class="btn btn-primary col-md-offset-2 col-md-3" ng-click="reset()">重置</button> -->
+                            <button form="{{formName}}" type="submit" class="btn btn-success col-md-offset-2 col-md-3">保存</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- sphygmomanometer -->
+    <div id="sphygmomanometer" ng-if="!sphygmomanometer">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4>
+                血压数据档案录入
+                </h4>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" id="{{formName}}" ng-submit="saveSphygmomanometer()">
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">测量时间：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="sphygFiles.measured_at"  ng-disabled="true"/>
+                                <span class="btn input-group-addon" ng-click="sphygmomanometer_open($event)">
+                                <i class="fa fa-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">收缩压：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <input type="number" min="1" class="form-control" ng-model="sphygFiles.systolic_pressure" ng-required="true">
+                                <span class="input-group-addon">
+                                <i>mmhg</i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">舒张压：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <input type="number" min="1" class="form-control" ng-model="sphygFiles.diastolic_pressure" ng-required="true">
+                                <span class="input-group-addon">
+                                <i>mmhg</i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">心率：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <input type="number" min="1" class="form-control" ng-model="sphygFiles.heart_rate" ng-required="true">
+                                <span class="input-group-addon">
+                                <i>BPM</i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">症状：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <textarea class="form-control" ng-model="sphygFiles.symptom" ng-required="true">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">医生建议：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <textarea class="form-control" ng-model="sphygFiles.proposal" ng-required="true">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button form="{{formName}}" type="button" class="btn btn-primary col-md-offset-2 col-md-3" ng-click="clearSomeFields()">重置</button>
+                            <!-- <button form="{{formName}}" type="button" class="btn btn-primary col-md-offset-2 col-md-3" ng-click="reset()">重置</button> -->
+                            <button form="{{formName}}" type="submit" class="btn btn-success col-md-offset-2 col-md-3">保存</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- thermometer -->
+    <div id="thermometere" ng-if="!thermometer">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4>
+                体温数据档案录入
+                </h4>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" id="{{formName}}" ng-submit="saveThermometer()">
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">测量时间：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="thermometerFiles.measured_at"  ng-disabled="true"/>
+                                <span class="btn input-group-addon" ng-click="thermometer_open($event)">
+                                <i class="fa fa-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">体温：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <input type="number" min="0" class="form-control" ng-model="thermometerFiles.thermometer_value" ng-required="true">
+                                <span class="input-group-addon">
+                                <i>℃</i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">症状：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <textarea class="form-control" ng-model="thermometerFiles.symptom" ng-required="true">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">医生建议：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <textarea class="form-control" ng-model="thermometerFiles.proposal" ng-required="true">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button form="{{formName}}" type="button" class="btn btn-primary col-md-offset-2 col-md-3" ng-click="clearSomeFields()">重置</button>
+                            <!-- <button form="{{formName}}" type="button" class="btn btn-primary col-md-offset-2 col-md-3" ng-click="reset()">重置</button> -->
+                            <button form="{{formName}}" type="submit" class="btn btn-success col-md-offset-2 col-md-3">保存</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- wristband -->
+    <div id="wristband" ng-if="!wristband">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4>
+                手环数据档案录入
+                </h4>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" id="{{formName}}" ng-submit="saveWristband()">
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">测量时间：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="wristbandFiles.measured_at"  ng-disabled="true"/>
+                                <span class="btn input-group-addon" ng-click="wristband_open($event)">
+                                <i class="fa fa-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-4 text-right">
+                                    <label class="control-label">总公里数：</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="number" min="0" class="form-control"  ng-model="wristbandFiles.distance" ng-required="true">
+                                        <span class="input-group-addon">
+                                        <i>km</i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-4 text-right">
+                                    <label class="control-label">总消耗能量：</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="number" min="0" class="form-control" ng-model="wristbandFiles.calories" ng-required="true">
+                                        <span class="input-group-addon">
+                                        <i>Cal</i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-4 text-right">
+                                    <label class="control-label">步行公里数：</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="number" min="0" class="form-control" ng-model="wristbandFiles.walk_distance" ng-required="true">
+                                        <span class="input-group-addon">
+                                        <i>km</i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-4 text-right">
+                                    <label class="control-label">步行消耗能量：</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="number" min="0" class="form-control" ng-model="wristbandFiles.walk_calories" ng-required="true">
+                                        <span class="input-group-addon">
+                                        <i>Cal</i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-4 text-right">
+                                    <label class="control-label">步行步数：</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="number" min="0" class="form-control" ng-model="wristbandFiles.walk_count" ng-required="true">
+                                        <span class="input-group-addon">
+                                        <i>km</i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-4 text-right">
+                                    <label class="control-label">跑步消耗能量：</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="number" min="0" class="form-control" ng-model="wristbandFiles.run_calories" ng-required="true">
+                                        <span class="input-group-addon">
+                                        <i>Cal</i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-4 text-right">
+                                    <label class="control-label">跑步公里数：</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="number" min="0" class="form-control" ng-model="wristbandFiles.run_distance"ng-required="true">
+                                        <span class="input-group-addon">
+                                        <i>km</i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-4 text-right">
+                                    <label class="control-label">深睡时间：</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="number" min="0" class="form-control" ng-model="wristbandFiles.deep_duration" ng-required="true">
+                                        <span class="input-group-addon">
+                                        <i>小时</i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-4 text-right">
+                                    <label class="control-label">跑步步数：</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="number" min="0" class="form-control" ng-model="wristbandFiles.run_count" ng-required="true">
+                                        <span class="input-group-addon">
+                                        <i>步</i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-4 text-right">
+                                    <label class="control-label">浅睡时间：</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="number" min="0" class="form-control" ng-model="wristbandFiles.shallow_duration" ng-required="true">
+                                        <span class="input-group-addon">
+                                        <i>小时</i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-4 text-right">
+                                    <label class="control-label">总步数：</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="number" min="0" class="form-control" ng-model="wristbandFiles.step_count" ng-required="true">
+                                        <span class="input-group-addon">
+                                        <i>步</i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-4 text-right">
+                                    <label class="control-label ">心率：</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="number" min="1" class="form-control" ng-model="wristbandFiles.heart_rate" ng-required="true">
+                                        <span class="input-group-addon">
+                                        <i>BPM</i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">症状：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <textarea class="form-control" ng-model="wristbandFiles.symptom" ng-required="true">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">医生建议：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <textarea class="form-control" ng-model="wristbandFiles.proposal" ng-required="true">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button form="{{formName}}" type="button" class="btn btn-primary col-md-offset-2 col-md-3" ng-click="clearSomeFields()">重置</button>
+                            <!-- <button form="{{formName}}" type="button" class="btn btn-primary col-md-offset-2 col-md-3" ng-click="reset()">重置</button> -->
+                            <button form="{{formName}}" type="submit" class="btn btn-success col-md-offset-2 col-md-3">保存</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- other -->
+    <div id="other" ng-if="!other">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4>
+                    其他数据档案录入
+                </h4>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" id="{{formName}}" ng-submit="saveOthers()">
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">测量时间：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="otherFiles.measured_at"  ng-disabled="true"/>
+                                <span class="btn input-group-addon" ng-click="other_open($event)">
+                                <i class="fa fa-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">症状：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <textarea class="form-control" ng-model="otherFiles.symptom" ng-required="true">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">医生建议：</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <textarea class="form-control" ng-model="otherFiles.proposal" ng-required="true">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button form="{{formName}}" type="button" class="btn btn-primary col-md-offset-2 col-md-3" ng-click="clearSomeFields()">重置</button>
+                            <!-- <button form="{{formName}}" type="button" class="btn btn-primary col-md-offset-2 col-md-3" ng-click="reset()">重置</button> -->
+                            <button form="{{formName}}" type="submit" class="btn btn-success col-md-offset-2 col-md-3">保存</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="col-sm-offset-7 col-sm-5">
+        <!-- <button form="{{formName}}" type="submit" class="btn btn-success">保存</button> -->
+        <!-- <button form="{{formName}}" type="reset" class="btn btn-primary" ng-click="reset()">重置</button> -->
+        <button ng-click="cancel()" type="button" class="btn btn-default">取消</button>
+    </div>
+</div>

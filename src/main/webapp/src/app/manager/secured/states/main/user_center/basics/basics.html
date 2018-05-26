@@ -1,0 +1,125 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-offset-2 col-md-8">
+          <!--start of alert block-->
+          <div class="alert alert-{{alert.type}} alert-dismissable" style="text-align: center;" role="alert" ng-repeat="alert in alerts" type="{{alert.type}}">
+              <button type="button" class="close" ng-click="closeAlert($index)">
+              </button>
+              {{alert.msg}}
+          </div>
+          <!--end of alert block-->
+        <form class="form-horizontal" role="form" ng-submit="saveAdminBasic()">
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-3 text-right">
+                        <label class="control-label">上次登录</label>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="input-group">
+                            <label class="control-label text-right">{{admin.last_login}}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          <div class="row">
+            <div class="form-group">
+              <div class="col-sm-3 text-right">
+                <label for="full_name" class="control-label">账户名:</label>
+              </div>
+              <div class="col-sm-7">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="" ng-model="admin.full_name" required="required">
+                  <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3 text-right">
+                    <label for="phone" class="control-label">手机号:</label>
+                </div>
+                <div class="col-sm-7">
+                    <div class="input-group input-group ">
+                        <input type="text" class="form-control" id="phone" placeholder="" ng-model="admin.phone" required="required">
+                        <span class="input-group-addon"><i class="fa fa-mobile-phone"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+          <div class="row">
+            <div class="form-group">
+              <div class="col-sm-3 text-right">
+                <label for="gender" class="control-label">性别:</label>
+              </div>
+              <div class="col-sm-7">
+                <div class="input-group input-group ">
+                  <ui-select ng-model="admin.gender" theme="bootstrap">
+                    <ui-select-match placeholder="选择性别">{{$select.selected.gender_name}}</ui-select-match>
+                    <ui-select-choices repeat="item.gender_id as item in genders | filter: $select.search">
+                      <div ng-bind-html="item.gender_name | highlight: $select.search"></div>
+                    </ui-select-choices>
+                  </ui-select>
+                  <span class="input-group-addon"><i class="fa fa-venus-mars"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <div class="col-sm-3 text-right">
+                <label for="birthday" class="control-label">出生日期:</label>
+              </div>
+              <div class="col-sm-7">
+                <div class="input-group">
+                  <input class="form-control" disabled datepicker-popup="{{format}}" ng-model="admin.birthday" is-open="opened" max-date="maxDate" datepicker-options="dateOptions" clear-text="清除" current-text="今天" close-text="关闭" />
+                  <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <div class="col-sm-3 text-right">
+                <label for="email" class="control-label">邮箱:</label>
+              </div>
+              <div class="col-sm-7">
+                <div class="input-group input-group ">
+                  <input type="eamil" class="form-control" placeholder="" ng-model="admin.email" required="required">
+                  <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+            <!--<div class="row">-->
+                <!--<div class="form-group">-->
+                    <!--<div class="col-sm-3 text-right">-->
+                        <!--<label for="email" class="control-label">上次登陆时间:</label>-->
+                    <!--</div>-->
+                    <!--<div class="col-sm-7">-->
+                        <!--<div class="input-group input-group ">-->
+                            <!--<input type="eamil" class="form-control" placeholder="" ng-model="admin.last_login" required="required" ng-disabled="true">-->
+                            <!--<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+          <div class="row">
+            <div class="form-group">
+              <div class="col-sm-offset-3 col-sm-7">
+                <div class="row">
+                  <div class="col-sm-offset-8 col-sm-4 text-right">
+                    <button type="submit" class="btn btn-block btn-success" ng-disabled="disabledBtn">保存</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

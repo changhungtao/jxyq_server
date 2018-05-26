@@ -1,0 +1,72 @@
+<div class="modal-header">
+  <div class="row">
+    <div class="col-md-6">
+      <h4 class="modal-title">信息推送</h4>
+    </div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="alert alert-{{alert.type}} alert-dismissable" style="text-align: center;" role="alert" ng-repeat="alert in alerts" type="{{alert.type}}">
+    <button type="button" class="close" ng-click="closeAlert($index)">
+    </button>
+    {{alert.msg}}
+  </div>
+  <form class="form-horizontal" role="form" id="pushForm" ng-submit="pushMessages()">
+    <!--<div class="form-group">-->
+      <!--<div class="col-md-8">-->
+        <!--<div class="col-md-3">-->
+          <!--<label class="control-label">厂商编号</label>-->
+        <!--</div>-->
+        <!--<div class="col-md-9">-->
+          <!--<div class="form-group">-->
+            <!--<div class="input-group">-->
+              <!--<input type="text" class="form-control" ng-model="pushMSG.manufactory_id">-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<div class="col-md-8">-->
+        <!--<div class="col-md-3">-->
+          <!--<label class="control-label">终端型号</label>-->
+        <!--</div>-->
+        <!--<div class="col-md-9">-->
+          <!--<div class="form-group">-->
+            <!--<div class="input-group">-->
+              <!--<input type="text" class="form-control" ng-model="pushMSG.terminal_catagory_id">-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+    <div class="form-group">
+      <div class="col-md-12">
+        <div class="col-md-2">
+          <label class="control-label">消息文本</label>
+        </div>
+        <div class="col-md-8">
+          <div class="form-group">
+            <!--<div class="input-group">-->
+              <!--<input type="text" class="form-control" ng-model="pushMSG.content" required="required">-->
+                <textarea class="form-control" rows="4" ng-model="pushMSG.content"  required="required">
+                </textarea>
+            <!--</div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <div class="form-group">
+             <div class="col-md-offset-2 col-md-8">
+                 <button form="pushForm" class="btn btn-success col-md-12" ng-disabled="disableBtn">推送</button>
+             </div>
+      </div>
+  </form>
+  </div>
+  <div class="modal-footer">
+    <div class="col-sm-offset-7 col-sm-5">
+      <!--<button form="pushForm" class="btn btn-success">推送</button>-->
+      <button ng-click="cancel()" type="button" class="btn btn-default">取消</button>
+    </div>
+  </div>

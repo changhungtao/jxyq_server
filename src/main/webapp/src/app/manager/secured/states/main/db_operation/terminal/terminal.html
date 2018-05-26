@@ -1,0 +1,96 @@
+</br>
+<div>
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h1 class="panel-title">终端</h1>
+    </div>
+    <div class="panel-body">
+      <div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">查询条件</h3>
+              </div>
+              <div class="panel-body">
+                <form class="form-horizontal">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <ui-select multiple ng-model="terminal.manufacturer_selected" theme="bootstrap" ng-disabled="disabled" close-on-select="false">
+                          <ui-select-match placeholder="厂商名称">{{$item.manufactory_name}}</ui-select-match>
+                          <ui-select-choices repeat="item.manufactory_id as item in terminal.manufacturers | filter: $select.search">
+                            <div ng-bind-html="item.manufactory_name | highlight: $select.search"></div>
+                          </ui-select-choices>
+                        </ui-select>
+                        <span class="input-group-btn">
+                         <button type="button" ng-click="terminal.manufacturer_selected = undefined" class="btn btn-default">
+                         <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <ui-select multiple ng-model="terminal.device_types_selected" theme="bootstrap" ng-disabled="disabled" close-on-select="false">
+                          <ui-select-match placeholder="选择设备类型">{{$item.device_type_name}}</ui-select-match>
+                          <ui-select-choices repeat="item.device_type_id as item in terminal.device_types | filter: $select.search">
+                            <div ng-bind-html="item.device_type_name | highlight: $select.search"></div>
+                          </ui-select-choices>
+                        </ui-select>
+                        <span class="input-group-btn">
+                         <button type="button" ng-click="terminal.device_types_selected = undefined" class="btn btn-default">
+                         <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <ui-select ng-disabled="disabled" ng-model="terminal.device_state_selected" theme="bootstrap">
+                          <ui-select-match placeholder="状态">{{$select.selected.terminal_status_name}}</ui-select-match>
+                          <ui-select-choices repeat="item.terminal_status_id as item in terminal.device_states | filter: $select.search">
+                            <div ng-bind-html="item.terminal_status_name | highlight: $select.search"></div>
+                          </ui-select-choices>
+                        </ui-select>
+                        <span class="input-group-btn">
+                         <button type="button" ng-click="terminal.device_state_selected = undefined" class="btn btn-default">
+                         <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                    <div class="col-md-8">
+                      <button type="submit" ng-click="queryFile()" class="btn btn-success form-control">查询</button>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <input type="text" class="form-control" placeholder="设备名称" ng-model="terminal.fuzzy_search">
+                        <span class="input-group-btn">
+                          <button class="btn btn-success" type="submit"  ng-click="searchFile()"><i class="fa fa-search"></i></button>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div ui-grid="gridOptions" class="gridStyle" ui-grid-pagination>
+      </div>
+      <!--ui-grid-pinning -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxyq.mapper.normal_mapper.ConstantMapper">
+    <resultMap id="ConstantDescriptionMap" type="com.jxyq.model.others.ConstantDescription">
+        <result column="constant_description_id" property="constant_description_id" />
+        <result column="catagory" property="catagory" />
+        <result column="constant" property="constant" />
+        <result column="description" property="description" />
+        <result column="extra" property="extra" />
+    </resultMap>
+
+    <select id="selConstantDescription" parameterType="map" resultMap="ConstantDescriptionMap">
+        select constant_description_id, catagory, constant, description, extra
+        from constant_description
+        where 1 = 1
+        <if test="constant_description_id != null">
+            <![CDATA[and constant_description_id = #{constant_description_id}]]>
+        </if>
+        <if test="catagory != null">
+            <![CDATA[and catagory = #{catagory}]]>
+        </if>
+        <if test="constant != null">
+            <![CDATA[and constant = #{constant}]]>
+        </if>
+        <if test="description != null">
+            <![CDATA[and description = #{description}]]>
+        </if>
+        <if test="extra != null">
+            <![CDATA[and extra = #{extra}]]>
+        </if>
+        limit 1;
+    </select>
+
+    <select id="selConstantDescriptionList" parameterType="map" resultMap="ConstantDescriptionMap">
+        select constant_description_id, catagory, constant, description, extra
+        from constant_description
+        where 1 = 1
+        <if test="catagory != null">
+            <![CDATA[and catagory = #{catagory}]]>
+        </if>
+    </select>
+
+    <resultMap id="DepartmentMap" type="map">
+        <result column="department_id" property="department_id" />
+        <result column="name" property="name" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <select id="qryDepartment" parameterType="map" resultMap="DepartmentMap">
+        select department_id, name, status
+        from department
+    </select>
+</mapper>

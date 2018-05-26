@@ -1,0 +1,162 @@
+<form class="form-horizontal" role="form" id="fatForm" ng-submit="savePatFat()">
+    <div class="modal-header">
+        <div class="row">
+            <div class="col-md-6">
+                <h4 class="modal-title">用户名：{{entity.user_full_name}}</h4>
+            </div>
+            <div class="col-md-6 text-right">
+                <h4 class="modal-title">联系方式：{{entity.user_phone}}</h4>
+            </div>
+        </div>
+    </div>
+    <div class="modal-body">
+        <div class="alert alert-{{alert.type}} alert-dismissable" style="text-align: center;" role="alert" ng-repeat="alert in alerts" type="{{alert.type}}">
+            <button type="button" class="close" ng-click="closeAlert($index)">
+            </button>
+            {{alert.msg}}
+        </div>
+        <!--end of alert block-->
+            <div class="form-group">
+                <div class="col-sm-3 text-right">
+                    <label class="control-label">测量时间：</label>
+                </div>
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <input type="text" class="form-control" datepicker-popup="{{format}}" disabled="disabled" ng-model="patFat.measured_at" is-open="opened" min-date="minDate" max-date="dt" datepicker-options="dateOptions"  ng-required="true" clear-text="清除" current-text="今天" close-text="关闭" />
+                          <span class="btn input-group-addon" ng-click="open($event)">
+                              <i class="fa fa-calendar"></i>
+                          </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3 text-right">
+                    <label class="control-label">BMI指数：</label>
+                </div>
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="patFat.bmi_value" required="required">
+              <span class="input-group-addon">
+                <i>kg/m^2</i>
+              </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3 text-right">
+                    <label class="control-label">体重：</label>
+                </div>
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="patFat.weight_value" required="required">
+              <span class="input-group-addon">
+                <i>kg</i>
+              </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3 text-right">
+                    <label class="control-label">脂肪含量：</label>
+                </div>
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="patFat.fat_value" required="required">
+              <span class="input-group-addon">
+                <i>%</i>
+              </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3 text-right">
+                    <label class="control-label">卡路里：</label>
+                </div>
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="patFat.calorie_value" required="required">
+              <span class="input-group-addon">
+                <i>kJ</i>
+              </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3 text-right">
+                    <label class="control-label">水分含量：</label>
+                </div>
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="patFat.moisture_value" required="required">
+              <span class="input-group-addon">
+                <i>%</i>
+              </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3 text-right">
+                    <label class="control-label">肌肉含量：</label>
+                </div>
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="patFat.muscle_value" required="required">
+              <span class="input-group-addon">
+                <i>%</i>
+              </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3 text-right">
+                    <label class="control-label">内脏脂肪含量：</label>
+                </div>
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="patFat.visceral_fat_value" required="required">
+              <span class="input-group-addon">
+                <i>%</i>
+              </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3 text-right">
+                    <label class="control-label">骨骼：</label>
+                </div>
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="patFat.bone_value" required="required">
+              <span class="input-group-addon">
+                <i>kg</i>
+              </span>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="form-group">-->
+                <!--<div class="col-sm-3 text-right">-->
+                    <!--<label class="control-label">症状：</label>-->
+                <!--</div>-->
+                <!--<div class="col-sm-7">-->
+                    <!--<textarea class="form-control" ng-model="patFat.symptom" required="required">-->
+                    <!--</textarea>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="form-group">
+                <div class="col-sm-3 text-right">
+                    <label class="control-label">医生建议：</label>
+                </div>
+                <div class="col-sm-7">
+                    <textarea class="form-control" ng-model="patFat.proposal">
+                    </textarea>
+                </div>
+            </div>
+    </div>
+    <div class="modal-footer">
+        <div class="col-sm-offset-7 col-sm-5">
+            <button form="fatForm" type="submit" class="btn btn-success" ng-disabled="disabledBtn">推送</button>
+            <!--<button form="fatForm" type="reset" class="btn btn-primary">重置</button>-->
+            <button ng-click="cancel()" type="button" class="btn btn-default">取消</button>
+        </div>
+    </div>
+</form>

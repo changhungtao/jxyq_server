@@ -1,0 +1,174 @@
+</br>
+<div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h1 class="panel-title">健康档案管理</h1>
+    </div>
+    <div class="panel-body">
+      <div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">查询条件</h3>
+              </div>
+              <div class="panel-body">
+                <form class="form-horizontal" role="form">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <div class="col-md-4">
+                          <label class="control-label" for="patient_phone">
+                            手机号码
+                          </label>
+                        </div>
+                        <div class="col-md-8">
+                          <input type="text" ng-model="file.phone" class="form-control" id="patient_phone" placeholder="手机号码">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <div class="col-md-4">
+                          <label class="control-label" for="patient_name">
+                            患者姓名
+                          </label>
+                        </div>
+                        <div class="col-md-8">
+                          <input type="text" ng-model="file.name" class="form-control" id="patient_name" placeholder="患者姓名">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <div class="col-md-4 ">
+                          <label class="control-label" for="patient_gender">
+                            患者性别
+                          </label>
+                        </div>
+                        <div class="col-md-8">
+                          <div class="input-group">
+                            <ui-select ng-model="file.gender" id="patient_gender" theme="bootstrap">
+                              <ui-select-match placeholder="选择性别">{{$select.selected.gender_name}}</ui-select-match>
+                              <ui-select-choices repeat="item.gender_id as item in  genders| filter: $select.search">
+                                <div ng-bind-html="item.gender_name"></div>
+                              </ui-select-choices>
+                            </ui-select>
+                            <span class="input-group-btn">
+                              <button type="button" ng-click="file.gender = undefined" class="btn btn-default">
+                              <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <div class="col-md-4">
+                          <label class="control-label" for="start_date">
+                            开始时间
+                          </label>
+                        </div>
+                        <div class="col-md-8">
+                          <div class="input-group">
+                            <input type="text" class="form-control" ng-model="query_date.created_from" datepicker-popup id="start_date" is-open="form1_opened" max-date="dt" datepicker-options="dateOptions" clear-text="清除" current-text="今天" close-text="关闭" />
+                            <span class="input-group-btn">
+                              <button type="button" class="btn btn-default" ng-click="open_form_1($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <div class="col-md-4">
+                          <label class="control-label" for="start_age">
+                            起始年龄
+                          </label>
+                        </div>
+                        <div class="col-md-8">
+                          <ui-select ng-model="file.age_from" id="start_age" theme="bootstrap">
+                            <ui-select-match placeholder="起始年龄">{{$select.selected}}</ui-select-match>
+                            <ui-select-choices repeat="item in  ages | filter: $select.search">
+                              <div ng-bind-html="item"></div>
+                            </ui-select-choices>
+                          </ui-select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <div class="col-md-4 ">
+                          <label class="control-label" for="data_type">
+                            数据类型
+                          </label>
+                        </div>
+                        <div class="col-md-8">
+                          <ui-select ng-model="arr.data_file_type" id="data_type" theme="bootstrap">
+                            <ui-select-match placeholder="选择数据类型">{{$select.selected.file_type_name}}</ui-select-match>
+                            <ui-select-choices repeat="item.file_type_id as item in  fileTypes | filter: $select.search">
+                              <div ng-bind-html="item.file_type_name"></div>
+                            </ui-select-choices>
+                          </ui-select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <div class="col-md-4">
+                          <label class="control-label" for="end_date">
+                            结束时间
+                          </label>
+                        </div>
+                        <div class="col-md-8">
+                          <div class="input-group">
+                            <input type="text" class="form-control" ng-model="query_date.created_to" datepicker-popup id="end_date" is-open="form2_opened" max-date="dt" datepicker-options="dateOptions" clear-text="清除" current-text="今天" close-text="关闭" />
+                            <span class="input-group-btn">
+                              <button type="button" class="btn btn-default" ng-click="open_form_2($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <div class="col-md-4">
+                          <label class="control-label" for="end_age">
+                            结束年龄
+                          </label>
+                        </div>
+                        <div class="col-md-8">
+                          <ui-select ng-model="file.age_to" id="end_age" theme="bootstrap">
+                            <ui-select-match placeholder="结束年龄">{{$select.selected}}</ui-select-match>
+                            <ui-select-choices repeat="item in ages| filter: $select.search">
+                              <div ng-bind-html="item"></div>
+                            </ui-select-choices>
+                          </ui-select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <div class="col-md-offset-4 col-md-8">
+                          <button type="submit" ng-click="queryFile()" class="btn btn-success btn-block">查询</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div ui-grid="gridOptions" class="gridStyle" ui-grid-pagination  ui-grid-grouping></div>
+    </div>
+  </div>
+</div>

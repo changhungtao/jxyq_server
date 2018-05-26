@@ -1,0 +1,72 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- 
+    <div class="col-md-offset-2 col-md-5">
+      <carousel interval="signIn.myInterval" style="margin-top:37%">
+        <slide ng-repeat="slide in signIn.slides" active="slide.active">
+          <img ng-src="{{slide.image}}" style="margin:auto;width:500px;height:300px">
+          <div class="carousel-caption">
+            <h4>Slide {{$index}}</h4>
+            <p>{{slide.text}}</p>
+          </div>
+        </slide>
+      </carousel>
+    </div>
+ -->
+    <!-- <div class="col-md-offset-1 col-md-3" style="margin-top:10%"> -->
+    <div class="col-md-offset-3 col-md-6" style="margin-top:10%">
+      <div class="alert alert-{{signIn.alert_type}}" role="alert" type="{{signIn.alert_type}}">{{signIn.alert_msg}}</div>
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">医生登陆</h3>
+        </div>
+        <div class="panel-body">
+          <form class="form-horizontal" role="form">
+            <div class="row">
+              <div class="col-md-offset-1 col-md-10">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    <input type="text" class="form-control" placeholder="用户名" ng-model="signIn.userLoginInfo.login_name" required="required">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-offset-1 col-md-10">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                    <input type="password" class="form-control" placeholder="密码" ng-model="signIn.password" required="required">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-offset-1 col-md-10">
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="输入验证码" ng-model="signIn.userLoginInfo.captcha" required="required">
+                    <span class="input-group-addon padlt"><img ng-src="{{signIn.captcha_url}}" style="height:32px" ng-click="signIn.captcha_click()"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <button type="submit" class="btn btn-primary btn-lg col-md-offset-1 col-md-10" ng-click="signIn.signIn()">登陆</button>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-6 text-center">
+                <a ui-sref="panel.forgot_password" style="color:grey">忘记密码？</a>
+              </div>
+              <div class="col-md-6 text-center">
+                <a ui-sref="sign_up" onclick="">注册新用户</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

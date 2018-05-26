@@ -1,0 +1,68 @@
+</br>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h1 class="panel-title">终端管理</h1>
+  </div>
+  <div class="panel-body">
+    <div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">查询条件</h3>
+            </div>
+            <div class="panel-body">
+              <form class="form-horizontal">
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <ui-select multiple ng-model="terminalSearchTypeData.device_type_ids" theme="bootstrap" ng-disabled="disabled" close-on-select="false">
+                      <ui-select-match placeholder="选择设备类型">{{$item.device_type_name}}</ui-select-match>
+                      <ui-select-choices repeat="dtype.device_type_id as dtype in device_types | filter: $select.search">
+                        <div ng-bind-html="dtype.device_type_name | highlight: $select.search"></div>
+                      </ui-select-choices>
+                    </ui-select>
+                  </div>
+                </div>
+                <div class="col-md-offset-1 col-md-2">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <ui-select ng-model="terminalSearchTypeData.status" theme="bootstrap">
+                        <ui-select-match placeholder="选择终端状态">{{$select.selected.terminal_status_name}}</ui-select-match>
+                        <ui-select-choices repeat="item.terminal_status_id as item in terminal_states | filter: $select.search">
+                          <div ng-bind-html="item.terminal_status_name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                      </ui-select>
+                      <span class="input-group-btn">
+                          <button type="button" ng-click="terminalSearchTypeData.status = undefined" class="btn btn-default">
+                            <span class="glyphicon glyphicon-trash"></span>
+                      </button>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <button class="btn btn-success col-md-offset-1 col-md-11" type="submit" ng-click="regetTerminalsByType()">查询</button>
+                  </div>
+                </div>
+                <div class="col-md-offset-2 col-md-3">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <input type="text" class="form-control" ng-model="terminalSearchNameData.name" placeholder="终端名称">
+                      <span class="input-group-btn">
+                          <button class="btn btn-success"  ng-click="regetTerminalsByName()"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div ui-grid="gridOptions" class="gridStyle" ui-grid-pagination>
+    </div>
+    <!--ui-grid-pinning -->
+  </div>
+</div>

@@ -1,0 +1,268 @@
+<div class="modal-header">
+    <div class="modal-header">
+        <div class="row">
+            <div class="col-md-6">
+                <h4 class="modal-title">用户信息详情</h4>
+            </div>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" role="form" id="modelForm">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <img ng-src="{{imgUrl}}" style="width:150px;">
+                </div>
+                <div class="col-sm-offset-5 col-md-2">
+                    <label for="terminal_name" class="control-label">当前头像</label>
+                </div>
+            </div>
+            </br>
+<!--             <div class="form-group">
+                <div class="col-sm-offset-2 col-md-8">
+                    <div class="alert alert-info" role="alert">
+                        <label style="text-align:center">仅支持JPG/PNG图片文件，大小不超过1M。</label>
+                    </div>
+                </div>
+                <div class="col-sm-offset-3 col-sm-6" style="margin-top: 20px">
+                    <input type="file" file-model="uploadFile" />
+                </div>
+                </br>
+            </div> -->
+            <div class="form-group">
+                <div class="col-md-10">
+                    <div class="col-md-4 text-right">
+                        <label class="control-label">真实姓名</label>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="input-group input-group ">
+                            <input type="text" class="form-control" id="full_name" placeholder="请输入真实姓名" ng-model="userInfo.full_name" required="required" disabled="true">
+                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <!--                 <div class="col-md-2">
+                    <p class="help-block">必填</p>
+                </div> -->
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <div class="col-md-4 text-right">
+                        <label class="control-label">昵称</label>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="input-group input-group ">
+                            <input type="text" class="form-control" id="nick_name" placeholder="请输入昵称" ng-model="userInfo.nick_name"  required="required" disabled="true">
+                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <!--                 <div class="col-md-2">
+                    <p class="help-block">必填</p>
+                </div> -->
+            </div>
+            <div class="form-group" id="user_name_group">
+                <!--                 <div class="col-md-10">
+                    <div class="col-md-4 text-right">
+                        <label class="control-label" for="user_passworld">原密码</label>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="input-group input-group ">      
+                            <input type="password" class="form-control" id="user_passworld" placeholder="原密码" ng-model="chPassword.password" ng-change="checkUserName()" value="" required="required">
+                            <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                        </div>
+                    </div>
+                </div> -->
+                <!--                 <div class="col-md-2">
+                    <p class="help-block" id="user_name_helper">必填</p>
+                </div>
+            </div> -->
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="col-md-4 text-right">
+                            <label class="control-label" for="gender">性别</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <ui-select ng-model="userInfo.gender" id="gender" theme="bootstrap"  disabled="true">
+                                    <ui-select-match placeholder="选择性别">{{$select.selected.gender_name}}</ui-select-match>
+                                    <ui-select-choices repeat="item.gender_id as item in  genders| filter: $select.search">
+                                        <div ng-bind-html="item.gender_name"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="input-group-btn">
+                                                                             <button type="button" ng-click="userInfo.gender = undefined" class="btn btn-default">
+                                                                                <span class="glyphicon glyphicon-trash"  disabled="true"></span>
+                                </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                 <div class="col-md-2">
+                    <p class="help-block">必填</p>
+                </div> -->
+                </div>
+                <!--                 <div class="form-group">
+                    <div class="col-sm-3 text-right">
+                        <label for="terminal_name" class="control-label">性别:</label>
+                    </div>
+                    <div class="col-sm-3">
+                        <label class="">
+                            <input type="radio" value="1" checked="checked" name="group" ng-model="unserInfo.gender"> 男
+                        </label>
+                    </div>
+                    <div class="col-sm-3">
+                        <label>
+                            <input type="radio" value="2" name="group" ng-model="unserInfo.gender"> 女
+                        </label>
+                    </div>
+                </div> -->
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="col-md-4 text-right">
+                            <label class="control-label">生日</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <input type="date" class="form-control" ng-model="birthday_date" disabled datepicker-popup ng-model="dt" id="birthday_date" is-open="birthday_opened" max-date="dt" datepicker-options="dateOptions" clear-text="清除" current-text="今天" close-text="关闭"  disabled="true"/>
+                                <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open_form_birthday($event)"  disabled="true"><i class="glyphicon glyphicon-calendar"></i></button>
+                                        </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                 <div class="col-md-2">
+                    <p class="help-block">必填</p>
+                </div> -->
+                </div>
+                <div class="form-group" id="telephone_group">
+                    <div class="col-md-10">
+                        <div class="col-md-4 text-right">
+                            <label class="control-label" for="phone">手机号</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="input-group input-group ">
+                                <input type="tel" class="form-control" id="phone" placeholder="请输入您的手机号" ng-model="userInfo.phone" required="required"  disabled="true">
+                                <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                 <div class="col-md-2">
+                    <p class="help-block">必填</p>
+                </div> -->
+                </div>
+                <div class="form-group" id="mail_group">
+                    <div class="col-md-10">
+                        <div class="col-md-4 text-right">
+                            <label class="control-label" for="mail">邮箱</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="input-group input-group ">
+                                <input type="email" class="form-control" id="mail" placeholder="请输入您的邮箱" ng-model="userInfo.email" disabled="true">
+                                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="col-md-4 text-right">
+                            <label class="control-label">身高</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="input-group input-group ">
+                                <input type="text" class="form-control" id="height" placeholder="请输入身高" ng-model="userInfo.height"  required="required" disabled="true">
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                 <div class="col-md-2">
+                    <p class="help-block">必填</p>
+                </div> -->
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="col-md-4 text-right">
+                            <label class="control-label">体重</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="input-group input-group ">
+                                <input type="text" class="form-control" id="weight" placeholder="请输入体重" ng-model="userInfo.weight"  required="required" disabled="true">
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                 <div class="col-md-2">
+                    <p class="help-block">必填</p>
+                </div> -->
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="col-md-4 text-right">
+                            <label class="control-label">目标体重</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="input-group input-group ">
+                                <input type="text" class="form-control" id="target_weight" placeholder="请输入目标体重" ng-model="userInfo.target_weight"  required="required" disabled="true">
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                 <div class="col-md-2">
+                    <p class="help-block">必填</p>
+                </div -->
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="col-md-4 text-right">
+                            <label class="control-label">地址</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="input-group input-group ">
+                                <input type="text" class="form-control" id="address" placeholder="请输入地址" ng-model="userInfo.address "  required="required " disabled="true">
+                                <span class="input-group-addon "><i class="fa fa-map-marker "></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                 <div class="col-md-2 ">
+                    <p class="help-block">必填</p>
+                </div> -->
+                </div>
+                <div class="form-group ">
+                    <div class="col-md-10 ">
+                        <div class="col-md-4 text-right ">
+                            <label class="control-label ">qq</label>
+                        </div>
+                        <div class="col-md-8 ">
+                            <div class="input-group input-group ">
+                                <input type="text " class="form-control " id="qq " placeholder="请输入qq号 " ng-model="userInfo.qq"  required="required " disabled="true">
+                                <span class="input-group-addon "><i class="fa fa-qq"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                 <div class="col-md-2 ">
+                    <p class="help-block">必填</p>
+                </div> -->
+                </div>
+                <div class="form-group ">
+                    <div class="col-md-10 ">
+                        <div class="col-md-4 text-right ">
+                            <label class="control-label ">分数</label>
+                        </div>
+                        <div class="col-md-8 ">
+                            <div class="input-group input-group ">
+                                <input type="text " class="form-control " id="qq " placeholder="请输入分数" ng-model="userInfo.points"  required="required " disabled="true">
+                                <span class="input-group-addon "><i class="fa fa-user "></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                 <div class="col-md-2 ">
+                    <p class="help-block">必填</p>
+                </div> -->
+                </div>
+        </form>
+        </div>
+        <div class="modal-footer ">
+            <div class="col-sm-offset-7 col-sm-5 ">
+                <button ng-click="cancel()" type="button" class="btn btn-default ">关闭</button>
+            </div>
+        </div>

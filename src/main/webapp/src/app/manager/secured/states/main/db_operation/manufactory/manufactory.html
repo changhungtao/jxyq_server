@@ -1,0 +1,150 @@
+</br>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h1 class="panel-title">厂商</h1>
+      <div class="text-right">
+          <label class="control-label">在线用户数：{{online_count == undefined ? 0 : online_count}}/总用户数：{{member_count == undefined ? 0 : member_count}}</label>
+      </div>
+  </div>
+  <div class="panel-body">
+    <div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">查询条件</h3>
+            </div>
+            <div class="panel-body">
+              <form class="form-horizontal">
+                <div class="alert alert-{{alert.type}} alert-dismissable" style="text-align: center;" role="alert" ng-repeat="alert in alerts" type="{{alert.type}}">
+                  <button type="button" class="close" ng-click="closeAlert($index)"></button>
+                  {{alert.msg}}
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label">开始时间：</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group">
+                          <input type="date" class="form-control" ng-model="query_date.from" disabled datepicker-popup ng-model="dt" id="start_date" is-open="from_opened" max-date="dt" datepicker-options="dateOptions" clear-text="清除" current-text="今天" close-text="关闭" />
+                          <span class="input-group-btn">
+                          <button type="button" class="btn btn-default" ng-click="open_form_from($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label">结束时间：</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group">
+                          <input type="date" class="form-control" ng-model="query_date.to" disabled datepicker-popup ng-model="dt" id="start_date" is-open="to_opened" max-date="dt" datepicker-options="dateOptions" clear-text="清除" current-text="今天" close-text="关闭" />
+                          <span class="input-group-btn">
+                          <button type="button" class="btn btn-default" ng-click="open_form_to($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3" ng-show="false">
+                    <div class="form-group">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label">厂商名称：</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group">
+                          <ui-select ng-model="manuSearchTypeData.manufactory_ids" theme="bootstrap" ng-disabled="disabled" close-on-select="true">
+                            <ui-select-match placeholder="选择厂商名称">{{$select.selected.device_type_name}}</ui-select-match>
+                            <ui-select-choices repeat="dtype.manufactory_id as dtype in manufacturers | filter: $select.search">
+                              <div ng-bind-html="dtype.manufactory_name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                          </ui-select>
+                          <span class="input-group-btn">
+                          <button type="button" ng-click="manuSearchTypeData.manufactory_ids = undefined" class="btn btn-default">
+                          <span class="glyphicon glyphicon-trash"></span>
+                          </button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label">设备类型：</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group">
+                          <!-- <ui-select ng-model="manuSearchTypeData.device_type_ids" theme="bootstrap" ng-disabled="disabled" close-on-select="false"> -->
+                          <ui-select ng-model="device_type_id.selected" theme="bootstrap" ng-disabled="disabled">
+                            <ui-select-match placeholder="选择设备类型">{{$select.selected.device_type_name}}</ui-select-match>
+                            <ui-select-choices repeat="dtype.device_type_id as dtype in device_types | filter: $select.search">
+                              <div ng-bind-html="dtype.device_type_name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                          </ui-select>
+                          <span class="input-group-btn">
+                              <button type="button" ng-click="clearDeviceType()" class="btn btn-default">
+                              <span class="glyphicon glyphicon-trash"></span>
+                          </button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="col-md-offset-4 col-md-8 text-right">
+                        <div class="col-md-12 text-right">
+                          <div class="form-group">
+                            <button class="btn btn-success col-md-12" ng-click="regetManusByType()">查询</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label">关键词：</label>
+                      </div>
+                      <div class="col-md-8">
+                        <!-- <div class="form-group"> -->
+                        <div class="input-group">
+                          <input type="text" class="form-control" placeholder="厂商名称关键词" ng-model="manuSearchNameData.full_name">
+                          <span class="input-group-btn">
+                          <button class="btn btn-success" type="submit" ng-click="regetManusByName()"><i class="fa fa-search"></i></button>
+                          </span>
+                        </div>
+                        <!-- </div> -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-offset-6 col-md-3">
+                    <div class="form-group">
+                      <div class="col-md-offset-4 col-md-8 text-right">
+                        <div class="col-md-12 text-right">
+                          <div class="form-group">
+                            <button type="button" class="btn btn-info col-md-12" ng-click="addManu()">添加<i class="fa fa-plus"></i></button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div ui-grid="gridOptions" class="gridStyle" ui-grid-pagination ui-grid-pinning>
+    </div>
+  </div>
+</div>

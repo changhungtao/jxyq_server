@@ -1,0 +1,301 @@
+<div>
+  <form class="form-horizontal" role="form" name="signUpform" id="signUpform" ng-submit="signUp.signUp()">
+    <div id="id-accoun-info">
+      <div class="col-md-7 col-md-offset-3">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+                 账户信息
+            </h3>
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="user_icon">头像</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <input type="file" file-model="signUp.avatarFile" class="form-control" id="user_icon" />
+                    <!--<input type="file" class="form-control" id="user_icon" required="required">-->
+                    <span class="input-group-addon"><i class="fa fa-file-picture-o"></i></span>
+                  </div>
+                </div>
+                <!--<div class="col-md-2"> <button class="btn-group-sm">上传</button></div>-->
+              </div>
+            </div>
+            <div class="form-group" ng-class="{'has-success':signUp.signUpInf.login_name,'has-error':!signUp.signUpInf.login_name}">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="user_name">用户名</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <input type="text" class="form-control" id="user_name" placeholder="用户名" ng-model="signUp.signUpInf.login_name" required>
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                  </div>
+                </div>
+              </div>
+                <div class="col-md-2">
+                    <p class="help-block" id="contactor_name_helper">{{signUp.signUpInf.login_name?'已填':'必填'}}</p>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-success':signUp.password,'has-error':!signUp.password}">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="user_password">密码</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <input type="password" class="form-control" id="user_password" placeholder="设置密码" ng-model="signUp.password" required>
+                    <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                  </div>
+                </div>
+              </div>
+                <div class="col-md-2">
+                    <p class="help-block">{{signUp.password?'已填':'必填'}}</p>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-success':signUp.confirm_password && signUp.password == signUp.confirm_password,'has-error':!signUp.confirm_password ||signUp.password != signUp.confirm_password }">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="identify_password">确认密码</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <input type="password" class="form-control" ng-change="signUpform.confirm_password.$invalid = true" name="confirm_password" id="identify_password" placeholder="请确认密码" ng-model="signUp.confirm_password" required>
+                    <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                  </div>
+                </div>
+              </div>
+                <div class="col-md-2">
+                    <!--<p class="help-block" id="contactor_name_helper">{{(signUp.password != signUp.confirm_password && !validParam(signUp.password) && !validParam(signUp.confirm_password))?'密码不一致':(validParam(signUp.confirm_password)?'已填':'未填')}}</p>-->
+                    <p class="help-block">{{signUp.confirm_password == undefined || signUp.confirm_password == '' ?'必填':(signUp.password == signUp.confirm_password ? '已填':'密码不一致')}}</p>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="id-contact-info">
+      <div class="col-md-7 col-md-offset-3">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+                个人信息
+                </h3>
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="contact_name">医生姓名</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <input type="text" class="form-control" id="contact_name" placeholder="请输入您的姓名" ng-model="signUp.signUpInf.full_name">
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="worker_id">工号</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <input type="text" class="form-control" id="worker_id" placeholder="请输入您的工号" ng-model="signUp.signUpInf.identification_number">
+                    <span class="input-group-addon"><i class="fa fa-user-md"></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="gender">性别</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <ui-select ng-model="signUp.gender.selected" theme="bootstrap">
+                      <ui-select-match placeholder="选择性别">{{$select.selected.gender_name}}</ui-select-match>
+                      <ui-select-choices repeat="item in signUp.genders | filter: $select.search">
+                        <div ng-bind-html="item.gender_name | highlight: $select.search"></div>
+                      </ui-select-choices>
+                    </ui-select>
+                    <span class="input-group-addon"><i class="fa fa-venus-mars"></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="birthday">出生日期</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group">
+                    <input type="text" class="form-control" disabled datepicker-popup ng-model="signUp.signUpInf.birthday" is-open="signUp.opened" max-date="dt" datepicker-options="signUp.dateOptions" ng-required="true" clear-text="清除" current-text="今天" close-text="关闭" />
+                    <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="signUp.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                       </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="email">邮箱</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <input type="email" class="form-control" id="mail" placeholder="请输入您的电子邮箱" ng-model="signUp.signUpInf.email">
+                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group" ng-class="{'has-success':signUp.signUpInf.phone,'has-error':!signUp.signUpInf.phone}">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="phone">联系电话</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <input type="tel" class="form-control" id="phone" placeholder="请输入您的联系电话" ng-model="signUp.signUpInf.phone" required>
+                    <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                 <p class="help-block">{{signUp.signUpInf.phone?'已填':'必填'}}</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="institution_id">科室编号</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <!--<input type="text" class="form-control" id="institution_id" placeholder="请输入您的科室编号" ng-model="signUp.signUpInf.department_id" required="required">-->
+                    <!--<span class="input-group-addon"><i class="fa fa-institution"></i></span>-->
+                    <ui-select ng-model="signUp.signUpInf.department_id" id="department" theme="bootstrap">
+                      <ui-select-match placeholder="选择科室">{{$select.selected.department_name}}</ui-select-match>
+                      <ui-select-choices repeat="item.department_id as item in   signUp.departments | filter: $select.search">
+                        <div ng-bind-html="item.department_name | highlight: $select.search"></div>
+                      </ui-select-choices>
+                    </ui-select>
+                    <span class="input-group-addon"><i class="fa fa-institution"></i></span>
+                    <!--<span class="input-group-btn">-->
+                    <!--<button ng-click="consultation.department_id = 1" class="btn btn-default">-->
+                    <!--<span class="glyphicon glyphicon-trash"></span>-->
+                    <!--</button>-->
+                    <!--</span>-->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="district">地区编号</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <!--<input type="text" class="form-control" id="district" placeholder="请输入您的地区编号" ng-model="signUp.signUpInf.district_id" required="required">-->
+                    <ui-select ng-model="signUp.signUpInf.district_id" id="reply_selected" theme="bootstrap">
+                      <ui-select-match placeholder="选择地区">{{$select.selected.district_name}}</ui-select-match>
+                      <ui-select-choices repeat="item.district_id as item in   signUp.distrits | filter: $select.search">
+                        <div ng-bind-html="item.district_name | highlight: $select.search"></div>
+                      </ui-select-choices>
+                    </ui-select>
+                    <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group" ng-class="{'has-success':signUp.idenFile,'has-error':!signUp.idenFile}">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="identification">资格证书</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <!--<input type="file" class="form-control" id="identification"  required="required">-->
+                    <input type="file" file-model="signUp.idenFile" class="form-control" id="identification" accept=".png,.jpg,.jpeg" required/>
+                    <span class="input-group-addon"><i class="fa fa-stethoscope"></i></span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                  <p class="help-block">{{signUp.idenFile?'已填':'必填'}}</p>
+              </div>
+            </div>
+            <div class="form-group" ng-class="{'has-success':signUp.proIdenFile,'has-error':!signUp.proIdenFile}">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="professional_iden">执业证书</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <!--<input type="file" class="form-control" id="professional_iden" required="required">-->
+                    <input type="file" file-model="signUp.proIdenFile" class="form-control" id="professional_iden" accept=".png,.jpg,.jpeg" required/>
+                    <span class="input-group-addon"><i class="fa fa-file"></i></span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                  <p class="help-block">{{signUp.proIdenFile?'已填':'必填'}}</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="introduction">医生简介</label>
+                </div>
+                <div class="col-md-8">
+                  <textarea class="form-control" id="introduction" ng-model="signUp.signUpInf.profile">
+                  </textarea>
+                </div>
+              </div>
+            </div>
+            <div class="form-group" ng-class="{'has-success':signUp.signUpInf.captcha,'has-error':!signUp.signUpInf.captcha}">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="captcha">验证码</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <input type="text" class="form-control" id="captcha" placeholder="请输入验证码" ng-model="signUp.signUpInf.captcha" required>
+                    <span class="input-group-addon padlt"><img ng-src="{{signUp.captcha_url}}" style="height:32px" ng-click="signUp.captcha_click()"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                  <p class="help-block">{{signUp.signUpInf.captcha?'已填':'必填'}}</p>
+              </div>
+            </div>
+            <!--start of alert block-->
+            <div class="alert alert-{{alert.type}} alert-dismissable" style="text-align: center;" role="alert" ng-repeat="alert in alerts" type="{{alert.type}}">
+                <button type="button" class="close" ng-click="closeAlert($index)">
+                </button>
+                {{alert.msg}}
+            </div>
+            <!--end of alert block-->
+            <div class="form-group">
+              <div class="col-md-10">
+                <div class="col-md-offset-4 col-md-8 text-right">
+                  <button type="submit" form="signUpform" class="btn btn-primary btn-lg btn-block">注册</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

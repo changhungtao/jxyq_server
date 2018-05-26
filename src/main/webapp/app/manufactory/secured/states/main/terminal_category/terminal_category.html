@@ -1,0 +1,97 @@
+</br>
+<div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h1 class="panel-title">
+                终端型号
+            </h1>
+        </div>
+        <div class="panel-body">
+            <div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">查询条件</h3>
+                            </div>
+                            <div class="panel-body">
+                                <form class="form-horizontal" role="form">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-md-4 text-right">
+                                                            <label class="control-label" for="patient_name">
+                                                                终端型号名称
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <!--<div class="input-group">-->
+                                                                <!--<ui-select ng-model="datatype.data_type" id="data_type" theme="bootstrap">-->
+                                                                    <!--<ui-select-match placeholder="选择产品类型">{{$select.selected.product_type_name}}</ui-select-match>-->
+                                                                    <!--<ui-select-choices repeat="item.product_type_id as item in  product_types| filter: $select.search">-->
+                                                                        <!--<div ng-bind-html="item.product_type_name"></div>-->
+                                                                    <!--</ui-select-choices>-->
+                                                                <!--</ui-select>-->
+                                                            <!--<span class="input-group-btn">-->
+                                                              <!--<button ng-click="file.gender = undefined" class="btn btn-default">-->
+                                                                  <!--<span class="glyphicon glyphicon-trash"></span>-->
+                                                              <!--</button>-->
+                                                            <!--</span>-->
+                                                            <!--</div>-->
+                                                            <input type="text" ng-model="terminal.name" class="form-control" placeholder="终端型号名称">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <!--<div class="col-sm-5">-->
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-4  text-right">
+                                                        <label class="control-label" for="data_type">
+                                                            设备类型
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <ui-select ng-model="terminal.device_type_id" id="data_type" theme="bootstrap">
+                                                                <ui-select-match placeholder="选择设备类型">{{$select.selected.device_type_name}}</ui-select-match>
+                                                                <ui-select-choices repeat="item.device_type_id as item in  device_types| filter: $select.search">
+                                                                    <div ng-bind-html="item.device_type_name"></div>
+                                                                </ui-select-choices>
+                                                            </ui-select>
+                                                            <span class="input-group-btn">
+                                                              <button type="button" ng-click="terminal.device_type_id = undefined" class="btn btn-default">
+                                                                  <span class="glyphicon glyphicon-trash"></span>
+                                                              </button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--</div>-->
+                                        </div>
+                                        <div class="col-md-4 text-right">
+                                            <button type="submit" class="btn col-md-offset-6 col-md-6 btn-success " ng-click="getTerminalLists()">查询</button>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <!--<div class="form-group">-->
+                                            <div class="col-md-offset-8 col-md-4 text-right">
+                                                <button type="button" class="btn btn-info col-md-offset-6 col-md-6" ng-click="addTerminalCatagory()">添加<i class="fa fa-plus"></i></button>
+                                            </div>
+                                        <!--</div>-->
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ui-grid="gridOptions" class="gridStyle" ui-grid-pagination ui-grid-pinning></div>
+        </div>
+    </div>
+</div>

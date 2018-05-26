@@ -1,0 +1,149 @@
+</br>
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h1 class="panel-title">轨迹回放</h1>
+  </div>
+  <div class="panel-body">
+    <!-- 查询区域 -->
+    <div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">查询条件</h3>
+            </div>
+            <div class="panel-body">
+              <form class="form-horizontal">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label">IMEI号码</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group">
+                          <input type="text" class="form-control" placeholder="儿童腕表IMEI号码" ng-model="routeParam.imei">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label">开始时间：</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group">
+                          <input type="text" class="form-control" disabled datepicker-popup="{{format}}" ng-model="query_date.from" is-open="opened" min-date="minDate" max-date="dt" datepicker-options="dateOptions" ng-required="true" clear-text="清除" current-text="今天" close-text="关闭" />
+                          <span class="btn input-group-addon" ng-click="open($event)">
+                              <i class="fa fa-calendar"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label">结束时间：</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group">
+                          <input type="text" class="form-control" disabled datepicker-popup="{{format}}" ng-model="query_date.to" is-open="opened1" min-date="minDate" max-date="dt" datepicker-options="dateOptions" ng-required="true" clear-text="清除" current-text="今天" close-text="关闭" />
+                          <span class="btn input-group-addon" ng-click="open1($event)">
+                                <i class="fa fa-calendar"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="col-md-offset-4 col-md-8 text-right">
+                        <div class="col-md-12 text-right">
+                          <div class="form-group">
+                            <button class="btn btn-success col-md-12" ng-click="getLocations()">搜索</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 操作面板 -->
+    <div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">操作面板</h3>
+            </div>
+            <div class="panel-body">
+              <!-- 腕表号码 -->
+              <form class="form-horizontal">
+                <div class="row">
+                  <div class="col-md-8">
+                    <div class="form-group">
+                      <div class="col-md-2">
+                        <label class="control-label">IMEI号码：</label>
+                      </div>
+                      <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="操作对象儿童腕表IMEI号码" ng-model="confirmIMEI" disabled="true" required="required">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="panel panel-info">
+                        <div class="panel-heading">
+                          <h3 class="panel-title">运动轨迹</h3>
+                        </div>
+                        <div class="panel-body">
+                          <form class="form-horizontal">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="form-group">
+                                  <!-- <div class="col-md-12"> -->
+                                  <div class="col-md-12">
+                                    <!-- <div class="form-group"> -->
+                                    <button class="btn btn-success col-md-1" ng-click="oncePlay()" ng-disabled="!confirmIMEI || currentPoints.length == 0">播放</button>
+                                    <button class="btn btn-primary col-md-1" ng-click="stopPlay()">停止</button>
+                                    <button class="btn btn-info col-md-1" ng-click="subSpeed()" ng-disabled="!confirmIMEI">减速</button>
+                                    <button class="btn btn-danger col-md-1" ng-click="addSpeed()" ng-disabled="!confirmIMEI">加速</button>
+                                    <!-- </div> -->
+                                  </div>
+                                  <!-- </div> -->
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <!-- 地图区域 -->
+                              <div class="col-md-12">
+                                <div id="map_canvas"></div>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- 位置信息 -->
+                <div ui-grid="gridOptions" class="gridStyle" ui-grid-pagination ui-grid-pinning>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

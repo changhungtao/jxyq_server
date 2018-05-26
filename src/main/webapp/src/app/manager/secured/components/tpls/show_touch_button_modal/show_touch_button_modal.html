@@ -1,0 +1,71 @@
+<div class="modal-header">
+  <div class="row">
+    <div class="col-md-6">
+      <h4 class="modal-title">查看触摸事件</h4>
+    </div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="col-sm-offset-1 col-sm-10">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-4 text-right">
+              <label class="control-label" for="start_date">
+                开始时间
+              </label>
+            </div>
+            <div class="col-md-8">
+              <div class="input-group">
+                <input type="date" class="form-control" ng-model="query_date.activated_from" disabled datepicker-popup ng-model="dt" id="start_date" is-open="form1_opened" max-date="dt" datepicker-options="dateOptions" clear-text="清除" current-text="今天" close-text="关闭" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open_form_1($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="col-sm-offset-1 col-sm-10">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-4 text-right">
+              <label class="control-label" for="end_date">
+                结束时间
+              </label>
+            </div>
+            <div class="col-md-8">
+              <div class="input-group">
+                <input type="date" class="form-control" ng-model="query_date.activated_to" disabled datepicker-popup ng-model="dt" id="end_date" is-open="form2_opened" max-date="dt" datepicker-options="dateOptions" clear-text="清除" current-text="今天" close-text="关闭" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open_form_2($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="col-sm-offset-1 col-sm-10">
+        <div class="form-group">
+          <button type="submit" class="btn btn-success col-md-offset-9 col-md-3" style="width:120px; margin-bottom: 15px" ng-click="getButtonEvent()">查询</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div ui-grid="gridOptions" class="gridStyle" ui-grid-pagination style="height: 300px">
+  </div>
+</div>
+<div class="modal-footer">
+  <div class="col-sm-offset-7 col-sm-5">
+    <button ng-click="cancel()" type="button" class="btn btn-default">取消</button>
+  </div>
+</div>

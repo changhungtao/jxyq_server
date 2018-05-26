@@ -1,0 +1,167 @@
+</br>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h1 class="panel-title">用户</h1>
+      <div class="text-right">
+          <label class="control-label">在线用户数：{{online_count == undefined ? 0 : online_count}}/总用户数：{{member_count == undefined ? 0 : member_count}}</label>
+      </div>
+  </div>
+  <div class="panel-body">
+    <div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">查询条件</h3>
+            </div>
+            <div class="panel-body">
+              <form class="form-horizontal">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="col-md-4 text-right">
+                      <label class="control-label">用户手机：</label>
+                    </div>
+                    <div class="col-md-8">
+                      <div class="input-group">
+                        <input type="text" class="form-control" ng-model="userSearchOtherData.phone" placeholder="输入手机号">
+                        <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label">开始时间：</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group">
+                          <input type="date" class="form-control" ng-model="query_date.from" disabled datepicker-popup ng-model="dt" id="start_date" is-open="from_opened" max-date="dt" datepicker-options="dateOptions" clear-text="清除" current-text="今天" close-text="关闭" />
+                          <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open_form_from($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label">起始年龄：</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group">
+                          <ui-select ng-model="userSearchOtherData.begin_age" theme="bootstrap" ng-disabled="disabled" close-on-select="true">
+                            <ui-select-match placeholder="选择起始年龄">{{$select.selected}}</ui-select-match>
+                            <ui-select-choices repeat="age as age in ages | filter: $select.search">
+                              <div ng-bind-html="age | highlight: $select.search"></div>
+                            </ui-select-choices>
+                          </ui-select>
+                          <span class="input-group-btn">
+                            <button type="button" ng-click="userSearchOtherData.begin_age = undefined" class="btn btn-default">
+                          <span class="glyphicon glyphicon-trash"></span>
+                          </button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="col-md-4 text-right">
+                      <label class="control-label">设备类型：</label>
+                    </div>
+                    <div class="col-md-8">
+                      <div class="input-group">
+                        <!-- <div class="form-group"> -->
+                        <!-- <ui-select ng-model="userSearchOtherData.device_type_ids" theme="bootstrap" ng-disabled="disabled" close-on-select="false"> -->
+                        <ui-select ng-model="device_type_id.selected" theme="bootstrap" ng-disabled="disabled">
+                          <ui-select-match placeholder="选择设备类型">{{$select.selected.device_type_name}}</ui-select-match>
+                          <ui-select-choices repeat="dtype.device_type_id as dtype in device_types | filter: $select.search">
+                            <div ng-bind-html="dtype.device_type_name | highlight: $select.search"></div>
+                          </ui-select-choices>
+                        </ui-select>
+                        <span class="input-group-btn">
+                            <button type="button" ng-click="clearDeviceType()" class="btn btn-default">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label">结束时间：</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group">
+                          <input type="date" class="form-control" ng-model="query_date.to" disabled datepicker-popup ng-model="dt" id="start_date" is-open="to_opened" max-date="dt" datepicker-options="dateOptions" clear-text="清除" current-text="今天" close-text="关闭" />
+                          <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open_form_to($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label">终止年龄：</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group">
+                          <ui-select ng-model="userSearchOtherData.end_age" theme="bootstrap" ng-disabled="disabled" close-on-select="true">
+                            <ui-select-match placeholder="选择终止年龄">{{$select.selected}}</ui-select-match>
+                            <ui-select-choices repeat="age as age in ages | filter: $select.search">
+                              <div ng-bind-html="age | highlight: $select.search"></div>
+                            </ui-select-choices>
+                          </ui-select>
+                          <span class="input-group-btn">
+                            <button type="button" ng-click="userSearchOtherData.end_age = undefined" class="btn btn-default">
+                          <span class="glyphicon glyphicon-trash"></span>
+                          </button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="col-md-4 text-right">
+                      <label class="control-label">用户名称：</label>
+                    </div>
+                    <div class="col-md-8">
+                      <!-- <div class="form-group"> -->
+                      <div class="input-group">
+                        <input type="text" class="form-control" ng-model="userSearchNameData.full_name" placeholder="用户名称">
+                        <span class="input-group-btn">
+                              <button class="btn btn-success" ng-click="regetUsersByName()"><i class="fa fa-search"></i></button>
+                        </span>
+                      </div>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                  <div class="col-md-offset-4 col-md-4">
+                    <!-- <div class="col-md-offset-3 col-md-9 text-right"> -->
+                    <div class="col-md-offset-6 col-md-6">
+                      <!-- <div class="form-group"> -->
+                        <div class="row">
+                          <button class="btn btn-success col-md-12" ng-click="regetUsersByOther()">查询</button>
+                        </div>
+                      <!-- </div> -->
+                    </div>
+                    <!-- </div> -->
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div ui-grid="gridOptions" class="gridStyle" ui-grid-pagination>
+    </div>
+  </div>
+</div>

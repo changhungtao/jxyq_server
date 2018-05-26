@@ -1,0 +1,104 @@
+<div class="modal-header">
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class="modal-title">编辑患者信息</h4>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <!--start of alert block-->
+    <div class="alert alert-{{alert.type}} alert-dismissable" style="text-align: center;" role="alert" ng-repeat="alert in alerts" type="{{alert.type}}">
+        <button type="button" class="close" ng-click="closeAlert($index)">
+        </button>
+        {{alert.msg}}
+    </div>
+    <!--end of alert block-->
+    <form class="form-horizontal" role="form" id="savePatient" ng-submit="updatePatient()">
+        <div class="form-group">
+            <div class="col-sm-3 text-right">
+                <label for="phone" class="control-label">手机号码：</label>
+            </div>
+            <div class="col-sm-7">
+                <input type="text" ng-model="patient.phone" ng-blur="healthFile.getPatientFile()" class="form-control" id="phone" placeholder="" ng-disabled='true'>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-3 text-right">
+                <label for="patient_name" class="control-label">患者姓名：</label>
+            </div>
+            <div class="col-sm-7">
+                <input type="text" ng-model="patient.name" class="form-control" id="patient_name" placeholder="患者姓名" required>
+            </div>
+            
+        </div>
+         <div class="form-group">
+           <div class="col-sm-3 text-right">
+                <label for="patient_gender" class="control-label">性别：</label>
+            </div>
+            <div class="col-sm-7">
+                <ui-select ng-model="patient.gender" theme="bootstrap" id="patient_gender" required>
+                <ui-select-match placeholder="选择性别">{{$select.selected.gender_name}}</ui-select-match>
+                <ui-select-choices repeat="item.gender_id as item in genders | filter: $select.search">
+                <div ng-bind-html="item.gender_name | highlight: $select.search"></div>
+                </ui-select-choices>
+                </ui-select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-3 text-right">
+                <label for="birthday" class="control-label">出生年月：</label>
+            </div>
+            <div class="col-sm-7">
+                <div class="input-group">
+                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="patient.birthday" is-open="opened" ng-disabled="true" required min-date="minDate" max-date="dt" datepicker-options="dateOptions" date-disabled="false" ng-required="true" clear-text="清除" current-text="今天" close-text="关闭" />
+                    <span class="btn input-group-addon" ng-click="open($event)">
+                    <i class="fa fa-calendar"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-3 text-right">
+                <label for="address" class="control-label">家庭住址：</label>
+            </div>
+            <div class="col-sm-7">
+                <input type="text" ng-model="patient.address" class="form-control" id="address" placeholder="家庭住址" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-3 text-right">
+                <label  class="control-label">疾病及用药历史：</label>
+            </div>
+            <div class="col-sm-7">
+                <textarea ng-model="patient.profile" class="form-control" required></textarea>
+            </div>
+        </div>
+        <!-- <div class="form-group">
+            <div class="col-sm-3 text-right">
+                <label for="terminal_name" class="control-label">选择档案类型：</label>
+            </div>
+            <div class="col-sm-9">
+                <ui-select ng-model="healthFile.file_type.selected" ng-change="healthFile.changeFileType()" theme="bootstrap">
+                <ui-select-match placeholder="选择档案类型">{{$select.selected.file_type_name}}</ui-select-match>
+                <ui-select-choices repeat="item in healthFile.file_types | filter: $select.search">
+                <div ng-bind-html="item.file_type_name | highlight: $select.search"></div>
+                </ui-select-choices>
+                </ui-select>
+            </div>
+        </div> -->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- <button form="savePatient" type="reset" class="btn btn-primary col-md-offset-2 col-md-3">重置</button> -->
+                <!-- <button form="savePatient" type="button" class="btn btn-primary col-md-offset-2 col-md-3" ng-click="reset()">重置</button> -->
+                <button form="savePatient" type="submit" class="btn btn-success col-md-offset-1 col-md-10">保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <div class="col-sm-offset-7 col-sm-5">
+        <!-- <button form="savePatient" type="submit" class="btn btn-success">保存</button> -->
+        <!--<button form="wristbandForm" type="reset" class="btn btn-primary" ng-click="reset()">重置</button>-->
+        <button ng-click="cancel()" type="button" class="btn btn-default">取消</button>
+    </div>
+</div>

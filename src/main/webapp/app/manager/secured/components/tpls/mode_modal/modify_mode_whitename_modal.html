@@ -1,0 +1,38 @@
+<div class="modal-header">
+  <div class="row">
+    <div class="col-md-6">
+      <h4 class="modal-title">修改白名单</h4>
+    </div>
+    <div class="col-md-6 text-right">
+      <h4 class="modal-title"></h4>
+    </div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <form class="form-horizontal" id="modifyWhiteForm" role="form" ng-submit="modifyWhite()">
+      <div class="form-group">
+        <div class="col-md-3 text-right">
+          <label class="control-label">姓名：</label>
+        </div>
+        <div class="col-md-6">
+          <input class="form-control" type="text" placeholder="输入姓名" ng-model="white.name" required="required">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-3 text-right">
+          <label class="control-label">电话：</label>
+        </div>
+        <div class="col-md-6">
+          <input class="form-control" type="text" placeholder="输入电话" ng-model="white.number" required="required">
+        </div>
+      </div>
+     </form>
+  </div>
+</div>
+<div class="modal-footer">
+    <div class="col-sm-offset-7 col-sm-5 text-right">
+      <button form="modifyWhiteForm" type="submit" class="btn btn-success">保存</button>
+      <button ng-click="cancel()" type="button" class="btn btn-default">关闭</button>
+    </div>
+</div>

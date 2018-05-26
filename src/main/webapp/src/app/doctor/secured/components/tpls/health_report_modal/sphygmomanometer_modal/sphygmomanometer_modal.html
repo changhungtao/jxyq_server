@@ -1,0 +1,105 @@
+<div class="modal-header">
+  <div class="row">
+    <div class="col-md-6">
+      <h4 class="modal-title">患者：{{entity.patient_name}}</h4>
+    </div>
+    <div class="col-md-6 text-right">
+      <h4 class="modal-title">联系方式：{{entity.patient_phone}}</h4>
+    </div>
+  </div>
+</div>
+<div class="modal-body">
+    <!--start of alert block-->
+    <div class="alert alert-{{alert.type}} alert-dismissable" style="text-align: center;" role="alert" ng-repeat="alert in alerts" type="{{alert.type}}">
+        <button type="button" class="close" ng-click="closeAlert($index)">
+        </button>
+        {{alert.msg}}
+    </div>
+    <!--end of alert block-->
+  <form class="form-horizontal" role="form" id="sphygmomanometerForm" ng-submit="savePatSphy()">
+    <div class="form-group">
+      <div class="col-sm-3 text-right">
+        <label class="control-label">测量时间：</label>
+      </div>
+      <div class="col-sm-7">
+        <div class="input-group">
+          <!--<input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />-->
+            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="patSphy.measured_at"  required="required" ng-disabled="true"/>
+          <span class="btn input-group-addon" ng-click="open($event)">
+            <i class="fa fa-calendar"></i>
+          </span>
+          
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-3 text-right">
+        <label class="control-label">收缩压：</label>
+      </div>
+      <div class="col-sm-7">
+        <div class="input-group">
+          <input type="text" class="form-control" ng-model="patSphy.systolic_pressure" required="required">
+          <span class="input-group-addon">
+            <i>mmhg</i>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-3 text-right">
+        <label class="control-label">舒张压：</label>
+      </div>
+      <div class="col-sm-7">
+        <div class="input-group">
+          <input type="text" class="form-control" ng-model="patSphy.diastolic_pressure" required="required">
+          <span class="input-group-addon">
+            <i>mmhg</i>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-3 text-right">
+        <label class="control-label">心率：</label>
+      </div>
+      <div class="col-sm-7">
+        <div class="input-group">
+          <input type="text" class="form-control" ng-model="patSphy.heart_rate" required="required">
+          <span class="input-group-addon">
+            <i>BPM</i>
+          </span>
+        </div>
+      </div>
+    </div>
+      <div class="form-group">
+          <div class="col-sm-3 text-right">
+              <label class="control-label">症状：</label>
+          </div>
+          <div class="col-sm-7">
+              <textarea class="form-control" ng-model="patSphy.symptom" required="required">
+              </textarea>
+          </div>
+      </div>
+    <div class="form-group">
+      <div class="col-sm-3 text-right">
+        <label class="control-label">医生建议：</label>
+      </div>
+      <div class="col-sm-7">
+        <textarea class="form-control" ng-model="patSphy.proposal" required="required">
+        </textarea>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button form="sphygmomanometerForm" type="submit" class="btn btn-success col-md-offset-1 col-md-10" ng-disabled="disabledBtn">推送</button>
+        </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <div class="col-sm-offset-7 col-sm-5">
+    <!-- <button form="sphygmomanometerForm"  type="submit" class="btn btn-success">推送</button> -->
+    <!--<button form="sphygmomanometerForm" type="reset" class="btn btn-primary">重置</button>-->
+    <button ng-click="cancel()" type="button" class="btn btn-default">取消</button>
+  </div>
+</div>

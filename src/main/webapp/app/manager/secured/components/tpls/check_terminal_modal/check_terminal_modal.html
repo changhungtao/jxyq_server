@@ -1,0 +1,70 @@
+<div class="modal-header">
+  <div class="row">
+    <div class="col-md-6">
+      <h4 class="modal-title">终端详情</h4>
+    </div>
+    <div class="col-md-6 text-right">
+      <h4 class="modal-title"></h4>
+    </div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <form class="form-horizontal">
+      <div class="form-group">
+        <div class="col-md-3 text-right">
+          <label class="control-label">产品类型：</label>
+        </div>
+        <div class="col-md-6">
+          <input class="form-control" disabled type="text" value={{terminalDetails.product_type_id|mapProductType}}>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-3 text-right">
+          <label class="control-label">设备类型：</label>
+        </div>
+        <div class="col-md-6">
+          <input class="form-control" disabled type="text" value={{terminalDetails.device_type_id|mapDeviceType}}>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-3 text-right">
+          <label class="control-label">终端型号：</label>
+        </div>
+        <div class="col-md-6">
+          <input class="form-control" disabled type="text" value={{terminalDetails.terminal_catagory_id}}>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-3 text-right">
+          <label class="control-label">终端名称：</label>
+        </div>
+        <div class="col-md-6">
+          <input class="form-control" disabled type="text" value={{terminalDetails.terminal_name}}>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-3 text-right">
+          <label class="control-label">隶属厂商：</label>
+        </div>
+        <div class="col-md-6">
+          <input class="form-control" disabled type="text" value={{terminalDetails.manufactory_name}}>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-3 text-right">
+          <label class="control-label">激活时间：</label>
+        </div>
+        <div class="col-md-6">
+          <input class="form-control" disabled type="text" value={{terminalDetails.activated_at|unixTodate}}>
+        </div>
+      </div>
+     </form>
+  </div>
+</div>
+<div class="modal-footer">
+    <div class="col-sm-offset-7 col-sm-5 text-right">
+      <!-- <button ng-click="cancel()" class="btn btn-success">保存</button> -->
+        <button ng-click="cancel()" type="button" class="btn btn-default">关闭</button>
+    </div>
+</div>

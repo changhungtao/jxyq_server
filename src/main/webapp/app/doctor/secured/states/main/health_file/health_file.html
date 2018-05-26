@@ -1,0 +1,144 @@
+</br>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title">健康档案录入</h4>
+  </div>
+  </br>
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">查询条件</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <form class="form-horizontal" role="form" ng-submit="getPatient()">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="col-sm-offset-1 col-sm-10">
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4 text-right">
+                          <label class="control-label" for="patient_phone">
+                            手机号
+                          </label>
+                        </div>
+                        <div class="col-md-8">
+                          <input type="text" ng-model="health_file.phone" class="form-control" id="patient_phone" placeholder="手机号">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="col-sm-offset-1 col-sm-10">
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4 text-right">
+                          <label class="control-label" for="patient_name">
+                            患者姓名
+                          </label>
+                        </div>
+                        <div class="col-md-8">
+                          <input type="text" ng-model="health_file.name" class="form-control" id="patient_name" placeholder="患者姓名">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="col-sm-offset-1 col-sm-10">
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4  text-right">
+                          <label class="control-label" for="patient_gender">
+                            患者性别
+                          </label>
+                        </div>
+                        <div class="col-md-8">
+                          <div class="input-group">
+                            <ui-select ng-model="health_file.gender" id="patient_gender" theme="bootstrap">
+                              <ui-select-match placeholder="选择性别">{{$select.selected.gender_name}}</ui-select-match>
+                              <ui-select-choices repeat="item.gender_id as item in  genders| filter: $select.search">
+                                <div ng-bind-html="item.gender_name"></div>
+                              </ui-select-choices>
+                            </ui-select>
+                            <span class="input-group-btn">
+                              <button type="button" ng-click="health_file.gender = undefined" class="btn btn-default">
+                              <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="col-sm-offset-1 col-sm-10">
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4  text-right">
+                          <label class="control-label" for="start_age">
+                            起始年龄
+                          </label>
+                        </div>
+                        <div class="col-md-8">
+                          <ui-select ng-model="health_file.begin_age" id="start_age" theme="bootstrap">
+                            <ui-select-match placeholder="起始年龄">{{$select.selected}}</ui-select-match>
+                            <ui-select-choices repeat="item in  ages | filter: $select.search">
+                              <div ng-bind-html="item"></div>
+                            </ui-select-choices>
+                          </ui-select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="col-sm-offset-1 col-sm-10">
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4 text-right">
+                          <label class="control-label" for="end_age">
+                            结束年龄
+                          </label>
+                        </div>
+                        <div class="col-md-8">
+                          <ui-select ng-model="health_file.end_age" id="end_age" theme="bootstrap">
+                            <ui-select-match placeholder="结束年龄">{{$select.selected}}</ui-select-match>
+                            <ui-select-choices repeat="item in ages| filter: $select.search">
+                              <div ng-bind-html="item"></div>
+                            </ui-select-choices>
+                          </ui-select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="col-sm-offset-1 col-sm-10">
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <button type="submit" class="btn btn-success col-md-offset-1 col-md-5">查询</button>
+                          <button type="button" class="btn btn-info col-md-offset-1 col-md-5" ng-click="healthFile.addPatient()">添加<i class="fa fa-plus"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel-body">
+    <div ui-grid="gridOptions" class="gridStyle" ui-grid-pagination>
+    </div>
+  </div>
+</div>

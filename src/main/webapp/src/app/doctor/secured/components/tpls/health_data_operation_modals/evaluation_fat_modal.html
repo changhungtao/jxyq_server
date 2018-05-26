@@ -1,0 +1,81 @@
+<div class="modal-header">
+  <div class="row">
+    <div class="col-md-6">
+      <h4 class="modal-title">评测</h4>
+    </div>
+    <div class="col-md-6 text-right">
+      <h4 class="modal-title"></h4>
+    </div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="row">
+      <form class="form-horizontal" role="form" id="EvaluationFat" ng-submit="submitEvaluation()">
+          <div class="col-md-12">
+              <div class="col-md-offset-2 col-md-4">姓名：</div>
+              <div class="col-md-6"><input type="text" disabled="disabled" ng-model="entity.user_name"></div>
+          </div>
+
+          <div class="col-md-12 line-data">
+              <div class="col-md-offset-2 col-md-4">收集时间：</div>
+              <div class="col-md-6"><input type="text" disabled="disabled" ng-model="entity.measured_at"></div>
+          </div>
+
+          <div class="col-md-12 line-data">
+              <div class="col-md-offset-2 col-md-4">BMI：</div>
+              <div class="col-md-6"><input type="text" ng-model="entity.bmi_value"></div>
+          </div>
+
+          <div class="col-md-12 line-data">
+              <div class="col-md-offset-2 col-md-4">体重：</div>
+              <div class="col-md-6"><input type="text" ng-model="entity.weight_value"></div>
+          </div>
+
+          <div class="col-md-12 line-data">
+              <div class="col-md-offset-2 col-md-4">脂肪含量：</div>
+              <div class="col-md-6"><input type="text" ng-model="entity.fat_value"></div>
+          </div>
+
+          <div class="col-md-12 line-data">
+              <div class="col-md-offset-2 col-md-4">卡路里：</div>
+              <div class="col-md-6"><input type="text" ng-model="entity.calorie_value"></div>
+          </div>
+
+          <div class="col-md-12 line-data">
+              <div class="col-md-offset-2 col-md-4">水分含量：</div>
+              <div class="col-md-6"><input type="text" ng-model="entity.moisture_value"></div>
+          </div>
+
+          <div class="col-md-12 line-data">
+              <div class="col-md-offset-2 col-md-4">肌肉含量：</div>
+              <div class="col-md-6"><input type="text" ng-model="entity.muscle_value"></div>
+          </div>
+
+          <div class="col-md-12 line-data">
+              <div class="col-md-offset-2 col-md-4">内脏脂肪含量：</div>
+              <div class="col-md-6"><input type="text" ng-model="entity.visceral_fat_value"></div>
+          </div>
+
+          <div class="col-md-12 line-data">
+              <div class="col-md-offset-2 col-md-4">骨骼：</div>
+              <div class="col-md-6"><input type="text" ng-model="entity.bone_value"></div>
+          </div>
+
+          <div class="col-md-12 line-data">
+              <div class="col-md-offset-2 col-md-9">
+                  <textarea class="form-control mytextarea" rows="5" placeholder="医生评语" ng-model="entity.proposal" ng-required="true"></textarea>
+              </div>
+          </div>
+          <div class="col-md-12 line-data">
+              <button form="EvaluationFat" type="submit" class="btn btn-success col-md-offset-2 col-md-9">推送</button>
+          </div>
+    </form>
+  </div>
+</div>
+<div class="modal-footer">
+    <div class="col-sm-offset-7 col-sm-5">
+        <!-- <button type="submit" form="EvaluationFat" class="btn btn-success">推送</button> -->
+        <!--<button form="fatForm" type="reset" class="btn btn-primary">重置</button>-->
+        <button ng-click="cancel()" type="button" class="btn btn-default">关闭</button>
+    </div>
+</div>

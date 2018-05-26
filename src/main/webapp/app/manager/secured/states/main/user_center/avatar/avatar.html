@@ -1,0 +1,95 @@
+<!-- <div class="row">
+    <div class="col-md-offset-2 col-md-8">
+        <div class="panel panel-default">
+        <div class="panel-heading">
+            <h1 class="panel-title">修改头像</h1>
+          </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-8">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <div class="col-sm-offset-4 col-sm-4">
+                                    <img src="../../../img/touxiang.png" style="height:150px;width:150px;">
+                                </div>
+                                <div class="col-sm-offset-5 col-md-2">
+                                    <label for="terminal_name" class="control-label">当前头像</label>
+                                </div>
+                            </div></br>
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-6">
+                                    <input type="file" style="display:inline;border:1px solid #000000">
+                                </div></br>
+
+                                <div class="col-sm-offset-2 col-md-8">
+                                    <div class="alert alert-info" role="alert">
+                                        <label style="text-align:center">仅支持JPG/PNG图片文件，大小不超过1M!</label>
+                                    </div>
+                                </div>
+                            </div>                        
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-sm-offset-3 col-sm-7">
+                                        <div class="row">
+                                            <div class="col-sm-offset-8 col-sm-4 text-right">
+                                                <button type="submit" class="btn btn-block btn-success">保存</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                <!--start of alert block-->
+                <div class="alert alert-{{alert.type}} alert-dismissable" style="text-align: center;" role="alert" ng-repeat="alert in alerts" type="{{alert.type}}">
+                    <button type="button" class="close" ng-click="closeAlert($index)">
+                    </button>
+                    {{alert.msg}}
+                </div>
+                <!--end of alert block-->
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <div class="col-sm-offset-4 col-sm-4">
+                            <a href="{{avatarurl}}" target="_blank">
+                                <img ng-src="{{avatarurl}}" style="width:150px;">
+                            </a>
+                        </div>
+                        <div class="col-sm-offset-5 col-md-2">
+                            <label for="terminal_name" class="control-label">当前头像</label>
+                        </div>
+                    </div></br>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-md-8">
+                            <div class="alert alert-info" role="alert">
+                                <label style="text-align:center">仅支持JPG/PNG图片文件，大小不超过1M。</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-offset-3 col-sm-6" style="margin-top: 20px">
+                            <input type="file" file-model="avatarFile" accept=".png,.jpg,.jpeg,.gif"/>
+                        </div></br>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-7">
+                                <div class="row">
+                                    <div class="col-sm-offset-8 col-sm-4 text-right">
+                                        <button type="submit" class="btn btn-block btn-success" ng-click="saveAvatar()" ng-disabled="disabledBtn">保存</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

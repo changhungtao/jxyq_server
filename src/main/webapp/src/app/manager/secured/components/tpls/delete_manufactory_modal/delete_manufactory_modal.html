@@ -1,0 +1,32 @@
+<div class="modal-header">
+    <div class="row">
+        <div class="col-md-6">
+            <h4 class="modal-title">删除厂商</h4>
+        </div>
+        <div class="col-md-6 text-right">
+            <h4 class="modal-title"></h4>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <form class="form-horizontal">
+            <div class="alert alert-{{alert.type}} alert-dismissable" style="text-align: center;" role="alert" ng-repeat="alert in alerts" type="{{alert.type}}">
+                <button type="button" class="close" ng-click="closeAlert($index)">
+                </button>
+                {{alert.msg}}
+            </div>
+            <div class="form-group">
+                <div class="col-md-12 text-center">
+                    <label class="control-label" for="user_name">确认删除该厂商么？</label>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="col-sm-offset-7 col-sm-5 text-right">
+        <button ng-click="deleteManu()" class="btn btn-success">确认</button>
+        <button ng-click="cancel()" type="button" class="btn btn-default">取消</button>
+    </div>
+</div>

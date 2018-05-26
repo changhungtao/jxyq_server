@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxyq.mapper.normal_mapper.DoctorMapper">
+    <resultMap id="doctorMap" type="com.jxyq.model.doctor.Doctor">
+        <result column="doctor_id" property="doctor_id" />
+        <result column="login_name" property="login_name" />
+        <result column="password" property="password" />
+        <result column="full_name" property="full_name" />
+        <result column="identification_number" property="identification_number" />
+        <result column="gender" property="gender" />
+        <result column="birthday" property="birthday" />
+        <result column="email" property="email" />
+        <result column="avatar_url" property="avatar_url" />
+        <result column="phone" property="phone" />
+        <result column="department_id" property="department_id" />
+        <result column="expert_team_id" property="expert_team_id" />
+        <result column="district_id" property="district_id" />
+        <result column="profile" property="profile" />
+        <result column="registered_at" property="registered_at" />
+        <result column="updated_at" property="updated_at" />
+        <result column="status" property="status" />
+        <result column="physician_certificate" property="physician_certificate" />
+        <result column="practicing_certificate" property="practicing_certificate" />
+    </resultMap>
+    <resultMap id="doctorsMap" type="map">
+        <result column="doctor_id" property="doctor_id" />
+        <result column="login_name" property="login_name" />
+        <result column="password" property="password" />
+        <result column="full_name" property="full_name" />
+        <result column="identification_number" property="identification_number" />
+        <result column="gender" property="gender" />
+        <result column="birthday" property="birthday" />
+        <result column="email" property="email" />
+        <result column="avatar_url" property="avatar_url" />
+        <result column="phone" property="phone" />
+        <result column="department_id" property="department_id" />
+        <result column="expert_team_id" property="expert_team_id" />
+        <result column="district_id" property="district_id" />
+        <result column="profile" property="profile" />
+        <result column="registered_at" property="registered_at" />
+        <result column="updated_at" property="updated_at" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <resultMap id="roleMap" type="com.jxyq.model.Role">
+        <result column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="permissions" property="permissions" />
+        <result column="level" property="level" />
+    </resultMap>
+
+    <resultMap id="selDoctorDetailMap" type="map">
+        <result column="login_name" property="login_name" />
+        <result column="full_name" property="full_name" />
+        <result column="identification_number" property="identification_number" />
+        <result column="gender" property="gender" />
+        <result column="birthday" property="birthday" />
+        <result column="email" property="email" />
+        <result column="avatar_url" property="avatar_url" />
+        <result column="phone" property="phone" />
+        <result column="department_id" property="department_id" />
+        <result column="expert_team_id" property="expert_team_id" />
+        <result column="district_id" property="district_id" />
+        <result column="profile" property="profile" />
+        <result column="physician_certificate" property="physician_certificate" />
+        <result column="practicing_certificate" property="practicing_certificate" />
+    </resultMap>
+
+    <select id="selDoctorByLoginName" parameterType="com.jxyq.model.doctor.Doctor" resultMap="doctorMap">
+        select doctor_id, login_name, password, full_name, identification_number,
+            gender, birthday, email,  phone,
+            department_id, expert_team_id, district_id, profile, registered_at,
+            updated_at, status, avatar_url, physician_certificate, practicing_certificate
+        from doctor
+        where login_name = #{login_name}
+        limit 1;
+    </select>
+    
+    <select id="selRolesByDoctor" parameterType="com.jxyq.model.doctor.Doctor" resultMap="roleMap">
+        select a.id, a.name, a.permissions, a.level
+        from role as a, doctor_drole as b
+        where a.id = b.role_id
+        and b.doctor_id = #{doctor_id}
+    </select>
+
+    <update id="upDoctorPwdByPhone"  parameterType="map">
+        update doctor set password=#{password} where phone=#{phone}
+    </update>
+
+    <update id="upDoctorPwdById"  parameterType="map">
+        update doctor set password=#{password} where doctor_id=#{doctor_id}
+    </update>
+
+    <select id="verifyUser" resultType="java.lang.Integer" parameterType="map">
+        select count(*) from doctor where doctor_id=#{doctor_id} and password=#{password};
+    </select>
+
+    <select id="selDoctorDetail" parameterType="map" resultMap="selDoctorDetailMap">
+        select a.login_name,a.full_name , a.identification_number,a.gender, a.birthday,
+               a.email, a.avatar_url,a.phone,a.department_id,a.expert_team_id,a.district_id ,
+                  a.profile,a.physician_certificate,a.practicing_certificate
+        from doctor a left join district b on a.district_id = b.district_id
+        where doctor_id = #{did}
+    </select>
+
+    <select id="selDoctorByPage" parameterType="map" resultMap="doctorsMap">
+        select doctor_id, login_name, password, full_name, identification_number,
+        gender, birthday, email,  phone,
+        department_id, expert_team_id, district_id, profile, registered_at,
+        updated_at, status, avatar_url from doctor where 1=1
+        <if test="minRegisterTime != null">
+            <![CDATA[and registered_at >= (#{minRegisterTime})]]>
+        </if>
+        <if test="maxRegisterTime != null">
+            <![CDATA[and registered_at <= (#{maxRegisterTime})]]>
+        </if>
+        <if test="query_date != null">
+            <![CDATA[and registered_at <= (#{query_date})]]>
+        </if>
+        <if test="name != null">
+            <![CDATA[and full_name like "%${name}%"]]>
+        </if>
+        order by registered_at DESC
+    </select>
+
+    <insert id="insertDoctor" useGeneratedKeys="true" keyProperty="doctor_id" parameterType="com.jxyq.model.doctor.Doctor">
+        insert into doctor(
+            doctor_id, login_name, password, full_name, identification_number,
+            gender, phone, department_id, expert_team_id, district_id,
+            profile, registered_at, updated_at, status, physician_certificate,
+            practicing_certificate, avatar_url, birthday, email
+        ) values (
+            #{doctor_id}, #{login_name}, #{password}, #{full_name}, #{identification_number},
+            #{gender}, #{phone}, #{department_id}, #{expert_team_id}, #{district_id},
+            #{profile}, #{registered_at}, #{updated_at}, #{status},#{physician_certificate},
+            #{practicing_certificate}, #{avatar_url}, #{birthday}, #{email}
+        )
+    </insert>
+
+    <update id="upDoctorStatus" parameterType="map">
+        update doctor set status = #{status} where doctor_id = #{did}
+    </update>
+
+    <update id="updateDoctorByAdmin" parameterType="map">
+        update doctor set
+        full_name = #{full_name}, identification_number = #{identification_number},
+        gender = #{gender}, birthday = #{birthday}, email = #{email},
+        avatar_url = #{avatar_url}, phone = #{phone}, department_id = #{department_id},expert_team_id = #{expert_team_id},
+        district_id = #{district_id},profile = #{profile},physician_certificate = #{physician_certificate},
+        practicing_certificate = #{practicing_certificate},updated_at = #{updated_at}
+        <if test="password != null">
+            ,password = #{password}
+        </if>
+        where doctor_id = #{doctor_id}
+    </update>
+
+    <delete id="deleteDoctor" parameterType="map">
+        delete from doctor where doctor_id = #{doctor_id}
+    </delete>
+
+    <select id="queryDoctor" parameterType="map" resultMap="doctorMap">
+        select doctor_id, login_name, password, full_name, identification_number,
+            gender, birthday, email, avatar_url, phone,
+            department_id, expert_team_id, district_id, profile, physician_certificate,
+            practicing_certificate, registered_at, updated_at, status
+        from doctor
+        where 1 = 1
+        <if test="full_name != null">
+            <![CDATA[and full_name like '%${full_name}%']]>
+        </if>
+        <if test="registered_from != null">
+            <![CDATA[and registered_at > #{registered_from}]]>
+        </if>
+        <if test="registered_to != null">
+            <![CDATA[and registered_at < #{registered_to}]]>
+        </if>
+    </select>
+
+    <select id="selDoctorByPermId" parameterType="map" resultMap="doctorMap">
+        select a.doctor_id as doctor_id, login_name, password, full_name, identification_number,
+        gender, birthday, email, avatar_url, phone,
+        department_id, expert_team_id, district_id, profile, physician_certificate,
+        practicing_certificate, registered_at, updated_at, status
+        from doctor a, doctor_data_permission b
+        where a.doctor_id = b.doctor_id
+        and b.data_permission_id = #{data_permission_id}
+    </select>
+
+    <update id="upDoctorBasicInf" parameterType="map">
+        update doctor set
+        <if test="full_name != null">
+            full_name = #{full_name},
+        </if>
+        <if test="email != null">
+            email = #{email},
+        </if>
+        <if test="phone != null">
+            phone = #{phone},
+        </if>
+        <if test="gender != null">
+            gender = #{gender},
+        </if>
+        <if test="birthday != null">
+            birthday = #{birthday},
+        </if>
+        <if test="avatar_url != null">
+            avatar_url = #{avatar_url},
+        </if>
+        <if test="identification_number != null">
+            identification_number = #{identification_number},
+        </if>
+        <if test="department_id != null">
+            department_id = #{department_id},
+        </if>
+        <if test="district_id != null">
+            district_id = #{district_id},
+        </if>
+        <if test="profile != null">
+            profile = #{profile},
+        </if>
+        <if test="physician_certificate != null">
+            physician_certificate = #{physician_certificate},
+        </if>
+        <if test="practicing_certificate != null">
+            practicing_certificate = #{practicing_certificate},
+        </if>
+        <if test="expert_team_id != null">
+            expert_team_id = #{expert_team_id},
+        </if>
+        doctor_id = #{doctor_id}
+        where doctor_id = #{doctor_id}
+    </update>
+
+    <insert id="inDoctorRole" parameterType="map">
+        insert into doctor_drole(doctor_id, role_id)
+        values(#{doctor_id}, #{role_id});
+    </insert>
+
+    <resultMap id="CountMap" type="map">
+        <result column="count" property="count" />
+    </resultMap>
+
+    <select id="selTotalDocCnt" parameterType="map" resultMap="CountMap">
+        select count(*) as count from doctor
+    </select>
+</mapper>

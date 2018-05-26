@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxyq.mapper.normal_mapper.RoleMapper">
+    <resultMap id="RoleMap" type="com.jxyq.model.Role">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="permissions" property="permissions"/>
+        <result column="level" property="level"/>
+    </resultMap>
+
+    <select id="selRole" parameterType="map" resultMap="RoleMap">
+        select id, name, permissions, level
+        from role
+        where 1 = 1
+        <if test="permissions != null">
+            <![CDATA[and permissions = #{permissions}]]>
+        </if>
+        <if test="name != null">
+            <![CDATA[and name = #{name}]]>
+        </if>
+        limit 1
+    </select>
+</mapper>

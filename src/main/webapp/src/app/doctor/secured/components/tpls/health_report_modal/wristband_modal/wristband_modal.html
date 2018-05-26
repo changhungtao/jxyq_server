@@ -1,0 +1,281 @@
+<div class="modal-header">
+  <div class="row">
+    <div class="col-md-6">
+      <h4 class="modal-title">患者：{{entity.patient_name}}</h4>
+    </div>
+    <div class="col-md-6 text-right">
+      <h4 class="modal-title">联系方式：{{entity.patient_phone}}</h4>
+    </div>
+  </div>
+</div>
+<div class="modal-body">
+<!--start of alert block-->
+<div class="alert alert-{{alert.type}} alert-dismissable" style="text-align: center;" role="alert" ng-repeat="alert in alerts" type="{{alert.type}}">
+    <button type="button" class="close" ng-click="closeAlert($index)">
+    </button>
+    {{alert.msg}}
+</div>
+<!--end of alert block-->
+  <form class="form-horizontal" role="form" id="wristbandForm" ng-submit="savePatWrist()">
+    <!--<div class="form-group">-->
+      <!--<div class="col-md-5 text-right">-->
+        <!--<label class="control-label">测量时间：</label>-->
+      <!--</div>-->
+      <!--<div class="col-md-6">-->
+        <!--<div class="input-group">-->
+          <!--&lt;!&ndash;<input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" required="required" ng-disabled="true"/>&ndash;&gt;-->
+            <!--<input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="patWrist.measured_at" required="required" ng-disabled="true"/>-->
+          <!--<span class="btn input-group-addon" ng-click="open($event)">-->
+            <!--<i class="fa fa-calendar"></i>-->
+          <!--</span>-->
+         <!---->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <div class="col-md-3 text-right">
+                    <label class="control-label">测量时间：</label>
+                </div>
+                <div class="col-md-7">
+                    <div class="input-group">
+                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="patWrist.measured_at" required="required" ng-disabled="true"/>
+              <span class="input-group-addon">
+                <i class="fa fa-calendar"></i>
+              </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <div class="col-md-5 text-right">
+            <label class="control-label">总公里数：</label>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group">
+              <input type="text" class="form-control" ng-model="patWrist.distance" required="required">
+              <span class="input-group-addon">
+                <i>km</i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <div class="col-md-6 text-right">
+            <label class="control-label">总消耗能量：</label>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group">
+              <input type="text" class="form-control" ng-model="patWrist.calories" required="required">
+              <span class="input-group-addon">
+                <i>Cal</i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <div class="col-md-5 text-right">
+            <label class="control-label">步行公里数：</label>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group">
+              <input type="text" class="form-control" ng-model="patWrist.walk_distance" required="required">
+              <span class="input-group-addon">
+                <i>km</i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <div class="col-md-6 text-right">
+            <label class="control-label">步行消耗能量：</label>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group">
+              <input type="text" class="form-control" ng-model="patWrist.walk_calories" required="required">
+              <span class="input-group-addon">
+                <i>Cal</i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <div class="col-md-5 text-right">
+            <label class="control-label">步行步数：</label>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group">
+              <input type="text" class="form-control" ng-model="patWrist.walk_count" required="required">
+              <span class="input-group-addon">
+                <i>km</i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <div class="col-md-6 text-right">
+            <label class="control-label">跑步消耗能量：</label>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group">
+              <input type="text" class="form-control" ng-model="patWrist.run_calories" required="required">
+              <span class="input-group-addon">
+                <i>Cal</i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <div class="col-md-5 text-right">
+            <label class="control-label">跑步公里数：</label>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group">
+              <input type="text" class="form-control" ng-model="patWrist.run_distance" required="required">
+              <span class="input-group-addon">
+                <i>步</i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+       <div class="col-md-6">
+        <div class="form-group">
+          <div class="col-md-6 text-right">
+            <label class="control-label">深睡时间：</label>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group">
+              <input type="text" class="form-control" ng-model="patWrist.deep_duration" required="required">
+              <span class="input-group-addon">
+                <i>小时</i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <div class="col-md-5 text-right">
+            <label class="control-label">跑步步数：</label>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group">
+              <input type="text" class="form-control" ng-model="patWrist.run_count" required="required">
+              <span class="input-group-addon">
+                <i>步</i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <div class="col-md-6 text-right">
+            <label class="control-label">浅睡时间：</label>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group">
+              <input type="text" class="form-control" ng-model="patWrist.shallow_duration" required="required">
+              <span class="input-group-addon">
+                <i>小时</i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <div class="col-md-5 text-right">
+            <label class="control-label">总步数：</label>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group">
+              <input type="text" class="form-control" ng-model="patWrist.step_count" required="required">
+              <span class="input-group-addon">
+                <i>步</i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+       <div class="col-md-6">
+        <div class="form-group">
+          <div class="col-md-6 text-right">
+            <label class="control-label">心率：</label>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group">
+              <input type="text" class="form-control" ng-model="patWrist.heart_rate" required="required">
+              <span class="input-group-addon">
+                <i>BPM</i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <div class="col-md-3 text-right">
+                    <label class="control-label">症状：</label>
+                </div>
+                <div class="col-md-7">
+                    <textarea class="form-control" rows="3" placeholder="症状" ng-model="patWrist.symptom" required="required"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <div class="col-md-3 text-right">
+            <label class="control-label">医生建议：</label>
+          </div>
+          <div class="col-md-7">
+            <textarea class="form-control" rows="3" placeholder="医生评语" ng-model="patWrist.proposal" required="required"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button form="wristbandForm" type="submit" class="btn btn-success col-md-offset-1 col-md-10" ng-disabled="disabledBtn">推送</button>
+        </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <div class="col-sm-offset-7 col-sm-5">
+    <!-- <button form="wristbandForm" type="submit" class="btn btn-success">推送</button> -->
+    <!--<button form="wristbandForm" type="reset" class="btn btn-primary" ng-click="reset()">重置</button>-->
+    <button ng-click="cancel()" type="button" class="btn btn-default">取消</button>
+  </div>
+</div>

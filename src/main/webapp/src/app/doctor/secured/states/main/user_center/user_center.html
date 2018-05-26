@@ -1,0 +1,24 @@
+<!-- 
+<h2>个人中心</h2>
+
+<ul>
+  <li><a ui-sref="main.user_center.basics">main.user_center.basics</a></li>
+  <li><a ui-sref="main.user_center.password">main.user_center.password</a></li>
+  <li><a ui-sref="main.user_center.avatar">main.user_center.avatar</a></li>
+</ul>
+
+<div ui-view>
+  <p>
+    视图区域
+  </p>
+</div> -->
+
+<div class="subpage">
+  <tabset>
+    <tab heading="修改资料" active="true" ui-sref="main.user_center.basics"></tab>
+    <tab heading="修改头像" ui-sref="main.user_center.avatar"></tab>
+    <tab heading="修改密码" ui-sref="main.user_center.password"></tab>
+  </tabset>
+</div>
+<div ui-view>
+</div>

@@ -1,0 +1,243 @@
+</br>
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h1 class="panel-title">运行模式设置</h1>
+  </div>
+  <div class="panel-body">
+    <!-- 查询区域 -->
+    <div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">查询条件</h3>
+            </div>
+            <div class="panel-body">
+              <form class="form-horizontal">
+                <div class="row">
+                  <div class="col-md-8">
+                    <div class="form-group">
+                      <div class="col-md-2">
+                        <label class="control-label">IMEI号码：</label>
+                      </div>
+                      <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="请输入儿童腕表的IMEI号码" ng-model="query.imei">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 text-right">
+                    <div class="form-group">
+                      <div class="col-md-offset-4 col-md-8 text-right">
+                        <button type="button" ng-click="queryImei()" class="btn btn-success form-control">查询
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 操作面板 -->
+    <div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">操作面板</h3>
+            </div>
+            <div class="panel-body">
+              <!-- 腕表号码 -->
+              <form class="form-horizontal">
+                <div class="row">
+                  <div class="col-md-8">
+                    <div class="form-group">
+                      <div class="col-md-2">
+                        <label class="control-label">IMEI号码：</label>
+                      </div>
+                      <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="请输入儿童腕表的IMEI号码" ng-model="jsonImei.imei" disabled="true">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- 默认模式 -->
+                <div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="panel panel-info">
+                        <div class="panel-heading">
+                          <h3 class="panel-title">默认模式</h3>
+                        </div>
+                        <div class="panel-body">
+                          <form class="form-horizontal">
+                            <div class="row">
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <div class="col-md-4">
+                                    <label class="control-label">工作模式：</label>
+                                  </div>
+                                  <div class="col-md-8">
+                                    <!--<div class="input-group">-->
+                                      <!-- 
+                                      <ui-select ng-model="device_type_id.selected" theme="bootstrap" ng-disabled="disabled">
+                                        <ui-select-match placeholder="工作模式">{{$select.selected.device_type_name}}</ui-select-match>
+                                        <ui-select-choices repeat="dtype.device_type_id as dtype in device_types | filter: $select.search">
+                                          <div ng-bind-html="dtype.device_type_name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                      </ui-select>
+ -->
+                                      <ui-select ng-model="mode.defaultmode_selected" theme="bootstrap" ng-disabled="disabled" close-on-select="true">
+                                        <ui-select-match placeholder="选择工作模式">{{$select.selected.mode_name}}</ui-select-match>
+                                        <ui-select-choices repeat="item.mode_id as item in work_modes | filter: $select.search">
+                                          <div ng-bind-html="item.mode_name | highlight: $select.search">
+                                          </div>
+                                        </ui-select-choices>
+                                      </ui-select>
+                                      <!--<span class="input-group-btn">-->
+                                          <!--<button ng-click="mode.defaultmode_selected = undefined" class="btn btn-default">-->
+                                          <!--<span class="glyphicon glyphicon-trash"></span>-->
+                                      <!--</button>-->
+                                      <!--</span>-->
+                                    <!--</div>-->
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <div class="col-md-4">
+                                    <label class="control-label">运行方式：</label>
+                                  </div>
+                                  <div class="col-md-8">
+                                    <!--<div class="input-group">-->
+                                      <ui-select ng-model="mode.defaulttype_selected" theme="bootstrap" ng-disabled="disabled">
+                                        <ui-select-match placeholder="运行方式">{{$select.selected.type_name}}</ui-select-match>
+                                        <ui-select-choices repeat="item.type_id as item in work_types | filter: $select.search">
+                                          <div ng-bind-html="item.type_name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                      </ui-select>
+                                      <!--<span class="input-group-btn">-->
+                                          <!--<button ng-click="mode_type.selected = undefined" class="btn btn-default">-->
+                                          <!--<span class="glyphicon glyphicon-trash"></span>-->
+                                      <!--</button>-->
+                                      <!--</span>-->
+                                      <!-- 
+                            <label class="radio-inline">
+                              <input type="radio" name="defaultmode" id="defaultmode_check1" value="" checked="true"> 单一模式
+                            </label>
+                            <label class="radio-inline">
+                              <input type="radio" name="defaultmode" id="defaultmode_check2" value="5" ng-checked="mode.defaultmode_selected == 5"> 上课隐身
+                            </label>
+ -->
+                                    <!--</div>-->
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-4 text-right">
+                                <div class="form-group">
+                                  <div class="col-md-offset-4 col-md-8 text-right">
+                                    <!-- <button type="button" ng-click="" class="btn btn-success form-control">提交更改</i> -->
+                                    <button type="submit" class="btn btn-primary form-control" ng-click="saveModeSet()">保存</button>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- 模式时段 -->
+                  <div class="row" ng-if="mode.defaulttype_selected == 2">
+                    <div class="col-md-12">
+                      <div class="panel panel-info">
+                        <div class="panel-heading">
+                          <h3 class="panel-title">模式时段</h3>
+                        </div>
+                        <div class="panel-body">
+                          <form class="form-horizontal">
+                            <div class="row">
+                              <div class="col-md-offset-8 col-md-4 text-right">
+                                <div class="form-group">
+                                  <div class="col-md-offset-4 col-md-8 text-right">
+                                    <button type="button" class="btn btn-primary form-control" ng-click="mode.addPieroid(jsonImei.imei)">增加<i class="fa fa-plus"></i>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                          <div ui-grid="gridPieroids" class="gridStyle" ui-grid-pagination>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 白名单 -->
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="panel panel-info">
+                          <div class="panel-heading">
+                            <h3 class="panel-title">白名单</h3>
+                          </div>
+                          <div class="panel-body">
+                            <form class="form-horizontal">
+                              <div class="row">
+                                <div class="col-md-offset-8 col-md-4 text-right">
+                                  <div class="form-group">
+                                    <!-- <div class="col-md-4 text-right">
+                                    <button type="button" class="btn btn-info form-control" ng-click="mode.addWhiteName(gridWhiteList.data)">添加<i class="fa fa-plus"></i></button>
+                                  </div> -->
+                                    <div class="col-md-offset-4 col-md-8 text-right">
+                                      <button type="button" class="btn btn-primary form-control" ng-click="mode.addWhiteName(gridWhiteList.data)">增加<i class="fa fa-plus"></i></button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+                            <div ui-grid="gridWhiteList" class="gridStyle" ui-grid-pagination>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- 黑名单 -->
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="panel panel-info">
+                            <div class="panel-heading">
+                              <h3 class="panel-title">黑名单</h3>
+                            </div>
+                            <div class="panel-body">
+                              <form class="form-horizontal">
+                                <div class="row">
+                                  <div class="col-md-offset-8 col-md-4 text-right">
+                                    <div class="form-group">
+                                      <!-- <div class="col-md-4 text-right">
+                                    <button type="button" class="btn btn-info form-control" ng-click="mode.addBlackName(gridBlackList.data)">添加<i class="fa fa-plus"></i></button>
+                                  </div> -->
+                                      <div class="col-md-offset-4 col-md-8 text-right">
+                                        <button type="button" class="btn btn-primary form-control" ng-click="mode.addBlackName(gridBlackList.data)">增加<i class="fa fa-plus"></i></button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </form>
+                              <div ui-grid="gridBlackList" class="gridStyle" ui-grid-pagination>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

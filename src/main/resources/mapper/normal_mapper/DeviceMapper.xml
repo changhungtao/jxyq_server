@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxyq.mapper.normal_mapper.DeviceMapper">
+
+    <sql id="manufactory_list">
+        manufactory_id, login_name, password, full_name, code,
+        profile, contactor, phone, email, logo_url,
+        registered_at, updated_at, creator, status
+    </sql>
+
+    <sql id="device_type_list">
+        device_type_id, name, product_type_id, registered_at, status
+    </sql>
+
+    <sql id="terminal_catagory_list">
+        terminal_catagory_id, name, code, manufactory_id, product_type_id,
+        device_type_id, status, created_at
+    </sql>
+
+    <sql id="terminal_list">
+        terminal_id, name, mac_address, uuid, manufactory_id, product_type_id,
+        device_type_id, terminal_catagory_id, status, activated_at
+    </sql>
+
+    <sql id="product_type_list">
+        product_type_id, name, registered_at, status
+    </sql>
+
+    <resultMap id="manufactoryMap" type="com.jxyq.model.health.Manufactory">
+        <result column="manufactory_id" property="manufactory_id"/>
+        <result column="login_name" property="login_name"/>
+        <result column="password" property="password"/>
+        <result column="full_name" property="full_name"/>
+        <result column="code" property="code"/>
+        <result column="profile" property="profile"/>
+        <result column="contactor" property="contactor"/>
+        <result column="phone" property="phone"/>
+        <result column="email" property="email"/>
+        <result column="logo_url" property="logo_url"/>
+        <result column="registered_at" property="registered_at"/>
+        <result column="updated_at" property="updated_at"/>
+        <result column="creator" property="creator"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <resultMap id="deviceTypeMap" type="com.jxyq.model.health.DeviceType">
+        <result column="device_type_id" property="device_type_id"/>
+        <result column="name" property="name"/>
+        <result column="product_type_id" property="product_type_id"/>
+        <result column="registered_at" property="registered_at"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <resultMap id="terminalCatagoryMap" type="com.jxyq.model.health.TerminalCatagory">
+        <result column="terminal_catagory_id" property="terminal_catagory_id"/>
+        <result column="name" property="name"/>
+        <result column="code" property="code"/>
+        <result column="manufactory_id" property="manufactory_id"/>
+        <result column="product_type_id" property="product_type_id"/>
+        <result column="device_type_id" property="device_type_id"/>
+        <result column="status" property="status"/>
+        <result column="created_at" property="created_at"/>
+    </resultMap>
+
+    <resultMap id="terminalMap" type="com.jxyq.model.health.Terminal">
+        <result column="terminal_id" property="terminal_id"/>
+        <result column="name" property="name"/>
+        <result column="mac_address" property="mac_address"/>
+        <result column="uuid" property="uuid"/>
+        <result column="manufactory_id" property="manufactory_id"/>
+        <result column="product_type_id" property="product_type_id"/>
+        <result column="device_type_id" property="device_type_id"/>
+        <result column="terminal_catagory_id" property="terminal_catagory_id"/>
+        <result column="status" property="status"/>
+        <result column="activated_at" property="activated_at"/>
+    </resultMap>
+
+    <resultMap id="productTypeMap" type="com.jxyq.model.health.ProductType">
+        <result column="product_type_id" property="product_type_id"/>
+        <result column="name" property="name"/>
+        <result column="registered_at" property="registered_at"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <resultMap id="terminalsMap" type="map">
+        <result column="terminal_catagory_id" property="terminal_catagory_id"/>
+        <result column="product_type_id" property="product_type_id"/>
+        <result column="terminal_id" property="terminal_id"/>
+        <result column="terminal_name" property="terminal_name"/>
+        <result column="manufactory_name" property="manufactory_name"/>
+        <result column="product_name" property="product_name"/>
+        <result column="device_type_id" property="device_type_id"/>
+        <result column="manufactory_id" property="manufactory_id"/>
+        <result column="device_type_name" property="device_type_name"/>
+        <result column="catagory_name" property="catagory_name"/>
+        <result column="activated_at" property="activated_at"/>
+        <result column="status" property="status"/>
+        <result column="terminal_catagory_id" property="terminal_catagory_id"/>
+    </resultMap>
+
+    <resultMap id="terminalsDetailMap" type="map">
+        <result column="terminal_id" property="terminal_id"/>
+        <result column="terminal_name" property="terminal_name"/>
+        <result column="manufactory_name" property="manufactory_name"/>
+        <result column="product_name" property="product_name"/>
+        <result column="device_type_id" property="device_type_id"/>
+        <result column="manufactory_id" property="manufactory_id"/>
+        <result column="device_type_name" property="device_type_name"/>
+        <result column="catagory_name" property="catagory_name"/>
+        <result column="activated_at" property="activated_at"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <resultMap id="userTerminalMap" type="map">
+        <result column="user_device_id" property="user_device_id"/>
+        <result column="terminal_id" property="terminal_id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="phone" property="phone"/>
+        <result column="full_name" property="full_name"/>
+        <result column="count" property="count"/>
+        <result column="updated_at" property="updated_at"/>
+    </resultMap>
+
+    <resultMap id="selDeviceTypeByPageMap" type="map">
+        <result column="device_type_id" property="device_type_id"/>
+        <result column="device_type_name" property="device_type_name"/>
+        <result column="product_type_id" property="product_type_id"/>
+        <result column="product_type_name" property="product_type_name"/>
+        <result column="registered_at" property="registered_at"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <resultMap id="selManuByDeviceTypeMap" type="map">
+        <result column="manufactory_id" property="manufactory_id"/>
+        <result column="full_name" property="full_name"/>
+    </resultMap>
+
+    <resultMap id="selTerminalCatagoryByDeviceTypeIdMap" type="map">
+        <result column="manufactory_id" property="manufactory_id"/>
+        <result column="manufactory_code" property="manufactory_code"/>
+        <result column="manufactory_full_name" property="manufactory_full_name"/>
+        <result column="terminal_catagory_id" property="terminal_catagory_id"/>
+        <result column="terminal_catagory_code" property="terminal_catagory_code"/>
+        <result column="terminal_catagory_name" property="terminal_catagory_name"/>
+    </resultMap>
+
+    <resultMap id="TerminalCat4MarketMap" type="map">
+        <result column="terminal_catagory_id" property="terminal_catagory_id"/>
+        <result column="name" property="name"/>
+        <result column="product_type_id" property="product_type_id"/>
+        <result column="device_type_id" property="device_type_id"/>
+        <result column="picture" property="picture"/>
+        <result column="price" property="price"/>
+    </resultMap>
+
+    <resultMap id="selTerminalCat4MarketMap" type="map">
+        <result column="device_type_id" property="device_type_id"/>
+        <result column="product_type_id" property="product_type_id"/>
+        <result column="name" property="name"/>
+        <result column="picture" property="picture"/>
+        <result column="price" property="price"/>
+        <result column="manufactory_name" property="manufactory_name"/>
+        <result column="profile" property="profile"/>
+    </resultMap>
+
+    <resultMap id="DeviceIdAndNameMap" type="map">
+        <result column="device_type_id" property="device_type_id"/>
+        <result column="name" property="device_type_name"/>
+    </resultMap>
+
+    <resultMap id="ProductIdAndNameMap" type="map">
+        <result column="product_type_id" property="product_type_id"/>
+        <result column="name" property="product_type_name"/>
+    </resultMap>
+
+    <resultMap id="CountMap" type="map">
+        <result column="count" property="count"/>
+    </resultMap>
+
+    <select id="selManufactoryByCode" parameterType="map" resultMap="manufactoryMap">
+        select
+        <include refid="manufactory_list"/>
+        from manufactory
+        where code = #{manufactory_code}
+        limit 1;
+    </select>
+
+    <select id="selDeviceTypeById" parameterType="map" resultMap="deviceTypeMap">
+        select
+        <include refid="device_type_list"/>
+        from device_type
+        where device_type_id = #{device_type_id}
+        limit 1;
+    </select>
+
+    <select id="selTerminalCatagory" parameterType="map" resultMap="terminalCatagoryMap">
+        select
+        <include refid="terminal_catagory_list"/>
+        from terminal_catagory
+        where 1 = 1
+        <if test="terminal_catagory_code != null">
+            <![CDATA[and code = #{terminal_catagory_code}]]>
+        </if>
+        <if test="terminal_catagory_id != null">
+            <![CDATA[and terminal_catagory_id = #{terminal_catagory_id}]]>
+        </if>
+        limit 1;
+    </select>
+
+    <select id="selTerminalByMap" parameterType="map" resultMap="terminalMap">
+        select
+        <include refid="terminal_list"/>
+        from terminal
+        where 1 = 1
+        <if test="mac_address != null">
+            <![CDATA[and mac_address = #{mac_address}]]>
+        </if>
+        <if test="uuid != null">
+            <![CDATA[and uuid = #{uuid}]]>
+        </if>
+        <if test="terminal_id != null">
+            <![CDATA[and terminal_id = #{terminal_id}]]>
+        </if>
+        limit 1;
+    </select>
+
+    <resultMap id="TemplateMap" type="map">
+        <result column="device_type_id" property="device_type_id"/>
+        <result column="terminal_catagory_id" property="terminal_catagory_id"/>
+        <result column="terminal_catagory_name" property="terminal_catagory_name"/>
+        <result column="template_type" property="template_type"/>
+        <result column="template_url" property="template_url"/>
+    </resultMap>
+
+    <select id="selTemplatesByPage" parameterType="map" resultMap="TemplateMap">
+        select a.device_type_id as device_type_id, a.terminal_catagory_id as terminal_catagory_id,
+        a.name as terminal_catagory_name, b.template_type as template_type, b.template as template_url
+        from terminal_catagory a left join terminal_catagory_template b on a.terminal_catagory_id =
+        b.terminal_catagory_id
+        where 1 = 1
+        <if test="manufactory_id != null">
+            <![CDATA[and a.manufactory_id = #{manufactory_id}]]>
+        </if>
+        <if test="device_type_id != null">
+            <![CDATA[and a.device_type_id = #{device_type_id}]]>
+        </if>
+        <if test="terminal_catagory_name != null">
+            <![CDATA[and a.name like "%${terminal_catagory_name}%"]]>
+        </if>
+        <if test="query_date != null">
+            <![CDATA[and a.created_at <= #{query_date}]]>
+        </if>
+    </select>
+
+    <resultMap id="TermCatTemplateMap" type="com.jxyq.model.health.TerminalCatagoryTemplate">
+        <result column="terminal_catagory_template_id" property="terminal_catagory_template_id"/>
+        <result column="terminal_catagory_id" property="terminal_catagory_id"/>
+        <result column="template" property="template"/>
+        <result column="template_type" property="template_type"/>
+        <result column="manufactory_id" property="manufactory_id"/>
+        <result column="product_type_id" property="product_type_id"/>
+        <result column="device_type_id" property="device_type_id"/>
+        <result column="uploaded_at" property="uploaded_at"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <select id="selTemplateByTermCat" parameterType="map" resultMap="TermCatTemplateMap">
+        select terminal_catagory_template_id, terminal_catagory_id, template, template_type, manufactory_id,
+        product_type_id, device_type_id, uploaded_at, status
+        from terminal_catagory_template
+        where 1 = 1
+        <if test="terminal_catagory_id != null">
+            <![CDATA[and terminal_catagory_id = #{terminal_catagory_id}]]>
+        </if>
+        limit 1
+    </select>
+
+    <insert id="inTemplate" parameterType="com.jxyq.model.health.TerminalCatagoryTemplate">
+        insert into terminal_catagory_template(terminal_catagory_template_id, terminal_catagory_id, template,
+        template_type,
+        manufactory_id, product_type_id, device_type_id, uploaded_at, status)
+        values(#{terminal_catagory_template_id}, #{terminal_catagory_id}, #{template}, #{template_type},
+        #{manufactory_id}, #{product_type_id}, #{device_type_id}, #{uploaded_at}, #{status})
+    </insert>
+
+    <insert id="insertTerminal" useGeneratedKeys="true" keyProperty="terminal_id" parameterType="com.jxyq.model.health.Terminal">
+        insert into terminal(
+        <include refid="terminal_list"/>
+        )
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{terminal_id}, #{name}, #{mac_address}, #{uuid}, #{manufactory_id}, #{product_type_id},
+            #{device_type_id}, #{terminal_catagory_id}, #{status}, #{activated_at},
+        </trim>
+    </insert>
+
+    <update id="updateTerminal" parameterType="com.jxyq.model.health.Terminal">
+        update terminal set
+        manufactory_id = #{manufactory_id},
+        product_type_id = #{product_type_id},
+        device_type_id = #{device_type_id}
+        where terminal_id = #{terminal_id}
+    </update>
+
+    <delete id="delTemplateResourceByCatId" parameterType="map">
+        DELETE a FROM terminal_catagory_template_resource a, terminal_catagory_template b
+        WHERE a.terminal_catagory_template_id = b.terminal_catagory_template_id
+        and b.terminal_catagory_id = #{terminal_catagory_id}
+    </delete>
+
+    <delete id="delTemplateByCatId" parameterType="map">
+        delete from terminal_catagory_template where terminal_catagory_id = #{terminal_catagory_id}
+    </delete>
+
+    <select id="selProductTypeById" parameterType="map" resultMap="productTypeMap">
+        select
+        <include refid="product_type_list"/>
+        from product_type
+        where product_type_id = #{product_type_id}
+        limit 1;
+    </select>
+
+    <select id="selTerminalDetail" parameterType="map" resultMap="terminalsDetailMap">
+        select e.terminal_catagory_id,c.product_type_id,a.terminal_id, a.name as terminal_name, b.full_name as
+        manufactory_name, c.name as product_name, d.name as device_type_name,
+        e.name as catagory_name, a.activated_at as activated_at, a.status as status,b.manufactory_id,d.device_type_id
+        from terminal a left join manufactory b on a.manufactory_id = b.manufactory_id
+        left join product_type c on a.product_type_id = c.product_type_id
+        left join device_type d on a.device_type_id = d.device_type_id
+        left join terminal_catagory e on a.terminal_catagory_id = e.terminal_catagory_id
+        where a.terminal_id = #{terminal_id}
+    </select>
+
+    <select id="selUsersByTerminalId" parameterType="map" resultMap="userTerminalMap">
+        select a.user_device_id, a.terminal_id, a.user_id as user_id, b.phone, b.full_name,
+        a.count, a.updated_at
+        from user_terminal a left join user b on a.user_id = b.user_id
+        where a.terminal_id = #{tid}
+    </select>
+
+    <select id="selTerminalsByPage" parameterType="map" resultMap="terminalsMap">
+        select a.terminal_id, a.name as terminal_name, b.full_name as manufactory_name, c.name as product_name, d.name
+        as device_type_name,
+        e.name as catagory_name, a.activated_at as activated_at, a.status as status, b.manufactory_id, d.device_type_id,
+        a.terminal_catagory_id as terminal_catagory_id
+        from terminal a left join manufactory b on a.manufactory_id = b.manufactory_id
+        left join product_type c on a.product_type_id = c.product_type_id
+        left join device_type d on a.device_type_id = d.device_type_id
+        left join terminal_catagory e on a.terminal_catagory_id = e.terminal_catagory_id
+        where 1 = 1
+        <if test="device_type_ids != null">
+            and a.device_type_id in
+            <foreach item="item" index="index" collection="device_type_ids" open="(" separator="," close=")">#{item}
+            </foreach>
+        </if>
+        <if test="manufactory_ids != null">
+            and a.manufactory_id in
+            <foreach item="item" index="index" collection="manufactory_ids" open="(" separator="," close=")">#{item}
+            </foreach>
+        </if>
+        <if test="status != null">
+            <![CDATA[and a.status = #{status}]]>
+        </if>
+        <if test="full_name != null">
+            <![CDATA[and a.name like "%${full_name}%"]]>
+        </if>
+        <if test="query_date != null">
+            <![CDATA[and a.activated_at <= (#{query_date})]]>
+        </if>
+        <if test="manufactory_id != null">
+            <![CDATA[and a.manufactory_id=(#{manufactory_id})]]>
+        </if>
+    </select>
+
+    <select id="selTerminalCat4MarketByPage" parameterType="map" resultMap="TerminalCat4MarketMap">
+        select terminal_catagory_id, name, product_type_id, device_type_id, picture, price
+        from terminal_catagory a left join manufactory b on a.manufactory_id = b.manufactory_id
+        where 1 = 1
+        <if test="device_type_ids != null">
+            and a.device_type_id in
+            <foreach item="item" index="index" collection="device_type_ids" open="(" separator="," close=")">#{item}
+            </foreach>
+        </if>
+        <if test="manufactory_name != null">
+            <![CDATA[and b.full_name like '%${manufactory_name}%']]>
+        </if>
+        <if test="status != null">
+            <![CDATA[and a.status = #{status}]]>
+        </if>
+        <if test="query_date != null">
+            <![CDATA[and a.created_at < #{query_date}]]>
+        </if>
+    </select>
+
+    <select id="selTerminalCat4Market" parameterType="map" resultMap="selTerminalCat4MarketMap">
+        select name, product_type_id, device_type_id, picture, price,
+        b.full_name as manufactory_name, a.profile as profile
+        from terminal_catagory a left join manufactory b on a.manufactory_id = b.manufactory_id
+        where a.terminal_catagory_id = #{terminal_catagory_id}
+    </select>
+
+    <select id="selManuByDeviceType" parameterType="map" resultMap="selManuByDeviceTypeMap">
+        <!--select a.manufactory_id, b.full_name-->
+        <!--from terminal_catagory a, manufactory b-->
+        <!--where a.manufactory_id = b.manufactory_id-->
+        <!--and a.device_type_id = #{did}-->
+        select b.full_name
+        from terminal_catagory a, manufactory b
+        where a.manufactory_id = b.manufactory_id
+        and a.device_type_id = #{did}
+    </select>
+
+    <select id="selDeviceTypeByPage" parameterType="map" resultMap="selDeviceTypeByPageMap">
+        select device_type_id, a.name as device_type_name, a.product_type_id, b.name as product_type_name,
+        a.registered_at, a.status
+        from device_type a, product_type b
+        where a.product_type_id = b.product_type_id
+        and 1 = 1
+        <if test="device_type_ids != null">
+            and a.device_type_id in
+            <foreach item="item" index="index" collection="device_type_ids" open="(" separator="," close=")">#{item}
+            </foreach>
+        </if>
+        <if test="minRegisterTime != null">
+            <![CDATA[and a.registered_at >= (#{minRegisterTime})]]>
+        </if>
+        <if test="maxRegisterTime != null">
+            <![CDATA[and a.registered_at <= (#{maxRegisterTime})]]>
+        </if>
+        <if test="query_date != null">
+            <![CDATA[and a.registered_at <= (#{query_date})]]>
+        </if>
+        <if test="name != null">
+            <![CDATA[and a.name like "%${name}%"]]>
+        </if>
+    </select>
+
+    <insert id="insertDeviceType" useGeneratedKeys="true" keyProperty="device_type_id"
+            parameterType="com.jxyq.model.health.DeviceType">
+        insert into device_type(
+        <include refid="device_type_list"/>
+        )
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{device_type_id}, #{name}, #{product_type_id}, #{registered_at}, #{status},
+        </trim>
+    </insert>
+
+    <update id="updateDeviceType" parameterType="com.jxyq.model.health.DeviceType">
+        update device_type
+        set name = #{name}, product_type_id = #{product_type_id}
+        where device_type_id = #{device_type_id}
+    </update>
+
+    <delete id="deleteDeviceType" parameterType="map">
+        delete from device_type where device_type_id = #{did}
+    </delete>
+
+    <select id="selDeviceType4Edit" parameterType="map" resultMap="selDeviceTypeByPageMap">
+        select device_type_id, a.name as device_type_name, a.product_type_id, b.name as product_type_name,
+        a.registered_at, a.status
+        from device_type a, product_type b
+        where a.product_type_id = b.product_type_id
+        and device_type_id = #{id}
+    </select>
+
+    <select id="selTerminalCatagoryByDeviceTypeId" parameterType="map" resultMap="selTerminalCatagoryByDeviceTypeIdMap">
+        select a.manufactory_id, b.code as manufactory_code, b.full_name as manufactory_full_name,
+        a.terminal_catagory_id, a.code as terminal_catagory_code,
+        a.name as terminal_catagory_name
+        from terminal_catagory a, manufactory b
+        where a.manufactory_id = b.manufactory_id
+        and a.device_type_id = #{device_type_id}
+    </select>
+
+    <resultMap id="PatternMap" type="com.jxyq.model.health.TerminalCatagoryPattern">
+        <result column="terminal_catagory_pattern_id" property="terminal_catagory_pattern_id"/>
+        <result column="terminal_catagory_id" property="terminal_catagory_id"/>
+        <result column="pattern" property="pattern"/>
+        <result column="manufactory_id" property="manufactory_id"/>
+        <result column="product_type_id" property="product_type_id"/>
+        <result column="device_type_id" property="device_type_id"/>
+        <result column="created_at" property="created_at"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <select id="selCategoryPattern" parameterType="map" resultMap="PatternMap">
+        select terminal_catagory_pattern_id, terminal_catagory_id, pattern, manufactory_id, product_type_id,
+            device_type_id, created_at, status
+        from terminal_catagory_pattern
+        where 1 = 1
+        <if test="terminal_catagory_id != null">
+            <![CDATA[and terminal_catagory_id = #{terminal_catagory_id}]]>
+        </if>
+    </select>
+
+    <select id="selDeviceIdAndName" parameterType="map" resultMap="DeviceIdAndNameMap">
+        select device_type_id, name from device_type where 1 = 1
+        <if test="status != null">
+            <![CDATA[and status = #{status}]]>
+        </if>
+        <if test="product_type_id != null">
+            <![CDATA[and product_type_id = #{product_type_id}]]>
+        </if>
+    </select>
+
+    <select id="selProductIdAndName" parameterType="map" resultMap="ProductIdAndNameMap">
+        select product_type_id, name from product_type where 1 = 1
+        <if test="status != null">
+            <![CDATA[and status = #{status}]]>
+        </if>
+    </select>
+
+    <select id="selDeviceCountByFactoryId" parameterType="map" resultMap="CountMap">
+        select count(*) as count from terminal_catagory
+        where manufactory_id = #{manufactory_id}
+        and device_type_id = #{device_type_id}
+    </select>
+
+    <select id="selDeviceTypeByFactoryId" parameterType="map" resultMap="deviceTypeMap">
+        select device_type_id from manufactory_device_type
+        where manufactory_id = #{manufactory_id}
+    </select>
+
+    <delete id="delFactoryDeviceType" parameterType="map">
+        delete from manufactory_device_type
+        where 1 = 1
+        <if test="manufactory_id != null">
+            <![CDATA[and manufactory_id = #{manufactory_id}]]>
+        </if>
+    </delete>
+
+    <insert id="inFactoryDeviceType" parameterType="map">
+        insert into manufactory_device_type(manufactory_device_type_id, manufactory_id, device_type_id)
+        values(#{manufactory_device_type_id}, #{manufactory_id}, #{device_type_id})
+    </insert>
+
+    <select id="selTerCatByFactoryId" parameterType="map" resultMap="terminalCatagoryMap">
+        select
+        <include refid="terminal_catagory_list"/>
+        from terminal_catagory
+        where 1 = 1
+        <if test="manufactory_id != null">
+            <![CDATA[and manufactory_id = #{manufactory_id}]]>
+        </if>
+        <if test="status != null">
+            <![CDATA[and status = #{status}]]>
+        </if>
+    </select>
+</mapper>

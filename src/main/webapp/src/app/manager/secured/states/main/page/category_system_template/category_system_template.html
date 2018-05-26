@@ -1,0 +1,51 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            产品模板设置
+        </h4>
+    </div>
+    </br>
+    <div class="panel-body">
+        <div class="form" ng-submit="modifySystemTemplate()">
+            <div class="row">
+                <div class="col-md-offset-2 col-md-8">
+                    <div class="alert alert-{{alert.type}} alert-dismissable" style="text-align: center;" role="alert" ng-repeat="alert in alerts" type="{{alert.type}}">
+                        <button type="button" class="close" ng-click="closeAlert($index)">
+                        </button>
+                        {{alert.msg}}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-4 text-left">
+                        <label class="control-label" for="phone">当前页面模板</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-8 text-center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <img ng-src={{web.template}} style="max-height:500px;max-width:500px/">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="file" file-model="templatefile" class="form-control" accept=".png,.jpg,.jpeg,.gif"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <button type="submit" ng-click="modifySystemTemplate()" class="btn btn-success col-md-offset-5 col-md-2" ng-disabled="disabledBtn">确认修改</button>
+            </div>
+        </div>
+    </div>
+</div>

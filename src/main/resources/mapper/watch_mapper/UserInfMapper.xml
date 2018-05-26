@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxyq.mapper.watch_mapper.UserInfMapper">
+
+    <sql id="user_info_list">
+        user_id, imei, passwd, simid, number,
+        qing1, qing2, qing3, qing4, name,
+        address, qq, email, homephone, valid,
+        create_time, regist, regist_time, creator, route_en,
+        gps_mode, gps_interval, mode_type, user_mode, log_times,
+        log_interval, batlevel, phone_signal
+    </sql>
+
+    <sql id="heartbeat_info_list">
+        id, user_id, gap, create_time, update_time
+    </sql>
+
+    <resultMap id="userInfMap" type="com.jxyq.model.watch.UserInf">
+        <result column="user_id" property="user_id"/>
+        <result column="imei" property="imei"/>
+        <result column="passwd" property="passwd"/>
+        <result column="simid" property="simid"/>
+        <result column="number" property="number"/>
+        <result column="qing1" property="qing1"/>
+        <result column="qing2" property="qing2"/>
+        <result column="qing3" property="qing3"/>
+        <result column="qing4" property="qing4"/>
+        <result column="name" property="name"/>
+        <result column="address" property="address"/>
+        <result column="qq" property="qq"/>
+        <result column="email" property="email"/>
+        <result column="homephone" property="homephone"/>
+        <result column="valid" property="valid"/>
+        <result column="create_time" property="create_time"/>
+        <result column="regist" property="regist"/>
+        <result column="regist_time" property="regist_time"/>
+        <result column="creator" property="creator"/>
+        <result column="route_en" property="route_en"/>
+        <result column="gps_mode" property="gps_mode"/>
+        <result column="gps_interval" property="gps_interval"/>
+        <result column="mode_type" property="mode_type"/>
+        <result column="user_mode" property="user_mode"/>
+        <result column="log_times" property="log_times"/>
+        <result column="log_interval" property="log_interval"/>
+        <result column="batlevel" property="batlevel"/>
+        <result column="phone_signal" property="phone_signal"/>
+    </resultMap>
+
+    <resultMap id="heartBeatInfMap" type="com.jxyq.model.watch.HeartBeatInf">
+        <result column="id" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="gap" property="gap"/>
+        <result column="create_time" property="create_time"/>
+        <result column="update_time" property="update_time"/>
+    </resultMap>
+
+    <resultMap id="UserSmsMap" type="com.jxyq.model.watch.UserSms">
+        <result column="id" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="number" property="number"/>
+        <result column="msg" property="msg"/>
+        <result column="command" property="command"/>
+        <result column="subtime" property="subtime"/>
+    </resultMap>
+
+    <resultMap id="AppSmsMap" type="com.jxyq.model.watch.AppSms">
+        <result column="id" property="id"/>
+        <result column="number" property="number"/>
+        <result column="msg" property="msg"/>
+        <result column="readed" property="readed"/>
+        <result column="updatetime" property="updatetime"/>
+    </resultMap>
+
+    <select id="selUserInf" parameterType="map" resultMap="userInfMap">
+        select
+        <include refid="user_info_list"/>
+        from user_info
+        where 1 = 1
+        <if test="imei != null">
+            <![CDATA[and imei = #{imei}]]>
+        </if>
+        limit 1
+    </select>
+
+    <update id="updateUserInf" parameterType="com.jxyq.model.watch.UserInf">
+        update user_info set
+            user_id = #{user_id},
+            imei = #{imei},
+            passwd = #{passwd},
+            simid = #{simid},
+            number = #{number},
+            qing1 = #{qing1},
+            qing2 = #{qing2},
+            qing3 = #{qing3},
+            qing4 = #{qing4},
+            name = #{name},
+            address = #{address},
+            qq = #{qq},
+            email = #{email},
+            homephone = #{homephone},
+            valid = #{valid},
+            create_time = #{create_time},
+            regist = #{regist},
+            regist_time = #{regist_time},
+            creator = #{creator},
+            route_en = #{route_en},
+            gps_mode = #{gps_mode},
+            gps_interval = #{gps_interval},
+            mode_type = #{mode_type},
+            user_mode = #{user_mode},
+            log_times = #{log_times},
+            log_interval = #{log_interval},
+            batlevel = #{batlevel},
+            phone_signal = #{phone_signal}
+        where user_id = #{user_id}
+    </update>
+
+    <update id="updateUserNumber" parameterType="map">
+        update user_info set number = #{number} where imei = #{imei}
+    </update>
+
+    <select id="selUserHeartBeatInf" parameterType="map" resultMap="heartBeatInfMap">
+        select
+        <include refid="heartbeat_info_list"/>
+        from heartbeat_info
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id = #{user_id}]]>
+        </if>
+        limit 1
+    </select>
+
+    <insert id="inUserHeartBeat" parameterType="com.jxyq.model.watch.HeartBeatInf">
+        insert into heartbeat_info(id, user_id, gap, create_time, update_time)
+        values(0, #{user_id}, #{gap}, #{create_time}, #{update_time});
+    </insert>
+
+    <update id="upUserHeartBeat" parameterType="com.jxyq.model.watch.HeartBeatInf">
+        update heartbeat_info set
+        gap = #{gap}, create_time = #{create_time}, update_time = #{update_time}
+        where id = #{id}
+    </update>
+
+    <update id="inRouteInf" parameterType="map">
+        update user_info set
+            route_en = #{route_en},
+            gps_mode = #{gps_mode},
+            gps_interval = #{gps_interval}
+        where user_id = #{user_id}
+    </update>
+
+    <select id="selUserSmsList" parameterType="map" resultMap="UserSmsMap">
+        select id, user_id, number, msg, command, subtime
+        from usersms
+        where user_id = #{user_id}
+        and subtime between #{begin_date} and #{end_date}
+    </select>
+
+    <select id="qryUserSmsListByPage" parameterType="map" resultMap="UserSmsMap">
+        select id, user_id, number, msg, command, subtime
+        from usersms
+        where 1 = 1
+        and user_id = #{user_id}
+        and subtime between #{begin_date} and #{end_date}
+    </select>
+
+    <select id="selAppSmsList" parameterType="map" resultMap="AppSmsMap">
+        select id, number, msg, readed, updatetime
+        from appsms
+        where 1 = 1
+        <if test="readed != null">
+            <![CDATA[and readed = #{readed}]]>
+        </if>
+    </select>
+
+    <update id="upAppSmsReaded" parameterType="map">
+        update appsms set readed = #{readed} where id = #{id}
+    </update>
+
+    <insert id="inUserInfMore" parameterType="map">
+        insert into user_info_more(id, user_id) values(#{id}, #{user_id})
+    </insert>
+</mapper>

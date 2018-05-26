@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxyq.mapper.normal_mapper.ConsultationMapper">
+
+    <resultMap id="selectInfoExpert" type="map" >
+        <result column="expert_team_id" property="expert_team_id" />
+        <result column="district_id" property="district_id" />
+        <result column="profile" property="profile" />
+        <result column="query_count" property="query_count" />
+    </resultMap>
+
+
+    <resultMap id="selectHcList" type="com.jxyq.model.QA" >
+        <result column="question_and_reply_id" property="question_and_reply_id" />
+        <result column="qa_type" property="qa_type"  />
+        <result column="doctor_id" property="doctor_id"  />
+        <result column="full_name" property="doctor_name"  />
+        <result column="profile" property="doctor_profile"  />
+        <result column="content" property="content" />
+        <result column="audio_url" property="audio_url" />
+        <result column="image_url1" property="image_url1" />
+        <result column="image_url2" property="image_url2" />
+        <result column="image_url3" property="image_url3" />
+        <result column="image_url4" property="image_url4" />
+        <result column="created_at" property="created_at" />
+    </resultMap>
+
+    <resultMap id="selecthealthContext" type="com.jxyq.model.ConContext" >
+        <result column="health_consultation_id" property="id" />
+        <result column="district_id" property="district_id" />
+        <result column="content" property="content" />
+        <result column="score" property="score" />
+        <result column="status" property="status" />
+        <result column="created_at" property="created_at" />
+        <result column="expert_team_id" property="expert_team_id" />
+        <result column="doctor_id" property="doctor_id" />
+        <result column="doctor_full_name" property="doctor_name" />
+        <result column="profile" property="doctor_profile" />
+        <result column="phone" property="phone" />
+        <result column="user_full_name" property="user_name" />
+        <result column="department_id" property="department_id" />
+    </resultMap>
+
+    <resultMap id="consultDetailMap" type="map">
+        <result column="question_and_reply_id" property="question_and_reply_id" />
+        <result column="qa_type" property="qa_type" />
+        <result column="doctor_id" property="doctor_id" />
+        <result column="doctor_name" property="doctor_name" />
+        <result column="doctor_profile" property="doctor_profile" />
+        <result column="content" property="content" />
+        <result column="audio_url" property="audio_url" />
+        <result column="audio_duration" property="audio_duration" />
+        <result column="image_url1" property="image_url1" />
+        <result column="image_url2" property="image_url2" />
+        <result column="image_url3" property="image_url3" />
+        <result column="image_url4" property="image_url4" />
+        <result column="created_at" property="created_at" />
+    </resultMap>
+    
+    <resultMap id="HealthConMap" type="map">
+        <result column="health_consultation_id" property="health_consultation_id" />
+        <result column="phone" property="phone" />
+        <result column="full_name" property="full_name" />
+        <result column="created_at" property="created_at" />
+        <result column="district_id" property="district_id" />
+        <result column="department_id" property="department_id" />
+        <result column="doctor_id" property="doctor_id" />
+        <result column="content" property="content" />
+        <result column="comment" property="comment" />
+        <result column="score" property="score" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <resultMap id="ConsultationMap" type="com.jxyq.model.consultation.HealthConsultation">
+        <result column="health_consultation_id" property="health_consultation_id" />
+        <result column="user_id" property="user_id" />
+        <result column="created_at" property="created_at" />
+        <result column="district_id" property="district_id" />
+        <result column="department_id" property="department_id" />
+        <result column="doctor_id" property="doctor_id" />
+        <result column="content" property="content" />
+        <result column="comment" property="comment" />
+        <result column="score" property="score" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <resultMap id="QuestionAndReplyMap" type="com.jxyq.model.consultation.QuestionAndReplyResource">
+        <result column="question_and_reply_id" property="question_and_reply_id"/>
+        <result column="health_consultation_id" property="health_consultation_id"/>
+        <result column="created_at" property="created_at"/>
+        <result column="content" property="content"/>
+        <result column="qa_type" property="qa_type"/>
+        <result column="doctor_id" property="doctor_id"/>
+        <result column="doctor_name" property="doctor_name"/>
+        <result column="qa_status" property="status"/>
+        <result column="question_and_reply_resource_id" property="question_and_reply_resource_id"/>
+        <result column="image_url1" property="image_url1"/>
+        <result column="image_url2" property="image_url2"/>
+        <result column="image_url3" property="image_url3"/>
+        <result column="image_url4" property="image_url4"/>
+        <result column="audio_url" property="audio_url"/>
+        <result column="audio_duration" property="audio_duration"/>
+    </resultMap>
+
+    <select id="selectExpertTeams" parameterType="map" resultMap="selectInfoExpert">
+        select expert_team_id, district_id,profile,query_count from expert_team ;
+    </select>
+
+    <select id="selExpertTeam" parameterType="map" resultMap="selectInfoExpert">
+        select expert_team_id, district_id, profile, query_count
+        from expert_team
+        where 1 = 1
+        <if test="district_id != null">
+            <![CDATA[and district_id = #{district_id}]]>
+        </if>
+        limit 1
+    </select>
+
+    <select id="selectExpertPhone" parameterType="int" resultType="String">
+        select phone from doctor where expert_team_id=#{id,jdbcType=VARCHAR} order by rand() limit 1;
+    </select>
+
+    <select id="selUserPoints" parameterType="int" resultType="int">
+        select points from user where user_id=#{userId,jdbcType=VARCHAR} ;
+    </select>
+
+
+    <update id="upUserPoints" parameterType="map" >
+        update user set points=#{points} where user_id=#{userId};
+    </update>
+
+    <select id="selectQA" parameterType="com.jxyq.model.QA" resultMap="selectHcList">
+      <!-- select A.question_and_reply_id,qa_type,C.doctor_id,C.full_name,C.profile, content,
+           audio_url ,image_url1,image_url2,image_url3,image_url4,audio_duration,created_at from question_and_reply  A
+             join question_and_reply_resource  B join doctor C where A.question_and_reply_id=B.question_and_reply_id
+                  and A.doctor_id=C.doctor_id and health_consultation_id=#{id,jdbcType=VARCHAR} ;-->
+        select * from question_and_reply where health_consultation_id=#{id,jdbcType=VARCHAR} ;
+    </select>
+
+    <select id="selectContext" parameterType="com.jxyq.model.ConContext" resultMap="selecthealthContext">
+        select health_consultation_id,A.district_id,A.department_id,content,score,A.status,created_at,
+            C.expert_team_id,C.doctor_id,C.full_name,C.profile, B.phone,B.full_name
+                 from health_consultation A join user B join doctor C where A.user_id=B.user_id
+                    and A.doctor_id=C.doctor_id AND A.department_id=#{department_id,jdbcType=NUMERIC} and
+                       A.district_id=#{district_id,jdbcType=NUMERIC} limit 1;
+    </select>
+
+    <select id="selConsultationsByPage" parameterType="map" resultMap="selecthealthContext">
+        select health_consultation_id, a.district_id as district_id, a.department_id as department_id, content, score,
+            a.status as status, a.created_at as created_at, c.expert_team_id as expert_team_id, a.doctor_id as doctor_id, c.full_name as doctor_full_name,
+            c.profile as profile, b.phone as phone, b.full_name as user_full_name
+        from health_consultation a left join user b on a.user_id = b.user_id left join doctor c on a.doctor_id = c.doctor_id
+        where 1 = 1
+        <if test="submit_date != null">
+            <![CDATA[and a.created_at < #{submit_date}]]>
+        </if>
+        <if test="district_id != null">
+            <![CDATA[and a.district_id = #{district_id}]]>
+        </if>
+        <if test="department_id != null">
+            <![CDATA[and a.department_id = #{department_id}]]>
+        </if>
+        <if test="begin_date != null">
+            <![CDATA[and a.created_at >= #{begin_date}]]>
+        </if>
+        <if test="end_date != null">
+            <![CDATA[and a.created_at <= #{end_date}]]>
+        </if>
+        <if test="status != null">
+            <![CDATA[and a.status = #{status}]]>
+        </if>
+        <if test="user_id != null">
+            <![CDATA[and a.user_id = #{user_id}]]>
+        </if>
+        <if test="open != null and open == true">
+            <![CDATA[and a.status != 4]]>
+        </if>
+        order by a.created_at desc
+    </select>
+
+    <insert id="createContext" useGeneratedKeys="true" keyProperty="id"  parameterType="com.jxyq.model.ConContext">
+        insert into health_consultation(district_id,department_id,content,user_id,created_at,status)
+                values(#{district_id},#{department_id},#{content},#{user_id},#{created_at},#{status});
+    </insert>
+
+     <insert id="insertQA" useGeneratedKeys="true" keyProperty="question_and_reply_id"  parameterType="com.jxyq.model.QA">
+        insert into question_and_reply(health_consultation_id,created_at,content,qa_type,status) values(#{health_consultation_id},#{created_at},#{content},#{qa_type},#{status});
+    </insert>
+
+    <insert id="inQuestionAndReply" useGeneratedKeys="true" keyProperty="question_and_reply_id"  parameterType="com.jxyq.model.consultation.QuestionAndReply">
+        insert into question_and_reply(question_and_reply_id, health_consultation_id, created_at, content, qa_type,
+            doctor_id, status)
+        values(#{question_and_reply_id}, #{health_consultation_id}, #{created_at}, #{content}, #{qa_type},
+            #{doctor_id}, #{status});
+    </insert>
+
+    <insert id="insertQAResource" parameterType="map">
+        insert into question_and_reply_resource(question_and_reply_id,audio_duration,image_url1,image_url2,image_url3,image_url4,audio_url,status)
+        values(#{question_and_reply_id},#{audio_duration},#{image_url1},#{image_url2},#{image_url3},#{image_url4},#{audio_url},#{status});
+    </insert>
+
+    <insert id="insertContent" parameterType="map">
+        insert into health_consultation(content) where health_consultation_id=#{id,jdbcType=NUMERIC} limit 1;
+    </insert>
+
+    <update id="updateQA" parameterType="map">
+        update 	question_and_reply a ,question_and_reply_resource b set content=#{content,jdbcType=VARCHAR},audio_duration=#{audio_duration,jdbcType=VARCHAR}
+        where a.question_and_reply_id=b.question_and_reply_id and  health_consultation_id=#{health_consultation_id,jdbcType=NUMERIC};
+    </update>
+
+    <update id="updateConsultContent" parameterType="map">
+        update health_consultation
+        set
+        <if test="comment != null">
+            <![CDATA[comment = #{comment},]]>
+        </if>
+        <if test="score != null">
+            <![CDATA[score = #{score},]]>
+        </if>
+        <if test="status != null">
+            <![CDATA[status = #{status},]]>
+        </if>
+        health_consultation_id = #{health_consultation_id}
+        where health_consultation_id = #{health_consultation_id}
+    </update>
+
+    <select id="selConsultDetail" parameterType="map" resultMap="consultDetailMap">
+        select a.question_and_reply_id as question_and_reply_id, a.created_at as created_at, a.content as content, a.qa_type as qa_type, a.doctor_id as doctor_id,
+            b.full_name as doctor_name, b.profile as doctor_profile, c.audio_url as audio_url, c.audio_duration as audio_duration, c.image_url1 as image_url1,
+            c.image_url2 as image_url2, c.image_url3 as image_url3, c.image_url4 as image_url4
+        from question_and_reply a left join doctor b on a.doctor_id = b.doctor_id
+            left join question_and_reply_resource c on a.question_and_reply_id = c.question_and_reply_id
+        where a.health_consultation_id = #{health_consultation_id}
+        order by created_at ASC
+    </select>
+    
+    <select id="selHealthConByPage" parameterType="map" resultMap="HealthConMap">
+        select health_consultation_id, phone, full_name, created_at, a.district_id,
+            department_id, doctor_id, content, comment, score,
+            a.status
+        from health_consultation a, user b
+        where a.user_id = b.user_id
+        <if test="district_id != null">
+            and a.district_id in
+            <foreach item="item" index="index" collection="district_id" open="(" separator="," close=")">#{item}</foreach>
+        </if>
+        <if test="department_id != null">
+            and department_id in
+            <foreach item="item" index="index" collection="department_id" open="(" separator="," close=")">#{item}</foreach>
+        </if>
+        <if test="status != null">
+            <![CDATA[and a.status = #{status} ]]>
+        </if>
+        <if test="created_from != null">
+            <![CDATA[and created_at >= #{created_from} ]]>
+        </if>
+        <if test="created_to != null">
+            <![CDATA[and created_at <= #{created_to} ]]>
+        </if>
+        <if test="query_date != null">
+            <![CDATA[and created_at < #{query_date} ]]>
+        </if>
+        order by created_at DESC
+    </select>
+
+    <select id="selHealthConById" parameterType="map" resultMap="ConsultationMap">
+        select health_consultation_id, user_id, created_at, district_id, department_id,
+            doctor_id, content, comment, score, status
+        from health_consultation
+        where health_consultation_id = #{cid}
+    </select>
+
+    <select id="selQuestionAndReply" parameterType="map" resultMap="QuestionAndReplyMap">
+        select a.question_and_reply_id as question_and_reply_id, health_consultation_id, created_at, content, qa_type,
+            a.doctor_id as doctor_id, a.status as qa_status, question_and_reply_resource_id, image_url1, image_url2,
+            image_url3, image_url4, audio_url, audio_duration, b.status as r_status, c.full_name as doctor_name
+        from question_and_reply a
+            left join question_and_reply_resource b on a.question_and_reply_id = b.question_and_reply_id
+            left join doctor c on a.doctor_id = c.doctor_id
+        where 1 = 1
+        <if test="cid != null">
+            <![CDATA[and health_consultation_id = #{cid} ]]>
+        </if>
+        order by created_at ASC
+    </select>
+
+</mapper>

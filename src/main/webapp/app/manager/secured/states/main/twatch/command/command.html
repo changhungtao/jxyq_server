@@ -1,0 +1,89 @@
+</br>
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h1 class="panel-title">信息查询</h1>
+  </div>
+  <div class="panel-body">
+      <!--start of alert block-->
+      <div class="alert alert-{{alert.type}} alert-dismissable" style="text-align: center;" role="alert" ng-repeat="alert in alerts" type="{{alert.type}}">
+          <button type="button" class="close" ng-click="closeAlert($index)">
+          </button>
+          {{alert.msg}}
+      </div>
+      <!--end of alert block-->
+    <!-- 查询区域 -->
+    <div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">查询条件</h3>
+            </div>
+            <div class="panel-body">
+              <form class="form-horizontal">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label">IMEI号码</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group">
+                          <input type="text" class="form-control" placeholder="儿童腕表IMEI号码" ng-model="commandparam.imei">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label">开始时间：</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group">
+                          <input type="text" class="form-control" disabled datepicker-popup="{{format}}" ng-model="query_date.begin_date" is-open="opened" min-date="minDate" max-date="dt" datepicker-options="dateOptions" ng-required="true" clear-text="清除" current-text="今天" close-text="关闭" />
+                          <span class="btn input-group-addon" ng-click="open($event)">
+                              <i class="fa fa-calendar"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label">结束时间：</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group">
+                          <input type="text" class="form-control" disabled datepicker-popup="{{format}}" ng-model="query_date.end_date" is-open="opened1" min-date="minDate" max-date="dt" datepicker-options="dateOptions" ng-required="true" clear-text="清除" current-text="今天" close-text="关闭" />
+                          <span class="btn input-group-addon" ng-click="open1($event)">
+                                <i class="fa fa-calendar"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="col-md-offset-4 col-md-8 text-right">
+                        <div class="col-md-12 text-right">
+                          <div class="form-group">
+                          <button class="btn btn-success col-md-12" ng-click="queryCommand()">查询</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div ui-grid="gridOptions" class="gridStyle" ui-grid-pagination>
+  </div>
+</div>
+</div>
+

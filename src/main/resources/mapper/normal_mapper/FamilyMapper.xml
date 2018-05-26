@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxyq.mapper.normal_mapper.FamilyMapper">
+
+    <resultMap id="CameraMap" type="com.jxyq.model.family.Camera">
+        <result column="camera_id" property="camera_id"/>
+        <result column="dev_nickname" property="dev_nickname"/>
+        <result column="user_id" property="user_id"/>
+        <result column="dev_uid" property="dev_uid"/>
+        <result column="dev_name" property="dev_name"/>
+        <result column="dev_pwd" property="dev_pwd"/>
+        <result column="view_acc" property="view_acc"/>
+        <result column="view_pwd" property="view_pwd"/>
+        <result column="event_notification" property="event_notification"/>
+        <result column="ask_format_sdcard" property="ask_format_sdcard"/>
+        <result column="camera_channel" property="camera_channel"/>
+        <result column="snapshot" property="snapshot"/>
+    </resultMap>
+
+    <resultMap id="CameraMoreMap" type="com.jxyq.model.family.CameraMore">
+        <result column="camera_id" property="camera_id" />
+        <result column="dev_uid" property="dev_uid" />
+        <result column="device_model" property="device_model" />
+        <result column="device_name" property="device_name" />
+        <result column="software_version" property="software_version" />
+        <result column="internet_ip" property="internet_ip" />
+        <result column="http_port" property="http_port" />
+        <result column="rtsp_port" property="rtsp_port" />
+        <result column="rtp_port" property="rtp_port" />
+        <result column="ddns_enable" property="ddns_enable" />
+        <result column="ddns_host" property="ddns_host" />
+        <result column="ddns_port" property="ddns_port" />
+        <result column="ddns_username" property="ddns_username" />
+        <result column="ddns_password" property="ddns_password" />
+        <result column="other_ddns_enable" property="other_ddns_enable" />
+        <result column="other_ddns_isp" property="other_ddns_isp" />
+        <result column="other_ddns_host" property="other_ddns_host" />
+        <result column="other_ddns_username" property="other_ddns_username" />
+        <result column="other_ddns_password" property="other_ddns_password" />
+    </resultMap>
+
+    <resultMap id="CameraInfMap" type="com.jxyq.model.family.CameraMore">
+        <result column="camera_id" property="camera_id"/>
+        <result column="dev_nickname" property="dev_nickname"/>
+        <result column="user_id" property="user_id"/>
+        <result column="dev_uid" property="dev_uid"/>
+        <result column="dev_name" property="dev_name"/>
+        <result column="dev_pwd" property="dev_pwd"/>
+        <result column="view_acc" property="view_acc"/>
+        <result column="view_pwd" property="view_pwd"/>
+        <result column="event_notification" property="event_notification"/>
+        <result column="ask_format_sdcard" property="ask_format_sdcard"/>
+        <result column="camera_channel" property="camera_channel"/>
+        <result column="snapshot" property="snapshot"/>
+        <result column="device_model" property="device_model" />
+        <result column="device_name" property="device_name" />
+        <result column="software_version" property="software_version" />
+        <result column="internet_ip" property="internet_ip" />
+        <result column="http_port" property="http_port" />
+        <result column="rtsp_port" property="rtsp_port" />
+        <result column="rtp_port" property="rtp_port" />
+        <result column="ddns_enable" property="ddns_enable" />
+        <result column="ddns_host" property="ddns_host" />
+        <result column="ddns_port" property="ddns_port" />
+        <result column="ddns_username" property="ddns_username" />
+        <result column="ddns_password" property="ddns_password" />
+        <result column="other_ddns_enable" property="other_ddns_enable" />
+        <result column="other_ddns_isp" property="other_ddns_isp" />
+        <result column="other_ddns_host" property="other_ddns_host" />
+        <result column="other_ddns_username" property="other_ddns_username" />
+        <result column="other_ddns_password" property="other_ddns_password" />
+    </resultMap>
+
+    <resultMap id="qryCameraByPageMap" type="map">
+        <result column="camera_id" property="camera_id"/>
+        <result column="dev_nickname" property="dev_nickname"/>
+        <result column="user_id" property="user_id"/>
+        <result column="full_name" property="user_name"/>
+        <result column="phone" property="user_phone"/>
+        <result column="dev_uid" property="dev_uid"/>
+        <result column="dev_name" property="dev_name"/>
+        <result column="dev_pwd" property="dev_pwd"/>
+        <result column="view_acc" property="view_acc"/>
+        <result column="view_pwd" property="view_pwd"/>
+        <result column="event_notification" property="event_notification"/>
+        <result column="ask_format_sdcard" property="ask_format_sdcard"/>
+        <result column="camera_channel" property="camera_channel"/>
+        <result column="snapshot" property="snapshot"/>
+        <result column="device_model" property="device_model" />
+        <result column="device_name" property="device_name" />
+        <result column="software_version" property="software_version" />
+        <result column="internet_ip" property="internet_ip" />
+        <result column="http_port" property="http_port" />
+        <result column="rtsp_port" property="rtsp_port" />
+        <result column="rtp_port" property="rtp_port" />
+        <result column="ddns_enable" property="ddns_enable" />
+        <result column="ddns_host" property="ddns_host" />
+        <result column="ddns_port" property="ddns_port" />
+        <result column="ddns_username" property="ddns_username" />
+        <result column="ddns_password" property="ddns_password" />
+        <result column="other_ddns_enable" property="other_ddns_enable" />
+        <result column="other_ddns_isp" property="other_ddns_isp" />
+        <result column="other_ddns_host" property="other_ddns_host" />
+        <result column="other_ddns_username" property="other_ddns_username" />
+        <result column="other_ddns_password" property="other_ddns_password" />
+    </resultMap>
+
+    <resultMap id="TouchButtonMap" type="com.jxyq.model.family.TouchButton">
+        <result column="touch_button_id" property="touch_button_id"/>
+        <result column="name" property="name"/>
+        <result column="user_id" property="user_id"/>
+        <result column="dev_uid" property="dev_uid"/>
+        <result column="registered_at" property="registered_at"/>
+    </resultMap>
+
+    <resultMap id="qryTouchButtonByPageMap" type="map">
+        <result column="user_phone" property="user_phone"/>
+        <result column="user_name" property="user_name"/>
+        <result column="touch_button_id" property="touch_button_id"/>
+        <result column="name" property="name"/>
+        <result column="user_id" property="user_id"/>
+        <result column="dev_uid" property="dev_uid"/>
+        <result column="registered_at" property="registered_at"/>
+    </resultMap>
+
+    <resultMap id="selTouchEventMap" type="map">
+        <result column="touch_button_event_id" property="touch_button_event_id"/>
+        <result column="dev_uid" property="dev_uid"/>
+        <result column="sensor_id" property="sensor_id"/>
+        <result column="sensor_type" property="sensor_type"/>
+        <result column="happened_at" property="happened_at"/>
+    </resultMap>
+
+    <select id="selTouchEvent" parameterType="map" resultMap="selTouchEventMap">
+        select touch_button_event_id, dev_uid, sensor_id, sensor_type, happened_at
+        from touch_button_event
+        where dev_uid = #{dev_uid}
+    </select>
+
+    <select id="qryTouchEventByPage" parameterType="map" resultMap="selTouchEventMap">
+        select touch_button_event_id, dev_uid, sensor_id, sensor_type, happened_at
+        from touch_button_event
+        where 1 = 1
+        <if test="touch_button_id != null">
+            <![CDATA[and dev_uid in (select dev_uid from touch_button where touch_button_id = #{touch_button_id})]]>
+        </if>
+        <if test="activated_from != null">
+            <![CDATA[and happened_at >= #{activated_from}]]>
+        </if>
+        <if test="activated_to != null">
+            <![CDATA[and happened_at <= #{activated_to}]]>
+        </if>
+        <if test="query_date != null">
+            <![CDATA[and happened_at <= #{query_date}]]>
+        </if>
+    </select>
+
+    <select id="selCameraList" parameterType="map" resultMap="CameraMap">
+        select camera_id, dev_nickname, user_id, dev_uid, dev_name,
+            dev_pwd, view_acc, view_pwd, event_notification, ask_format_sdcard,
+            camera_channel, snapshot
+        from camera
+        where user_id = #{user_id}
+    </select>
+
+    <select id="qryCameraByPage" parameterType="map" resultMap="qryCameraByPageMap">
+        select a.camera_id as camera_id, dev_nickname, a.user_id, c.full_name, c.phone, a.dev_uid as dev_uid, dev_name,
+        dev_pwd, view_acc, view_pwd, event_notification, ask_format_sdcard,
+        camera_channel, snapshot, device_model, device_name, software_version,
+        internet_ip, http_port, rtsp_port, rtp_port, ddns_enable,
+        ddns_host, ddns_port, ddns_username, ddns_password, other_ddns_enable,
+        other_ddns_isp, other_ddns_host, other_ddns_username, other_ddns_password
+        from camera a left join camera_more b on a.camera_id = b.camera_id
+        left join user c on a.user_id = c.user_id
+        where 1 = 1
+        <if test="phone != null">
+            <![CDATA[and a.user_id in (select user_id from user where phone like '%${phone}%')]]>
+        </if>
+    </select>
+
+    <select id="selCameraMore" parameterType="map" resultMap="CameraMoreMap">
+        select camera_id, dev_uid, device_model, device_name, software_version,
+            internet_ip, http_port, rtsp_port, rtp_port, ddns_enable,
+            ddns_host, ddns_port, ddns_username, ddns_password, other_ddns_enable,
+            other_ddns_isp, other_ddns_host, other_ddns_username, other_ddns_password
+        from camera_more
+        where camera_id = #{camera_id}
+    </select>
+
+    <select id="selCameraInfListMap" parameterType="map" resultMap="CameraInfMap">
+        select a.camera_id as camera_id, dev_nickname, user_id, a.dev_uid as dev_uid, dev_name,
+            dev_pwd, view_acc, view_pwd, event_notification, ask_format_sdcard,
+            camera_channel, snapshot, device_model, device_name, software_version,
+            internet_ip, http_port, rtsp_port, rtp_port, ddns_enable,
+            ddns_host, ddns_port, ddns_username, ddns_password, other_ddns_enable,
+            other_ddns_isp, other_ddns_host, other_ddns_username, other_ddns_password
+        from camera a left join camera_more b on a.camera_id = b.camera_id
+        where a.user_id = #{user_id}
+    </select>
+
+    <select id="selCameraMoreList" parameterType="map" resultMap="CameraMoreMap">
+        select camera_id, dev_uid, device_model, device_name, software_version,
+        internet_ip, http_port, rtsp_port, rtp_port, ddns_enable,
+        ddns_host, ddns_port, ddns_username, ddns_password, other_ddns_enable,
+        other_ddns_isp, other_ddns_host, other_ddns_username, other_ddns_password
+        from camera_more
+        where camera_id = #{camera_id}
+    </select>
+
+    <insert id="insertCamera" useGeneratedKeys="true" keyProperty="camera_id" parameterType="com.jxyq.model.family.Camera">
+        insert into camera(camera_id, dev_nickname, user_id, dev_uid, dev_name,
+            dev_pwd, view_acc, view_pwd, event_notification, ask_format_sdcard,
+            camera_channel, snapshot)
+        values(#{camera_id}, #{dev_nickname}, #{user_id}, #{dev_uid}, #{dev_name},
+            #{dev_pwd}, #{view_acc}, #{view_pwd}, #{event_notification}, #{ask_format_sdcard},
+            #{camera_channel}, #{snapshot})
+    </insert>
+
+    <update id="updateCamera" parameterType="com.jxyq.model.family.Camera">
+        update camera set
+        <if test="dev_nickname != null">
+            dev_nickname = #{dev_nickname},
+        </if>
+        <if test="user_id != null">
+            user_id = #{user_id},
+        </if>
+        <if test="dev_name != null">
+            dev_name = #{dev_name},
+        </if>
+        <if test="dev_pwd != null">
+            dev_pwd = #{dev_pwd},
+        </if>
+        <if test="view_acc != null">
+            view_acc = #{view_acc},
+        </if>
+        <if test="view_pwd != null">
+            view_pwd = #{view_pwd},
+        </if>
+        <if test="event_notification != null">
+            event_notification = #{event_notification},
+        </if>
+        <if test="ask_format_sdcard != null">
+            ask_format_sdcard = #{ask_format_sdcard},
+        </if>
+        <if test="camera_channel != null">
+            camera_channel = #{camera_channel},
+        </if>
+        <if test="snapshot != null">
+            snapshot = #{snapshot},
+        </if>
+        camera_id = #{camera_id}
+        where camera_id = #{camera_id}
+    </update>
+    
+    <insert id="inCameraMore" useGeneratedKeys="true" keyProperty="camera_id" parameterType="com.jxyq.model.family.CameraMore">
+        insert into camera_more(camera_id, dev_uid)
+        values(#{camera_id}, #{dev_uid})
+    </insert>
+
+    <update id="upCameraMore" parameterType="com.jxyq.model.family.CameraMore">
+        update camera_more set
+        <if test="device_model != null">
+            device_model = #{device_model},
+        </if>
+        <if test="device_name != null">
+            device_name = #{device_name},
+        </if>
+        <if test="software_version != null">
+            software_version = #{software_version},
+        </if>
+        <if test="internet_ip != null">
+            internet_ip = #{internet_ip},
+        </if>
+        <if test="http_port != null">
+            http_port = #{http_port},
+        </if>
+        <if test="rtsp_port != null">
+            rtsp_port = #{rtsp_port},
+        </if>
+        <if test="rtp_port != null">
+            rtp_port = #{rtp_port},
+        </if>
+        <if test="ddns_enable != null">
+            ddns_enable = #{ddns_enable},
+        </if>
+        <if test="ddns_host != null">
+            ddns_host = #{ddns_host},
+        </if>
+        <if test="ddns_port != null">
+            ddns_port = #{ddns_port},
+        </if>
+        <if test="ddns_username != null">
+            ddns_username = #{ddns_username},
+        </if>
+        <if test="ddns_password != null">
+            ddns_password = #{ddns_password},
+        </if>
+        <if test="other_ddns_enable != null">
+            other_ddns_enable = #{other_ddns_enable},
+        </if>
+        <if test="other_ddns_isp != null">
+            other_ddns_isp = #{other_ddns_isp},
+        </if>
+        <if test="other_ddns_host != null">
+            other_ddns_host = #{other_ddns_host},
+        </if>
+        <if test="other_ddns_username != null">
+            other_ddns_username = #{other_ddns_username},
+        </if>
+        <if test="other_ddns_password != null">
+            other_ddns_password = #{other_ddns_password},
+        </if>
+        camera_id = #{camera_id}
+        where camera_id = #{camera_id}
+    </update>
+
+    <delete id="deleteCamera" parameterType="map">
+        delete from camera where camera_id = #{camera_id}
+    </delete>
+
+    <delete id="delCameraMore" parameterType="map">
+        delete from camera_more where camera_id = #{camera_id}
+    </delete>
+
+    <select id="selectCamera" parameterType="map" resultMap="CameraMap">
+        select camera_id, dev_nickname, user_id, dev_uid, dev_name,
+        dev_pwd, view_acc, view_pwd, event_notification, ask_format_sdcard,
+        camera_channel, snapshot
+        from camera
+        where camera_id = #{camera_id}
+    </select>
+
+    <select id="selTouchButton" parameterType="map" resultMap="TouchButtonMap">
+        select touch_button_id, name, user_id, dev_uid, registered_at
+        from touch_button
+        where 1 = 1
+        <if test="user_id != null">
+            and user_id = #{user_id}
+        </if>
+        <if test="dev_uid != null">
+            and dev_uid = #{dev_uid}
+        </if>
+    </select>
+
+    <select id="qryTouchButtonByPage" parameterType="map" resultMap="qryTouchButtonByPageMap">
+        select b.phone as user_phone, b.full_name as user_name, touch_button_id, name, a.user_id, dev_uid, a.registered_at
+        from touch_button a left join user b on a.user_id = b.user_id
+        where 1 = 1
+        <if test="phone != null">
+            <![CDATA[and a.user_id in (select user_id from user where phone like '%${phone}%')]]>
+        </if>
+    </select>
+
+    <insert id="inTouchButton" useGeneratedKeys="true" keyProperty="touch_button_id" parameterType="com.jxyq.model.family.TouchButton">
+        insert into touch_button(touch_button_id, name, user_id, dev_uid, registered_at)
+        values(#{touch_button_id}, #{name}, #{user_id}, #{dev_uid}, #{registered_at})
+    </insert>
+
+    <select id="selTouchButtonById" parameterType="map" resultMap="TouchButtonMap">
+        select touch_button_id, name, user_id, dev_uid, registered_at
+        from touch_button
+        where touch_button_id = #{touch_button_id}
+    </select>
+
+    <delete id="delTouchButton" parameterType="map">
+        delete from touch_button where touch_button_id = #{touch_button_id}
+    </delete>
+
+    <insert id="inTouchButtonEvent" parameterType="com.jxyq.model.family.TouchButtonEvent">
+        insert into touch_button_event(touch_button_event_id, dev_uid, sensor_id, sensor_type, happened_at)
+        values(#{touch_button_event_id}, #{dev_uid}, #{sensor_id}, #{sensor_type}, #{happened_at})
+    </insert>
+</mapper>

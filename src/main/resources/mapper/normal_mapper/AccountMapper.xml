@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxyq.mapper.normal_mapper.AccountMapper">
+
+    <resultMap id="userMap" type="com.jxyq.model.user.User">
+        <result column="user_id" property="user_id"/>
+        <result column="phone" property="phone"/>
+        <result column="password" property="password"/>
+        <result column="email" property="email"/>
+        <result column="nick_name" property="nick_name"/>
+        <result column="full_name" property="full_name"/>
+        <result column="avatar_url" property="avatar_url"/>
+        <result column="gender" property="gender"/>
+        <result column="birthday" property="birthday"/>
+        <result column="height" property="height"/>
+        <result column="weight" property="weight"/>
+        <result column="targetWeight" property="target_weight"/>
+        <result column="address" property="address"/>
+        <result column="qq" property="qq"/>
+        <result column="points" property="points"/>
+        <result column="status" property="status"/>
+        <result column="registered_at" property="registered_at"/>
+        <result column="updated_at" property="updated_at"/>
+    </resultMap>
+
+    <resultMap id="UserByPage" type="map">
+        <result column="user_id" property="user_id"/>
+        <result column="phone" property="phone"/>
+        <result column="registered_at" property="registered_at"/>
+        <result column="full_name" property="full_name"/>
+        <result column="nick_name" property="nick_name"/>
+        <result column="device_type_names" property="device_type_names"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <insert id="insertUserForRegister" parameterType="map">
+        insert into user(phone,password,email,nick_name,registered_at,updated_at,status)
+        values(#{phone,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},
+        #{email,jdbcType=VARCHAR},#{nick_name,jdbcType=VARCHAR}
+        #{registered_at,jdbcType=VARCHAR},#{updated_at,jdbcType=VARCHAR}
+        ,#{status,jdbcType=VARCHAR);
+    </insert>
+
+    <select id="checkPhone" parameterType="map" resultType="int">
+        select count(*) from user where phone=#{phone};
+    </select>
+
+    <select id="checkEmail" parameterType="map" resultType="int">
+        select count(*) from user where email=#{email};
+    </select>
+
+    <select id="selUserByPage" parameterType="map" resultMap="UserByPage">
+        select user_id, phone, nick_name, full_name, status, registered_at, birthday
+        from user a
+        where 1 = 1
+        <if test="phone != null">
+            <![CDATA[and a.phone like "%${phone}%"]]>
+        </if>
+        <if test="device_type_ids != null">
+            and user_id in (
+            select user_id from user_terminal where device_type_id in
+            <foreach item="item" index="index" collection="device_type_ids" open="(" separator="," close=")">#{item}
+            </foreach>
+            )
+        </if>
+        <if test="registered_from != null">
+            <![CDATA[and a.registered_at >= #{registered_from}]]>
+        </if>
+        <if test="registered_to != null">
+            <![CDATA[and a.registered_at <= #{registered_to}]]>
+        </if>
+        <if test="query_date != null">
+            <![CDATA[and a.registered_at <= #{query_date}]]>
+        </if>
+        <if test="name != null">
+            <![CDATA[and a.full_name like "%${name}%"]]>
+        </if>
+        <if test="minAge != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) >= #{minAge}]]>
+        </if>
+        <if test="maxAge != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) <= #{maxAge}]]>
+        </if>
+    </select>
+
+    <update id="putUserInfo" parameterType="map">
+        update user join consumption b on user.user_id=b.user_id set nick_name=#{nick_name,jdbcType=VARCHAR},
+        full_name=#{full_name,jdbcType=VARCHAR}, avatar_url=#{avatar_url,jdbcType=VARCHAR},
+        gender=#{gender,jdbcType=NUMERIC}, birthday=#{birthday,jdbcType=VARCHAR},
+        height=#{height,jdbcType=NUMERIC},weight=#{weight,jdbcType=NUMERIC},
+        target_weight=#{target_weight,jdbcType=NUMERIC},address=#{address,jdbcType=VARCHAR},
+        qq=#{qq,jdbcType=VARCHAR},email=#{email,jdbcType=VARCHAR},b.operation_type=#{operation_type},
+        b.new_points=#{delta_points},b.description=#{reason}
+        where user.user_id=#{user_id,jdbcType=NUMERIC};
+    </update>
+
+    <update id="upUserInf" parameterType="map">
+        update user
+        set
+        <if test="password != null">
+            password = #{password},
+        </if>
+        <if test="email != null">
+            email = #{email},
+        </if>
+        <if test="nick_name != null">
+            nick_name = #{nick_name},
+        </if>
+        <if test="full_name != null">
+            full_name = #{full_name},
+        </if>
+        <if test="avatar_url != null">
+            avatar_url = #{avatar_url},
+        </if>
+        <if test="gender != null">
+            gender = #{gender},
+        </if>
+        <if test="birthday != null">
+            birthday = #{birthday},
+        </if>
+        <if test="height != null">
+            height = #{height},
+        </if>
+        <if test="weight != null">
+            weight = #{weight},
+        </if>
+        <if test="target_weight != null">
+            target_weight = #{target_weight},
+        </if>
+        <if test="address != null">
+            address = #{address},
+        </if>
+        <if test="qq != null">
+            qq = #{qq},
+        </if>
+        <if test="delta_points != null">
+            points = points + #{delta_points},
+        </if>
+        <if test="updated_at != null">
+            updated_at = #{updated_at},
+        </if>
+        <if test="status != null">
+            status = #{status},
+        </if>
+        user_id = #{user_id}
+        where user_id = #{user_id}
+    </update>
+
+    <select id="selUserById" parameterType="com.jxyq.model.user.User" resultMap="userMap">
+        select phone, password, email, nick_name,
+        full_name, avatar_url, gender, birthday, height,
+        weight, target_weight, address, qq, points
+        from user
+        where user_id = #{id}
+        limit 1;
+    </select>
+    <update id="upUserStatus" parameterType="map">
+        update user set status=#{status} where user_id=#{id};
+    </update>
+
+    <update id="upUserInfo" parameterType="map">
+        update user set password=#{password},nick_name=#{nick_name,jdbcType=VARCHAR},
+        full_name=#{full_name,jdbcType=VARCHAR}, avatar_url=#{avatar_url,jdbcType=VARCHAR},
+        gender=#{gender,jdbcType=NUMERIC}, birthday=#{birthday,jdbcType=VARCHAR},
+        height=#{height,jdbcType=NUMERIC},weight=#{weight,jdbcType=NUMERIC},
+        target_weight=#{target_weight,jdbcType=NUMERIC},address=#{address,jdbcType=VARCHAR},
+        qq=#{qq,jdbcType=VARCHAR},email=#{email,jdbcType=VARCHAR}
+        where user_id=#{user_id,jdbcType=NUMERIC};
+    </update>
+
+    <select id="checkEmails" parameterType="map" resultType="int">
+        select user_id from user where email=#{email}
+        <if test="user_id !=null and user_id !=''">
+            and user_id !=#{user_id};
+        </if>
+    </select>
+
+    <resultMap id="CountMap" type="map">
+        <result column="count" property="count"/>
+    </resultMap>
+
+    <select id="selTotalUserCnt" parameterType="map" resultMap="CountMap">
+        select count(*) as count from user
+    </select>
+
+    <select id="selOnlineUserCnt" parameterType="map" resultMap="CountMap">
+        select count(*) as count from user where online_status = 1
+    </select>
+</mapper>

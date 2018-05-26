@@ -1,0 +1,94 @@
+</br>
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h1 class="panel-title">亲情号码设置</h1>
+  </div>
+  <div class="panel-body">
+    <!-- 查询区域 -->
+    <div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">查询条件</h3>
+            </div>
+            <div class="panel-body">
+              <form class="form-horizontal">
+                <div class="row">
+                  <div class="col-md-8">
+                    <div class="form-group">
+                      <div class="col-md-2">
+                        <label class="control-label">IMEI号码：</label>
+                      </div>
+                      <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="请输入儿童腕表的IMEI号码" ng-model="number.imei1">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 text-right">
+                    <div class="form-group">
+                      <div class="col-md-offset-4 col-md-8 text-right">
+                        <button type="button" ng-click="queryFile()" class="btn btn-success form-control">查询</i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 操作面板 -->
+    <div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">操作面板</h3>
+            </div>
+            <!--start of alert block-->
+            <div class="alert alert-{{alert.type}} alert-dismissable" style="text-align: center;" role="alert" ng-repeat="alert in alerts" type="{{alert.type}}">
+              <button type="button" class="close" ng-click="closeAlert($index)">
+              </button>
+              {{alert.msg}}
+            </div>
+            <!--end of alert block-->
+            <div class="panel-body">
+              <form class="form-horizontal">
+                <div class="row">
+                  <div class="col-md-8">
+                    <div class="form-group">
+                      <div class="col-md-2">
+                        <label class="control-label">IMEI号码：</label>
+                      </div>
+                      <div class="col-md-8">                         
+                        <input type="text" class="form-control" placeholder="操作对象儿童腕表IMEI号码" ng-model="number.imei2" disabled="true">
+                        <!-- <span class="input-group-btn"> -->
+                        <!-- <button class="btn btn-success" type="submit" ng-click = ""><i class="fa fa-search"></i></button> -->
+                        <!-- </span> -->
+                        <!-- </div> -->
+                        <!-- </div> -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 text-right">
+                    <div class="form-group">
+                      <div class="col-md-offset-4 col-md-8 text-right">
+                        <button type="button" ng-click="submit()" class="btn btn-success form-control">提交</i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <div ui-grid="gridOptions" class="gridStyle" ui-grid-pagination>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

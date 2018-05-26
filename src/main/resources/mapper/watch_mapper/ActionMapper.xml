@@ -1,0 +1,808 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxyq.mapper.watch_mapper.ActionMapper">
+
+    <resultMap id="ActionSettingMap" type="com.jxyq.model.watch.ActionSetting">
+        <result column="id" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="readed" property="readed"/>
+        <result column="create_time" property="create_time"/>
+    </resultMap>
+
+    <resultMap id="SendSmsMap" type="com.jxyq.model.watch.SendSms">
+        <result column="id" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="times" property="times"/>
+        <result column="gap" property="gap"/>
+        <result column="msg" property="msg"/>
+        <result column="number" property="number"/>
+        <result column="readed" property="readed"/>
+        <result column="create_time" property="create_time"/>
+    </resultMap>
+
+    <resultMap id="AlarmSetMap" type="com.jxyq.model.watch.PlayVoice">
+        <result column="id" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="start" property="start"/>
+        <result column="msg" property="msg"/>
+        <result column="weeks" property="weeks"/>
+        <result column="times" property="times"/>
+        <result column="gap" property="gap"/>
+        <result column="alarm_en" property="enable"/>
+        <result column="update_time" property="update_time"/>
+    </resultMap>
+
+    <resultMap id="HealthSetMap" type="com.jxyq.model.watch.PlayVoice">
+        <result column="id" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="start" property="start"/>
+        <result column="msg" property="msg"/>
+        <result column="weeks" property="weeks"/>
+        <result column="times" property="times"/>
+        <result column="gap" property="gap"/>
+        <result column="jiankang_en" property="enable"/>
+        <result column="update_time" property="update_time"/>
+    </resultMap>
+
+    <resultMap id="PillsSetMap" type="com.jxyq.model.watch.PlayVoice">
+        <result column="id" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="start" property="start"/>
+        <result column="msg" property="msg"/>
+        <result column="weeks" property="weeks"/>
+        <result column="times" property="times"/>
+        <result column="gap" property="gap"/>
+        <result column="pills_en" property="enable"/>
+        <result column="update_time" property="update_time"/>
+    </resultMap>
+
+    <resultMap id="SleepSetMap" type="com.jxyq.model.watch.PlayVoice">
+        <result column="id" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="start" property="start"/>
+        <result column="msg" property="msg"/>
+        <result column="weeks" property="weeks"/>
+        <result column="times" property="times"/>
+        <result column="gap" property="gap"/>
+        <result column="sleep_en" property="enable"/>
+        <result column="update_time" property="update_time"/>
+    </resultMap>
+
+    <resultMap id="SportSetMap" type="com.jxyq.model.watch.PlayVoice">
+        <result column="id" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="start" property="start"/>
+        <result column="msg" property="msg"/>
+        <result column="weeks" property="weeks"/>
+        <result column="times" property="times"/>
+        <result column="gap" property="gap"/>
+        <result column="sport_en" property="enable"/>
+        <result column="update_time" property="update_time"/>
+    </resultMap>
+
+    <resultMap id="PlayVoiceMap" type="com.jxyq.model.watch.OncePlayVoice">
+        <result column="id" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="times" property="times"/>
+        <result column="gap" property="gap"/>
+        <result column="msg" property="msg"/>
+        <result column="readed" property="readed"/>
+        <result column="create_time" property="create_time"/>
+    </resultMap>
+
+    <resultMap id="MonitorMap" type="com.jxyq.model.watch.Monitor">
+        <result column="id" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="timer" property="timer"/>
+        <result column="number" property="number"/>
+        <result column="readed" property="readed"/>
+        <result column="create_time" property="create_time"/>
+    </resultMap>
+
+    <resultMap id="RouteSetMap" type="com.jxyq.model.watch.RouteSet">
+        <result column="id" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="start" property="start"/>
+        <result column="stop" property="stop"/>
+        <result column="weeks" property="weeks"/>
+        <result column="set_en" property="set_en"/>
+        <result column="update_time" property="update_time"/>
+    </resultMap>
+
+    <resultMap id="LogSetMap" type="com.jxyq.model.watch.LogSet">
+        <result column="id" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="start" property="start"/>
+        <result column="stop" property="stop"/>
+        <result column="weeks" property="weeks"/>
+        <result column="update_time" property="update_time"/>
+    </resultMap>
+    
+    <resultMap id="OnceActionMap" type="com.jxyq.model.watch.OnceAction">
+        <result column="id" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="readed" property="readed"/>
+        <result column="create_time" property="create_time"/>
+    </resultMap>
+
+    <resultMap id="QingSetMap" type="com.jxyq.model.watch.QingSet">
+        <result column="id" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="name" property="name"/>
+        <result column="relation" property="relation"/>
+        <result column="phone2" property="phone2"/>
+        <result column="address" property="address"/>
+        <result column="qq" property="qq"/>
+        <result column="email" property="email"/>
+        <result column="homephone" property="homephone"/>
+        <result column="company" property="company"/>
+        <result column="companyhone" property="companyhone"/>
+        <result column="create_time" property="create_time"/>
+    </resultMap>
+
+    <resultMap id="PhoneSetMap" type="com.jxyq.model.watch.PhoneSetInfo">
+        <result column="id" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="name" property="name"/>
+        <result column="phone" property="phone"/>
+        <result column="create_time" property="create_time"/>
+    </resultMap>
+
+    <resultMap id="ModeInfMap" type="com.jxyq.model.watch.ModeInf">
+        <result column="id" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="start" property="start"/>
+        <result column="stop" property="stop"/>
+        <result column="weeks" property="weeks"/>
+        <result column="runmode" property="runmode"/>
+        <result column="update_time" property="update_time"/>
+    </resultMap>
+
+    <resultMap id="SOSMap" type="map">
+        <result column="id" property="id"/>
+        <result column="sosname" property="name"/>
+        <result column="sosno" property="phone"/>
+    </resultMap>
+
+    <resultMap id="UserModeMap" type="map">
+        <result column="mode_type" property="mode_type"/>
+        <result column="user_mode" property="user_mode"/>
+    </resultMap>
+
+    <resultMap id="LocationActionMap" type="com.jxyq.model.watch.LocationAction">
+        <result column="id" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="op" property="op"/>
+        <result column="readed" property="readed"/>
+        <result column="create_time" property="create_time"/>
+    </resultMap>
+
+    <resultMap id="CountMap" type="map">
+        <result column="count" property="count"/>
+    </resultMap>
+
+    <select id="selActionSetting" parameterType="map" resultMap="ActionSettingMap">
+        select id, user_id, name, type, readed,
+            create_time
+        from action_setting
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+        <if test="readed != null">
+            <![CDATA[and readed in (#{readed})]]>
+        </if>
+    </select>
+
+    <select id="selActionSettingCount" parameterType="map" resultMap="CountMap">
+        select count(*) as count from action_setting
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+        <if test="readed != null">
+            <![CDATA[and readed in (#{readed})]]>
+        </if>
+        <if test="name != null">
+            <![CDATA[and name = #{name}]]>
+        </if>
+    </select>
+
+    <update id="upActionSettingRead" parameterType="map">
+        update action_setting set readed = #{readed}
+        where 1 != 1
+        <if test="id != null">
+            <![CDATA[or id = #{id}]]>
+        </if>
+        <if test="user_id != null">
+            <![CDATA[or user_id = #{user_id}]]>
+        </if>
+    </update>
+
+    <insert id="inActionSetting" parameterType="com.jxyq.model.watch.ActionSetting">
+        insert into action_setting(id, user_id, name, type, readed, create_time)
+        values(#{id}, #{user_id}, #{name}, #{type}, #{readed}, #{create_time})
+    </insert>
+
+    <select id="selSendSms" parameterType="map" resultMap="SendSmsMap">
+        select id, user_id, name, type, times,
+            gap, msg, number, readed, create_time
+        from once_sendsms
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+        <if test="readed != null">
+            <![CDATA[and readed in (#{readed})]]>
+        </if>
+    </select>
+
+    <select id="selSendSmsCount" parameterType="map" resultMap="CountMap">
+        select count(*) as count from once_sendsms
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+        <if test="readed != null">
+            <![CDATA[and readed in (#{readed})]]>
+        </if>
+    </select>
+
+    <update id="upSendSmsRead" parameterType="map">
+        update once_sendsms set readed = #{readed} where id = #{id}
+    </update>
+
+    <select id="selAlarmSet" parameterType="map" resultMap="AlarmSetMap">
+        select id, user_id, start, msg, weeks,
+            times, gap, alarm_en, update_time
+        from alarm_set
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+        <if test="alarm_en != null">
+            <![CDATA[and alarm_en in (#{alarm_en})]]>
+        </if>
+    </select>
+
+    <select id="selHealthSet" parameterType="map" resultMap="HealthSetMap">
+        select id, user_id, start, msg, weeks,
+        times, gap, jiankang_en, update_time
+        from jiankang_set
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+        <if test="jiankang_en != null">
+            <![CDATA[and jiankang_en in (#{jiankang_en})]]>
+        </if>
+    </select>
+
+    <select id="selPillsSet" parameterType="map" resultMap="PillsSetMap">
+        select id, user_id, start, msg, weeks,
+        times, gap, pills_en, update_time
+        from pills_set
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+        <if test="pills_en != null">
+            <![CDATA[and pills_en in (#{pills_en})]]>
+        </if>
+    </select>
+
+    <select id="selSleepSet" parameterType="map" resultMap="SleepSetMap">
+        select id, user_id, start, msg, weeks,
+        times, gap, sleep_en, update_time
+        from sleep_set
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+        <if test="sleep_en != null">
+            <![CDATA[and sleep_en in (#{sleep_en})]]>
+        </if>
+    </select>
+
+    <select id="selSportSet" parameterType="map" resultMap="SportSetMap">
+        select id, user_id, start, msg, weeks,
+        times, gap, sport_en, update_time
+        from sport_set
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+        <if test="sport_en != null">
+            <![CDATA[and sport_en in (#{sport_en})]]>
+        </if>
+    </select>
+    
+    <update id="upAlarmSet" parameterType="com.jxyq.model.watch.PlayVoice">
+        update alarm_set set
+            user_id = #{user_id},
+            start = #{start},
+            msg = #{msg},
+            weeks = #{weeks},
+            times = #{times},
+            gap = #{gap},
+            alarm_en = #{enable},
+            update_time = #{update_time}
+        where id = #{id}
+    </update>
+
+    <update id="upHealthSet" parameterType="com.jxyq.model.watch.PlayVoice">
+        update jiankang_set set
+        user_id = #{user_id},
+        start = #{start},
+        msg = #{msg},
+        weeks = #{weeks},
+        times = #{times},
+        gap = #{gap},
+        jiankang_en = #{enable},
+        update_time = #{update_time}
+        where id = #{id}
+    </update>
+
+    <update id="upPillsSet" parameterType="com.jxyq.model.watch.PlayVoice">
+        update pills_set set
+        user_id = #{user_id},
+        start = #{start},
+        msg = #{msg},
+        weeks = #{weeks},
+        times = #{times},
+        gap = #{gap},
+        pills_en = #{enable},
+        update_time = #{update_time}
+        where id = #{id}
+    </update>
+
+    <update id="upSleepSet" parameterType="com.jxyq.model.watch.PlayVoice">
+        update sleep_set set
+        user_id = #{user_id},
+        start = #{start},
+        msg = #{msg},
+        weeks = #{weeks},
+        times = #{times},
+        gap = #{gap},
+        sleep_en = #{enable},
+        update_time = #{update_time}
+        where id = #{id}
+    </update>
+
+    <update id="upSportSet" parameterType="com.jxyq.model.watch.PlayVoice">
+        update sport_set set
+        user_id = #{user_id},
+        start = #{start},
+        msg = #{msg},
+        weeks = #{weeks},
+        times = #{times},
+        gap = #{gap},
+        sport_en = #{enable},
+        update_time = #{update_time}
+        where id = #{id}
+    </update>
+
+    <delete id="delAlarmSet" parameterType="map">
+        delete from alarm_set where id = #{id}
+    </delete>
+
+    <delete id="delHealthSet" parameterType="map">
+        delete from jiankang_set where id = #{id}
+    </delete>
+
+    <delete id="delPillsSet" parameterType="map">
+        delete from pills_set where id = #{id}
+    </delete>
+
+    <delete id="delSleepSet" parameterType="map">
+        delete from sleep_set where id = #{id}
+    </delete>
+
+    <delete id="delSportSet" parameterType="map">
+        delete from sport_set where id = #{id}
+    </delete>
+
+    <select id="selPlayVoice" parameterType="map" resultMap="PlayVoiceMap">
+        select id, user_id, name, type, times,
+            gap, msg, readed, create_time
+        from once_playvoice
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+        <if test="readed != null">
+            <![CDATA[and readed in (#{readed})]]>
+        </if>
+    </select>
+
+    <select id="selPlayVoiceCount" parameterType="map" resultMap="CountMap">
+        select count(*) as count from once_playvoice
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+        <if test="readed != null">
+            <![CDATA[and readed in (#{readed})]]>
+        </if>
+    </select>
+
+    <update id="upPlayVoice" parameterType="map">
+        update once_playvoice set readed = #{readed} where id = #{id}
+    </update>
+
+    <insert id="inEventPlayVoice" useGeneratedKeys="true" keyProperty="id" parameterType="com.jxyq.model.watch.PlayVoice" statementType="STATEMENT">
+        insert into ${eventname}_set(id, user_id, start, msg, weeks,
+            times, gap, ${eventname}_en, update_time)
+        values(${id}, ${user_id}, '${start}', '${msg}', ${weeks},
+            ${times}, ${gap}, ${enable}, '${update_time}')
+    </insert>
+
+    <insert id="inOncePlayVoice" parameterType="com.jxyq.model.watch.OncePlayVoice">
+        insert into once_playvoice(id, user_id, name, type, times, gap, msg, readed, create_time)
+        values(#{id}, #{user_id}, #{name}, #{type}, #{times}, #{gap}, #{msg}, #{readed}, #{create_time})
+    </insert>
+
+    <select id="selMonitor" parameterType="map" resultMap="MonitorMap">
+        select id, user_id, name, type, timer,
+            number, readed, create_time
+        from once_monitor
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+        <if test="readed != null">
+            <![CDATA[and readed in (#{readed})]]>
+        </if>
+    </select>
+
+    <select id="selMonitorCount" parameterType="map" resultMap="CountMap">
+        select count(*) as count from once_monitor
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+        <if test="readed != null">
+            <![CDATA[and readed in (#{readed})]]>
+        </if>
+    </select>
+
+    <insert id="inOnceMonitor" parameterType="com.jxyq.model.watch.Monitor">
+        insert into once_monitor(id, user_id, name, type, timer,
+            number, readed, create_time)
+        values(#{id}, #{user_id}, #{name}, #{type}, #{timer},
+            #{number}, #{readed}, #{create_time})
+    </insert>
+
+    <update id="upMonitorRead" parameterType="map">
+        update once_monitor set readed = #{readed} where id = #{id}
+    </update>
+
+    <select id="selLocation" parameterType="map" resultMap="LocationActionMap">
+        select id, user_id, name, type, op, readed, create_time
+        from once_location
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+        <if test="readed != null">
+            <![CDATA[and readed in (#{readed})]]>
+        </if>
+    </select>
+
+    <select id="selLocationCount" parameterType="map" resultMap="CountMap">
+        select count(*) as count from once_location
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+        <if test="readed != null">
+            <![CDATA[and readed in (#{readed})]]>
+        </if>
+    </select>
+
+    <insert id="inOnceLocation" parameterType="com.jxyq.model.watch.LocationAction">
+        insert into once_location(id, user_id, name, type, op, readed, create_time)
+        values(#{id}, #{user_id}, #{name}, #{type}, #{op}, #{readed}, #{create_time})
+    </insert>
+
+    <update id="upLocationRead" parameterType="map">
+        update once_location set readed = #{readed} where id = #{id}
+    </update>
+
+    <select id="selRouteSet" parameterType="map" resultMap="RouteSetMap">
+        select id, user_id, start, stop, weeks, set_en, update_time
+        from route_set
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+        <if test="set_en != null">
+            <![CDATA[and set_en in (#{set_en})]]>
+        </if>
+    </select>
+
+    <insert id="inRouteSet" useGeneratedKeys="true" keyProperty="id" parameterType="com.jxyq.model.watch.RouteSet">
+        insert into route_set(id, user_id, start, stop, weeks,
+            set_en, update_time)
+        values(#{id}, #{user_id}, #{start}, #{stop}, #{weeks},
+            #{set_en}, #{update_time})
+    </insert>
+
+    <update id="upRouteSet" parameterType="com.jxyq.model.watch.RouteSet">
+        update route_set set
+        start = #{start},
+        stop = #{stop},
+        weeks = #{weeks},
+        set_en = #{set_en},
+        update_time = #{update_time}
+        where id = #{id}
+    </update>
+
+    <delete id="delRouteSet" parameterType="map">
+        delete from route_set where id = #{id}
+    </delete>
+
+    <select id="selRouteSetCnt" parameterType="map" resultMap="CountMap">
+        select count(*) as count from route_set where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+    </select>
+
+    <select id="selLogSet" parameterType="map" resultMap="LogSetMap">
+        select id, user_id, start, stop, weeks, update_time
+        from log_info
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+    </select>
+
+    <select id="selOncePowerOff" parameterType="map" resultMap="OnceActionMap">
+        select id, user_id, name, type, readed, create_time
+        from once_poweroff
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+        <if test="readed != null">
+            <![CDATA[and readed in (#{readed})]]>
+        </if>
+    </select>
+
+    <select id="selOncePowerOffCount" parameterType="map" resultMap="CountMap">
+        select count(*) as count from once_poweroff
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+        <if test="readed != null">
+            <![CDATA[and readed in (#{readed})]]>
+        </if>
+    </select>
+
+    <update id="upOncePowerOffRead" parameterType="map">
+        update once_poweroff set readed = #{readed} where id = #{id}
+    </update>
+
+    <select id="selOnceClearSms" parameterType="map" resultMap="OnceActionMap">
+        select id, user_id, name, type, readed, create_time
+        from once_clearsms
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+        <if test="readed != null">
+            <![CDATA[and readed in (#{readed})]]>
+        </if>
+    </select>
+
+    <select id="selOnceClearSmsCount" parameterType="map" resultMap="CountMap">
+        select count(*) as count from once_clearsms
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+        <if test="readed != null">
+            <![CDATA[and readed in (#{readed})]]>
+        </if>
+    </select>
+
+    <update id="upOnceClearSmsRead" parameterType="map">
+        update once_clearsms set readed = #{readed} where id = #{id}
+    </update>
+
+    <select id="selQing1Set" parameterType="map" resultMap="QingSetMap">
+        select user_id, name, relation, phone2, address, qq, email, homephone, company, companyhone, create_time
+        from qing1_info
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+    </select>
+
+    <select id="selQing2Set" parameterType="map" resultMap="QingSetMap">
+        select user_id, name, relation, phone2, address, qq, email, homephone, company, companyhone, create_time
+        from qing2_info
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+    </select>
+
+    <select id="selQing3Set" parameterType="map" resultMap="QingSetMap">
+        select user_id, name, relation, phone2, address, qq, email, homephone, company, companyhone, create_time
+        from qing3_info
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+    </select>
+
+    <select id="selQing4Set" parameterType="map" resultMap="QingSetMap">
+        select user_id, name, relation, phone2, address, qq, email, homephone, company, companyhone, create_time
+        from qing4_info
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+    </select>
+
+    <insert id="inQing1Set" parameterType="com.jxyq.model.watch.QingSet">
+        replace into qing1_info(user_id, name, relation, phone2, address,
+            qq, email, homephone, company, companyhone,
+            create_time)
+        values(#{user_id}, #{name}, #{relation}, #{phone2}, #{address},
+            #{qq}, #{email}, #{homephone}, #{company}, #{companyhone},
+            #{create_time})
+    </insert>
+
+    <insert id="inQing2Set" parameterType="com.jxyq.model.watch.QingSet">
+        replace into qing2_info(user_id, name, relation, phone2, address,
+            qq, email, homephone, company, companyhone,
+            create_time)
+        values(#{user_id}, #{name}, #{relation}, #{phone2}, #{address},
+            #{qq}, #{email}, #{homephone}, #{company}, #{companyhone},
+            #{create_time})
+    </insert>
+
+    <insert id="inQing3Set" parameterType="com.jxyq.model.watch.QingSet">
+        replace into qing3_info(user_id, name, relation, phone2, address,
+            qq, email, homephone, company, companyhone,
+            create_time)
+        values(#{user_id}, #{name}, #{relation}, #{phone2}, #{address},
+            #{qq}, #{email}, #{homephone}, #{company}, #{companyhone},
+            #{create_time})
+    </insert>
+
+    <insert id="inQing4Set" parameterType="com.jxyq.model.watch.QingSet">
+        replace into qing4_info(user_id, name, relation, phone2, address,
+            qq, email, homephone, company, companyhone,
+            create_time)
+        values(#{user_id}, #{name}, #{relation}, #{phone2}, #{address},
+            #{qq}, #{email}, #{homephone}, #{company}, #{companyhone},
+            #{create_time})
+    </insert>
+
+    <select id="selBlackSetInf" parameterType="map" resultMap="PhoneSetMap">
+        select id, user_id, name, phone, create_time
+        from blackset_info
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+    </select>
+
+    <insert id="inBlackSetInf" parameterType="com.jxyq.model.watch.PhoneSetInfo">
+        insert into blackset_info(id, user_id, name, phone, create_time)
+        values(#{id}, #{user_id}, #{name}, #{phone}, #{create_time})
+    </insert>
+
+    <select id="selBlackSetCount" parameterType="map" resultMap="CountMap">
+        select count(*) as count from blackset_info where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+    </select>
+
+    <select id="selWhiteSetInf" parameterType="map" resultMap="PhoneSetMap">
+        select id, user_id, name, phone, create_time
+        from whiteset_info
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+    </select>
+    <delete id="delBlackSetInf" parameterType="com.jxyq.model.watch.PhoneSetInfo">
+        delete from  blackset_info where user_id=#{user_id};
+    </delete>
+
+    <delete id="delWhiteSetInf" parameterType="com.jxyq.model.watch.PhoneSetInfo">
+       delete from  whiteset_info where user_id=#{user_id};
+    </delete>
+
+    <insert id="inWhiteSetInf" parameterType="com.jxyq.model.watch.PhoneSetInfo">
+        insert into whiteset_info(id, user_id, name, phone, create_time)
+        values(#{id}, #{user_id}, #{name}, #{phone}, #{create_time})
+    </insert>
+
+    <select id="selWhiteSetCount" parameterType="map" resultMap="CountMap">
+        select count(*) as count from whiteset_info where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+    </select>
+
+    <select id="selModeInf" parameterType="map" resultMap="ModeInfMap">
+        select id, user_id, start, stop, weeks, runmode, update_time
+        from mode_info
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+        <if test="id != null">
+            <![CDATA[and id in (#{id})]]>
+        </if>
+    </select>
+
+    <select id="selModeCnt" parameterType="map" resultMap="CountMap">
+        select count(*) as count from mode_info where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id in (#{user_id})]]>
+        </if>
+    </select>
+
+    <select id="selSOSByUser" parameterType="map" resultMap="SOSMap">
+        select '5' as id, sosno, sosname
+        from user_info_more
+        where user_id = #{user_id}
+    </select>
+
+    <update id="upSOSNumber" parameterType="map">
+        update user_info_more
+        set sosno = #{sosno},
+            sosname = #{sosname}
+        where user_id = #{user_id}
+    </update>
+
+    <select id="selUserMode" parameterType="map" resultMap="UserModeMap">
+        select mode_type, user_mode from user_info where user_id = #{user_id}
+    </select>
+
+    <update id="upUserMode" parameterType="map">
+        update user_info set mode_type = #{mode_type}, user_mode = #{user_mode} where user_id = #{user_id}
+    </update>
+
+    <insert id="inModeInf" useGeneratedKeys="true" keyProperty="id" parameterType="com.jxyq.model.watch.ModeInf">
+        insert into mode_info(id, user_id, start, stop, weeks,
+            runmode, update_time)
+        values(#{id}, #{user_id}, #{start}, #{stop}, #{weeks},
+            #{runmode}, #{update_time})
+    </insert>
+
+    <delete id="delModeInf" parameterType="map">
+        delete from mode_info where id = #{id}
+    </delete>
+
+    <update id="upModeInf" parameterType="com.jxyq.model.watch.ModeInf">
+        update mode_info
+        set runmode = #{runmode},
+            start = #{start},
+            stop = #{stop},
+            weeks = #{weeks},
+            update_time = #{update_time}
+        where id = #{id}
+    </update>
+</mapper>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxyq.mapper.normal_mapper.OperationLogMapper">
+
+    <resultMap id="OperationLogMap" type="com.jxyq.model.others.OperationLog">
+        <result column="operation_log_id" property="operation_log_id"/>
+        <result column="user_role" property="user_role"/>
+        <result column="user_id" property="user_id"/>
+        <result column="user_login_name" property="user_login_name"/>
+        <result column="op_title" property="op_title"/>
+        <result column="op_detail" property="op_detail"/>
+        <result column="happened_at" property="happened_at"/>
+        <result column="origin_ip" property="origin_ip"/>
+    </resultMap>
+
+    <select id="qryOperationLogByPage" parameterType="map" resultMap="OperationLogMap">
+        select operation_log_id, user_role, user_id, user_login_name, op_title,
+        op_detail, happened_at, origin_ip
+        from operation_log
+        where 1 = 1
+        <if test="happen_from != null">
+            <![CDATA[and happened_at >= #{happen_from}]]>
+        </if>
+        <if test="happen_to != null">
+            <![CDATA[and happened_at <= #{happen_to}]]>
+        </if>
+        <if test="query_date != null">
+            <![CDATA[and happened_at <= #{query_date}]]>
+        </if>
+        <if test="user_role != null">
+            <![CDATA[and user_role = #{user_role}]]>
+        </if>
+        <if test="user_login_name != null">
+            <![CDATA[and user_login_name like "%${user_login_name}%"]]>
+        </if>
+        <if test="op_title != null">
+            <![CDATA[and op_title = #{op_title}]]>
+        </if>
+        order by happened_at DESC
+    </select>
+
+    <insert id="inOperationLog" useGeneratedKeys="true" keyProperty="operation_log_id" parameterType="map">
+        insert into operation_log(operation_log_id, user_role, user_id, user_login_name, op_title,
+            op_detail, happened_at, origin_ip)
+        values(#{operation_log_id}, #{user_role}, #{user_id}, #{user_login_name}, #{op_title},
+            #{op_detail}, #{happened_at}, #{origin_ip})
+    </insert>
+
+    <select id="selLastSignInOp" parameterType="map" resultMap="OperationLogMap">
+        select operation_log_id, user_role, user_id, user_login_name, op_title,
+        op_detail, happened_at, origin_ip
+        from operation_log
+        where 1 = 1
+        <if test="user_role != null">
+            <![CDATA[and user_role = #{user_role}]]>
+        </if>
+        <if test="user_id != null">
+            <![CDATA[and user_id = #{user_id}]]>
+        </if>
+        <if test="user_login_name != null">
+            <![CDATA[and user_login_name = #{user_login_name}]]>
+        </if>
+        <if test="op_title != null">
+            <![CDATA[and op_title = #{op_title}]]>
+        </if>
+        order by happened_at desc
+        limit #{offset}, 1
+    </select>
+</mapper>

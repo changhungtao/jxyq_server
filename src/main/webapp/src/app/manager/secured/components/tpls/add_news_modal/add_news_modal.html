@@ -1,0 +1,50 @@
+<div class="modal-header">
+    <div class="row">
+        <div class="col-md-6">
+            <h4 class="modal-title">添加客户端新闻页面</h4>
+        </div>
+        <div class="col-md-6 text-right">
+            <h4 class="modal-title"></h4>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <!--start of alert block-->
+    <div class="alert alert-{{alert.type}} alert-dismissable" style="text-align: center;" role="alert" ng-repeat="alert in alerts" type="{{alert.type}}">
+        <button type="button" class="close" ng-click="closeAlert($index)">
+        </button>
+        {{alert.msg}}
+    </div>
+    <div class="row">
+        <form class="form-horizontal" ng-submit="addNews()">
+            <div class="form-group">
+                <div class="col-md-3 text-right">
+                    <label class="control-label">图片链接</label>
+                </div>
+                <div class="col-md-6">
+                    <!--<input class="form-control" ng-model="addNew.pic_url" type="text" placeholder="输入图片链接">-->
+                    <input type="file" file-model="newsPic" class="form-control" accept=".png,.jpg,.jpeg,.gif" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3 text-right">
+                    <label class="control-label">新闻链接</label>
+                </div>
+                <div class="col-md-6">
+                    <input class="form-control" ng-model="addNew.news_link" type="text" placeholder="输入新闻链接" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-offset-4 col-md-8">
+                    <button type="submit" class="btn btn-success col-md-6" ng-disabled="disabledAddButton">保存</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="col-sm-offset-7 col-sm-5 text-right">
+        <!--<button ng-click="addNews()" type="button" class="btn btn-success">保存</button>-->
+        <button ng-click="cancel()" type="button" class="btn btn-default">关闭</button>
+    </div>
+</div>

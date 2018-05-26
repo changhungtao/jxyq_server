@@ -1,0 +1,120 @@
+<div class="modal-header">
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class="modal-title">编辑终端型号</h4>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <!--start of alert block-->
+    <div class="alert alert-{{alert.type}} alert-dismissable" style="text-align: center;" role="alert" ng-repeat="alert in alerts" type="{{alert.type}}">
+        <button type="button" class="close" ng-click="closeAlert($index)">
+        </button>
+        {{alert.msg}}
+    </div>
+    <!--end of alert block-->
+    <form class="form-horizontal" role="form" id="saveTerminal" ng-submit="saveTerminal()">
+        <div class="form-group">
+            <div class="col-sm-3 text-right">
+                <label for="phone" class="control-label">终端型号：</label>
+            </div>
+            <div class="col-sm-7">
+                <input type="text" ng-model="terminal.terminal_catagory_name"  class="form-control" id="phone" placeholder="终端型号" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-3 text-right">
+                <label for="patient_name" class="control-label">型号编码：</label>
+            </div>
+            <div class="col-sm-7">
+                <input type="text" ng-model="terminal.code" class="form-control" id="patient_name" placeholder="型号编码" required>
+            </div>
+
+        </div>
+        <!--<div class="form-group">-->
+            <!--<div class="col-sm-3 text-right">-->
+                <!--<label for="product_type_id" class="control-label">产品类型：</label>-->
+            <!--</div>-->
+            <!--<div class="col-sm-7">-->
+                <!--<ui-select ng-model="terminal.product_type_id" theme="bootstrap" id="product_type_id" required ng-disabled="true">-->
+                    <!--<ui-select-match placeholder="选择产品类型">{{$select.selected.product_type_name}}</ui-select-match>-->
+                    <!--<ui-select-choices repeat="item.product_type_id as item in product_types | filter: $select.search">-->
+                        <!--<div ng-bind-html="item.product_type_name | highlight: $select.search"></div>-->
+                    <!--</ui-select-choices>-->
+                <!--</ui-select>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+            <!--<div class="col-sm-3 text-right">-->
+                <!--<label for="device_type_id" class="control-label">设备类型：</label>-->
+            <!--</div>-->
+            <!--<div class="col-sm-7">-->
+                <!--&lt;!&ndash;<div class="input-group">&ndash;&gt;-->
+                <!--<ui-select ng-model="terminal.device_type_id" theme="bootstrap" id="device_type_id" required ng-disabled="true">-->
+                    <!--<ui-select-match placeholder="选择设备类型">{{$select.selected.device_type_name}}</ui-select-match>-->
+                    <!--<ui-select-choices repeat="item.device_type_id as item in device_types | filter: $select.search">-->
+                        <!--<div ng-bind-html="item.device_type_name | highlight: $select.search"></div>-->
+                    <!--</ui-select-choices>-->
+                <!--</ui-select>-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="form-group">
+            <div class="col-sm-3 text-right">
+                <label for="price" class="control-label">价格：</label>
+            </div>
+            <div class="col-sm-7">
+                <input type="text" ng-model="terminal.price" class="form-control" id="price" placeholder="价格" required>
+            </div>
+        </div>
+        <!--<div class="form-group">-->
+            <!--<div class="col-sm-3 text-right">-->
+                <!--<label for="status"  class="control-label">状态：</label>-->
+            <!--</div>-->
+            <!--<div class="col-sm-7">-->
+                <!--&lt;!&ndash;<textarea ng-model="terminal.status" class="form-control" required></textarea>&ndash;&gt;-->
+                <!--<ui-select ng-model="terminal.state" theme="bootstrap" id="status" required ng-disabled="true">-->
+                    <!--<ui-select-match placeholder="状态">{{$select.selected.terminal_status_name}}</ui-select-match>-->
+                    <!--<ui-select-choices repeat="item.terminal_status_id as item in terminal_states | filter: $select.search">-->
+                        <!--<div ng-bind-html="item.terminal_status_name | highlight: $select.search"></div>-->
+                    <!--</ui-select-choices>-->
+                <!--</ui-select>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="form-group">
+            <div class="col-sm-3 text-right">
+                <label class="control-label">说明信息：</label>
+            </div>
+            <div class="col-sm-7">
+                <textarea ng-model="terminal.profile" rows="4" class="form-control" placeholder="终端说明信息" required></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-3 text-right">
+                <label  class="control-label">图片：</label>
+            </div>
+            <div class="col-sm-7">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img ng-src={{terminal.picture}} style="height: 50px">
+                        </div>
+                        <div class="col-md-8">
+                            <input type="file" file-model="terminalPic" class="form-control" accept=".png,.jpg,.jpeg,.gif"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button form="saveTerminal" type="submit" class="btn btn-success col-md-offset-1 col-md-10" ng-disabled="disabledAddButton">保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <div class="col-sm-offset-7 col-sm-5">
+        <button ng-click="cancel()" type="button" class="btn btn-default">取消</button>
+    </div>
+</div>

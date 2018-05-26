@@ -1,0 +1,58 @@
+<div class="navbar navbar-static-top my-nav" style="height:50px">
+    <div class="container">
+        <div class="navbar-header">
+            <img alt="Brand" src="../../img/logo.png" class="center-block img-responsive" style="width:50px;height:50px">
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="active">
+                    <!--<a href="{{avatarurl}}" target="_blank">-->
+                        <img ng-src="{{avatarurl}}" class="center-block img-circle img-responsive" style="width:50px;height:50px">
+                    <!--</a>-->
+                </li>
+                <li>
+                    <a class="nav-text" href="{{avatarurl}}" target="_blank">{{managerName}}</a>
+                </li>
+                <!-- <li>
+                    <a class="nav-text" href="#"><i class="fa fa-phone"></i>123456789</a>
+                </li> -->
+                <li>
+                    <a class="nav-text" href="#" class="" ng-click="signOut()">退出</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-left navbar-nav">
+                <li dropdown="">
+                    <a href="#" dropdown-toggle="" class="nav-text" aria-expanded="false">数据库<b class="caret"></b></a>
+                    <tree tree="main.db_operation_submenus"></tree>
+                </li>
+                <li>
+                    <a class="nav-text" ui-sref="main.health_data">健康测量</a>
+                </li>
+                <li dropdown="">
+                    <a href="#" dropdown-toggle="" class="nav-text" aria-expanded="false">安防<b class="caret"></b></a>
+                    <tree tree="main.home_security_submenus"></tree>
+                </li>
+                <li>
+                    <a class="nav-text" ui-sref="main.push_message">推送</a>
+                </li>
+                <li dropdown="">
+                    <a href="#" dropdown-toggle="" class="nav-text" aria-expanded="false">权限<b class="caret"></b></a>
+                    <tree tree="main.permission_submenus"></tree>
+                </li>
+                <li dropdown="">
+                    <a href="#" dropdown-toggle="" class="nav-text" aria-expanded="false">页面<b class="caret"></b></a>
+                    <tree tree="main.page_submenus"></tree>
+                </li>
+                <li dropdown="">
+                    <a href="#" dropdown-toggle="" class="nav-text" aria-expanded="false">腕表<b class="caret"></b></a>
+                    <tree tree="main.twatch_submenus"></tree>
+                </li>
+                <li dropdown="">
+                    <a href="#" dropdown-toggle="" class="nav-text" aria-expanded="false">个人中心 <b class="caret"></b></a>
+                    <tree tree="main.user_center_submenus"></tree>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div ui-view="" class="subpage" id="view"></div>

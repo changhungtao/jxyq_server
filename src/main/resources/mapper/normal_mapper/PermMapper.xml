@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxyq.mapper.normal_mapper.PermMapper">
+    <resultMap id="DataPermissionMap" type="com.jxyq.model.doctor.DataPermission">
+        <result column="data_permission_id" property="data_permission_id"/>
+        <result column="name" property="name"/>
+        <result column="district_id" property="district_id"/>
+        <result column="province_id" property="province_id"/>
+        <result column="city_id" property="city_id"/>
+        <result column="zone_id" property="zone_id"/>
+        <result column="data_type" property="data_type"/>
+    </resultMap>
+
+    <resultMap id="FilterMap" type="com.jxyq.model.doctor.Filter">
+        <result column="filter_id" property="filter_id" />
+        <result column="column_name_id" property="column_name_id" />
+        <result column="comparison_op_id" property="comparison_op_id" />
+        <result column="column_value" property="column_value" />
+        <result column="data_permission_id" property="data_permission_id" />
+        <result column="logical_op_id" property="logical_op_id" />
+    </resultMap>
+
+    <resultMap id="DocPermissionMap" type="map">
+        <result column="doctor_data_permission_id" property="doctor_data_permission_id" />
+        <result column="doctor_id" property="doctor_id" />
+        <result column="data_permission_id" property="data_permission_id" />
+    </resultMap>
+
+    <select id="selDataPermByPage" parameterType="map" resultMap="DataPermissionMap">
+        select a.data_permission_id as data_permission_id, name, district_id, province_id, city_id, zone_id, data_type
+        from data_permission a, doctor_data_permission b
+        where a.data_permission_id = b.data_permission_id
+        <if test="doctor_id != null">
+            <![CDATA[and b.doctor_id = #{doctor_id}]]>
+        </if>
+        <if test="permission_name != null">
+            <![CDATA[and a.name like '%${permission_name}%']]>
+        </if>
+        <if test="data_type != null">
+            <![CDATA[and a.data_type = #{data_type}]]>
+        </if>
+        order by doctor_data_permission_id DESC
+    </select>
+
+    <select id="selDataPermission" parameterType="map" resultMap="DataPermissionMap">
+        select a.data_permission_id as data_permission_id, name, district_id, province_id, city_id, zone_id, data_type
+        from data_permission a, doctor_data_permission b
+        where a.data_permission_id = b.data_permission_id
+        <if test="doctor_id != null">
+            <![CDATA[and b.doctor_id = #{doctor_id}]]>
+        </if>
+        <if test="permission_name != null">
+            <![CDATA[and a.name like '%${permission_name}%']]>
+        </if>
+        <if test="data_type != null">
+            <![CDATA[and a.data_type = #{data_type}]]>
+        </if>
+    </select>
+
+    <select id="selFilter" parameterType="map" resultMap="FilterMap">
+        select filter_id, data_permission_id, column_name_id, comparison_op_id, column_value,
+            logical_op_id
+        from filter
+        where data_permission_id = #{data_permission_id}
+    </select>
+
+    <select id="selDataPermissionByPage" parameterType="map" resultMap="DataPermissionMap">
+        select a.data_permission_id as data_permission_id, a.name as name, a.district_id as district_id, a.province_id as province_id, a.city_id as city_id,
+            a.zone_id as zone_id, a.data_type as data_type
+        from data_permission a left join doctor_data_permission b on a.data_permission_id = b.data_permission_id
+            left join doctor c on b.doctor_id = c.doctor_id
+        where 1 = 1
+        <if test="full_name != null">
+            <![CDATA[and c.full_name like "%${full_name}%"]]>
+        </if>
+        <if test="registered_from != null">
+            <![CDATA[and c.registered_at >= #{registered_from}]]>
+        </if>
+        <if test="registered_to != null">
+            <![CDATA[and c.registered_at <= #{registered_to}]]>
+        </if>
+        <if test="query_date != null">
+            <![CDATA[and c.registered_at < #{query_date}]]>
+        </if>
+    </select>
+
+    <insert id="inDataPermission" useGeneratedKeys="true" keyProperty="data_permission_id" parameterType="com.jxyq.model.doctor.DataPermission">
+        replace into data_permission(data_permission_id, name, district_id, province_id, city_id,
+            zone_id, data_type)
+        values(#{data_permission_id}, #{name}, #{district_id}, #{province_id}, #{city_id},
+            #{zone_id}, #{data_type})
+    </insert>
+
+    <insert id="inFilter" parameterType="com.jxyq.model.doctor.Filter">
+        insert into filter(filter_id, column_name_id, comparison_op_id, column_value, data_permission_id, logical_op_id)
+        values(#{filter_id}, #{column_name_id}, #{comparison_op_id}, #{column_value}, #{data_permission_id}, #{logical_op_id})
+    </insert>
+
+    <insert id="inDoctorDataPermission" parameterType="map">
+        insert into doctor_data_permission(doctor_data_permission_id, doctor_id, data_permission_id)
+        values(#{doctor_data_permission_id}, #{doctor_id}, #{data_permission_id})
+    </insert>
+
+    <delete id="delFilter" parameterType="map">
+        delete from filter
+        where 1 = 1
+        <if test="data_permission_id != null">
+            <![CDATA[and data_permission_id = #{data_permission_id}]]>
+        </if>
+    </delete>
+
+    <delete id="delDoctorPermission" parameterType="map">
+        delete from doctor_data_permission where data_permission_id = #{data_permission_id}
+    </delete>
+
+    <select id="selDataPermissionById" parameterType="map" resultMap="DataPermissionMap">
+        select data_permission_id, name, district_id, province_id, city_id,
+            zone_id, data_type
+        from data_permission
+        where data_permission_id = #{data_permission_id}
+    </select>
+
+    <select id="selDocPermission" parameterType="map" resultMap="DocPermissionMap">
+        select doctor_data_permission_id, doctor_id, data_permission_id
+        from doctor_data_permission
+        where 1 = 1
+        <if test="doctor_id != null">
+            <![CDATA[and doctor_id = #{doctor_id}]]>
+        </if>
+        <if test="data_permission_id != null">
+            <![CDATA[and data_permission_id = #{data_permission_id}]]>
+        </if>
+    </select>
+
+    <delete id="delDataPermissionById" parameterType="map">
+        delete from data_permission where data_permission_id = #{data_permission_id}
+    </delete>
+</mapper>

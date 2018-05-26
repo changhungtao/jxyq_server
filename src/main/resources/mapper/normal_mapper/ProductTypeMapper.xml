@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxyq.mapper.normal_mapper.ProductTypeMapper">
+
+    <resultMap id="ProductTypeMap" type="map">
+        <result column="product_type_id" property="product_type_id" />
+        <result column="name" property="name" />
+        <result column="registered_at" property="registered_at" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <resultMap id="proDetailMap" type="map">
+        <result column="device_type_id" property="device_type_id" />
+        <result column="name" property="name" />
+        <result column="registered_at" property="registered_at" />
+        <result column="status" property="status" />
+    </resultMap>
+
+
+    <select id="selProductTypeByPage" parameterType="map" resultMap="ProductTypeMap">
+        select product_type_id, name, registered_at, status
+        from product_type
+        where 1 = 1
+        <if test="product_type_ids != null">
+            and a.product_type_id in
+            <foreach item="item" index="index" collection="product_type_ids" open="(" separator="," close=")">#{item}</foreach>
+        </if>
+        <if test="minRegisterTime != null">
+            <![CDATA[and registered_at >= #{minRegisterTime}]]>
+        </if>
+        <if test="maxRegisterTime != null">
+            <![CDATA[and registered_at <= #{maxRegisterTime}]]>
+        </if>
+        <if test="query_date != null">
+            <![CDATA[and registered_at <= (#{query_date})]]>
+        </if>
+        <if test="name != null">
+            <![CDATA[and name like "%${name}%"]]>
+        </if>
+    </select>
+
+
+    <insert id="insertProductType" useGeneratedKeys="true" keyProperty="product_type_id"   parameterType="com.jxyq.model.health.ProductType">
+        insert into product_type (product_type_id,name,registered_at,status)
+            values(#{product_type_id},#{name},#{registered_at},#{status})
+    </insert>
+    <update id="upProductTypeInf" parameterType="map">
+        update device_type
+        set product_type_id = #{product_type_id}
+        where device_type_id = #{device_type_id}
+    </update>
+    <select id="selProductDetail" parameterType="int" resultMap="proDetailMap">
+      <!--  select a.name,b.device_type_id,b.name,b.registered_at,b.status
+             from product_type a join device_type b on a.product_type_id=b.product_type_id
+                where product_type_id=#{id};-->
+        select device_type_id,name,registered_at,status
+        from device_type where product_type_id=#{id};
+    </select>
+    <update id="upProductName" parameterType="map">
+        update product_type set name=#{name} where product_type_id=#{id};
+    </update>
+    <delete id="delProductType" parameterType="map" >
+        delete from product_type where product_type_id=#{product_type_id};
+    </delete>
+</mapper>

@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxyq.mapper.normal_mapper.UserMapper">
+
+    <resultMap id="userMap" type="com.jxyq.model.user.User">
+        <result column="user_id" property="user_id" />
+        <result column="phone" property="phone" />
+        <result column="password" property="password" />
+        <result column="email" property="email" />
+        <result column="nick_name" property="nick_name" />
+        <result column="full_name" property="full_name" />
+        <result column="avatar_url" property="avatar_url" />
+        <result column="gender" property="gender" />
+        <result column="birthday" property="birthday" />
+        <result column="height" property="height" />
+        <result column="weight" property="weight" />
+        <result column="targetWeight" property="target_weight" />
+        <result column="address" property="address" />
+        <result column="district_id" property="district_id" />
+        <result column="province_id" property="province_id" />
+        <result column="city_id" property="city_id" />
+        <result column="zone_id" property="zone_id" />
+        <result column="qq" property="qq" />
+        <result column="points" property="points" />
+        <result column="status" property="status" />
+        <result column="registered_at" property="registered_at" />
+        <result column="updated_at" property="updated_at" />
+        <result column="authenticity" property="authenticity" />
+        <result column="filled_in_at" property="filled_in_at" />
+        <result column="last_measured_at" property="last_measured_at" />
+        <result column="online_status" property="online_status" />
+    </resultMap>
+
+    <resultMap id="selectUserForCode" type="map" >
+        <result column="phone" property="phone" />
+    </resultMap>
+
+    <resultMap id="verificationCodeMap" type="com.jxyq.model.user.VerificationCode" >
+        <result column="verification_code_id" property="verification_code_id" />
+        <result column="phone" property="phone" />
+        <result column="used_for" property="used_for" />
+        <result column="created_at" property="created_at" />
+        <result column="content" property="content" />
+        <result column="duration" property="duration" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <resultMap id="selectPwdByPwd" type="map" >
+        <result column="password" property="password" />
+    </resultMap>
+
+    <resultMap id="selectIdForToken" type="com.jxyq.model.user.User" >
+        <result column="user_id" property="user_id" />
+    </resultMap>
+
+    <resultMap id="selectUserScore" type="map" >
+        <result column="points" property="points" />
+    </resultMap>
+
+    <resultMap id="selectUserDetailScore" type="map" >
+        <result column="points" property="points" />
+        <result column="new_points" property="new_points" />
+        <result column="operation_type" property="type" />
+        <result column="description" property="description" />
+        <result column="happened_at" property="happened_at" />
+    </resultMap>
+
+    <resultMap id="selectInfoNews" type="map" >
+        <result column="pic_url" property="pic_url" />
+        <result column="news_link" property="news_link" />
+    </resultMap>
+
+    <resultMap id="selectInfoExhibition" type="map" >
+        <result column="pic_url" property="pic_url" />
+    </resultMap>
+
+    <resultMap id="userTerminalMap" type="com.jxyq.model.health.UserTerminal">
+        <result column="user_device_id" property="user_device_id" />
+        <result column="terminal_id" property="terminal_id" />
+        <result column="user_id" property="user_id" />
+        <result column="manufactory_id" property="manufactory_id" />
+        <result column="device_type_id" property="device_type_id" />
+        <result column="terminal_catagory_id" property="terminal_catagory_id" />
+        <result column="count" property="count" />
+        <result column="created_at" property="created_at" />
+        <result column="updated_at" property="updated_at" />
+    </resultMap>
+
+    <resultMap id="selectAssociatersMap" type="map">
+        <result column="phone" property="phone"/>
+    </resultMap>
+
+    <resultMap id="appUpdateMap" type="map">
+        <result column="version_code" property="version_code"/>
+        <result column="description" property="description"/>
+        <result column="url" property="url"/>
+    </resultMap>
+
+    <resultMap id="selectRecoHospitalsMap" type="map">
+        <!--<result column="hospital_id" property="hospital_id"/>-->
+        <result column="name" property="name"/>
+        <result column="address" property="address"/>
+        <result column="phone" property="phone"/>
+        <result column="longitude" property="longitude"/>
+        <result column="latitude" property="latitude"/>
+        <result column="postcode" property="postcode"/>
+        <result column="profile" property="profile"/>
+        <result column="homepage" property="homepage"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <resultMap id="roleMap" type="com.jxyq.model.Role">
+        <result column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="permissions" property="permissions" />
+        <result column="level" property="level" />
+    </resultMap>
+
+    <resultMap id="countMap" type="map">
+        <result column="count" property="count" />
+    </resultMap>
+
+    <resultMap id="selPupilsInfMap" type="com.jxyq.model.user.UserPupil">
+        <result column="user_pupil_id" property="user_pupil_id" />
+        <result column="user_id" property="user_id" />
+        <result column="pupil_name" property="pupil_name" />
+        <result column="pupil_imei" property="pupil_imei" />
+        <result column="pupil_avatar_url" property="pupil_avatar_url" />
+    </resultMap>
+
+    <resultMap id="PushServiceMap" type="com.jxyq.model.others.PushService">
+        <result column="push_service_id" property="push_service_id" />
+        <result column="phone" property="phone" />
+        <result column="uid" property="uid" />
+        <result column="device" property="device" />
+        <result column="channel_id" property="channel_id" />
+        <result column="user_id" property="user_id" />
+        <result column="push_token" property="push_token" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <resultMap id="selConsumptionMap" type="com.jxyq.model.user.Consumption">
+        <result column="comsumption_id" property="comsumption_id" />
+        <result column="happened_at" property="happened_at" />
+        <result column="points" property="points" />
+        <result column="user_id" property="user_id" />
+        <result column="new_points" property="new_points" />
+        <result column="operation_type" property="operation_type" />
+        <result column="description" property="description" />
+    </resultMap>
+
+    <resultMap id="ConsumptionRuleMap" type="com.jxyq.model.user.ConsumptionRule">
+        <result column="comsumption_rule_id" property="comsumption_rule_id" />
+        <result column="operation_type" property="operation_type" />
+        <result column="points" property="points" />
+        <result column="description" property="description" />
+    </resultMap>
+
+    <resultMap id="selPointsRuleMap" type="map">
+        <result column="operation_type" property="operation_type" />
+        <result column="points" property="points" />
+    </resultMap>
+
+    <select id="selConsumption" parameterType="map" resultMap="selConsumptionMap">
+        select comsumption_id, happened_at, points, user_id, new_points,
+            operation_type, description
+        from consumption
+        where user_id = #{user_id}
+        and operation_type=#{operation_type}
+        limit 1
+    </select>
+
+    <select id="qryConsumption" parameterType="map" resultMap="selConsumptionMap">
+        select comsumption_id, happened_at, points, user_id, new_points,
+        operation_type, description
+        from consumption
+        where 1 = 1
+        <if test="user_id != null">
+            and user_id = #{user_id}
+        </if>
+        <if test="happened_from != null">
+            <![CDATA[and happened_at >= #{happened_from}]]>
+        </if>
+        <if test="happened_to != null">
+            <![CDATA[and happened_at <= #{happened_to}]]>
+        </if>
+    </select>
+
+    <select id="selConsumptionCnt" parameterType="map" resultMap="countMap">
+        select count(*) as count from consumption
+        where 1 = 1
+        <if test="user_id != null">
+            and user_id = #{user_id}
+        </if>
+        <if test="operation_type != null">
+            <![CDATA[and operation_type = #{operation_type}]]>
+        </if>
+        <if test="happened_from != null">
+            <![CDATA[and happened_at >= #{happened_from}]]>
+        </if>
+        <if test="happened_to != null">
+            <![CDATA[and happened_at <= #{happened_to}]]>
+        </if>
+    </select>
+
+    <update id="upUserPoints" parameterType="com.jxyq.model.user.User">
+        update user set points = #{points} where user_id = #{user_id}
+    </update>
+
+    <insert id="inConsumption" parameterType="com.jxyq.model.user.Consumption">
+        insert into consumption(comsumption_id, happened_at, user_id, points, new_points,
+            operation_type, description)
+        values(#{comsumption_id}, #{happened_at}, #{user_id}, #{points}, #{new_points},
+            #{operation_type}, #{description})
+    </insert>
+
+    <select id="qryConsumptionRule" parameterType="map" resultMap="ConsumptionRuleMap">
+        select comsumption_rule_id, operation_type, points, description
+        from consumption_rule
+    </select>
+
+    <select id="selConsumptionRule" parameterType="map" resultMap="ConsumptionRuleMap">
+        select comsumption_rule_id, operation_type, points, description
+        from consumption_rule
+        where 1 = 1
+        <if test="operation_type != null">
+            <![CDATA[and operation_type = #{operation_type}]]>
+        </if>
+    </select>
+
+    <select id="selUserByPhone" parameterType="com.jxyq.model.user.User" resultMap="userMap">
+        select user_id, phone, password, email, nick_name,
+            full_name, avatar_url, gender, birthday, height,
+            weight, target_weight, address, district_id, province_id,
+            city_id, zone_id, qq, points, status,
+            registered_at , updated_at, authenticity, filled_in_at, last_measured_at,
+            online_status
+        from user
+        where
+        phone = #{phone}
+        limit 1;
+    </select>
+
+    <select id="selUserInf" parameterType="map" resultMap="userMap">
+        select user_id, phone, password, email, nick_name,
+            full_name, avatar_url, gender, birthday, height,
+            weight, target_weight, address, district_id, province_id,
+            city_id, zone_id, qq, points, status,
+            registered_at , updated_at
+        from user
+        where 1 = 1
+        <if test="phone != null">
+            and phone = #{phone}
+        </if>
+        <if test="user_id != null">
+            and user_id = #{user_id}
+        </if>
+        limit 1;
+    </select>
+
+    <insert id="inVerifacationCode" parameterType="com.jxyq.model.user.VerificationCode">
+        insert into verification_code(
+            verification_code_id, phone, used_for, created_at, content,
+            duration, status
+        ) values(
+            #{verification_code_id},
+            #{phone},
+            #{used_for},
+            #{created_at},
+            #{content},
+            #{duration},
+            #{status}
+        );
+    </insert>
+
+    <update id="upVerifacationCode" parameterType="com.jxyq.model.user.VerificationCode">
+        update verification_code set
+            phone = #{phone},
+            used_for = #{used_for},
+            created_at = #{created_at},
+            content = #{content},
+            duration = #{duration},
+            status = #{status}
+        where verification_code_id = #{verification_code_id};
+    </update>
+
+    <select id="selVerificationCode" parameterType="com.jxyq.model.user.VerificationCode" resultMap="verificationCodeMap">
+        select verification_code_id, phone, used_for, created_at, content,
+            duration, status
+        from verification_code
+        where phone = #{phone}
+        and used_for = #{used_for}
+        limit 1;
+    </select>
+
+    <insert id="insertUserForRegister" useGeneratedKeys="true" keyProperty="user_id" parameterType="com.jxyq.model.user.User">
+        insert into  user(phone,password,points,registered_at,updated_at,status)
+            values(#{phone,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{points,jdbcType=VARCHAR},
+             #{registered_at,jdbcType=VARCHAR},#{updated_at,jdbcType=VARCHAR},#{status,jdbcType=VARCHAR});
+    </insert>
+
+    <insert id="insertPoints" parameterType="map">
+        insert into  consumption(user_id,points) values(#{user_id,jdbcType=VARCHAR},#{points,jdbcType=VARCHAR});
+    </insert>
+
+    <update id="updateUserByPwd" parameterType="map">
+        update user set password=#{password,jdbcType=VARCHAR} where phone= #{phone,jdbcType=VARCHAR};
+    </update>
+
+    <select id="selectUserByPwd" parameterType="map" resultMap="selectPwdByPwd">
+        select password from user where user_id= #{id,jdbcType=VARCHAR};
+    </select>
+
+    <update id="upUserPassword" parameterType="map">
+        update user set password=#{password,jdbcType=VARCHAR} where phone = #{phone,jdbcType=VARCHAR};
+    </update>
+
+    <select id="selectScoreById" parameterType="map" resultMap="selectUserScore">
+        select points from user where user_id= #{id,jdbcType=VARCHAR};
+    </select>
+
+    <select id="selectDetailById" parameterType="map" resultMap="selectUserDetailScore">
+        select points,new_points,operation_type,happened_at,description from consumption
+        where user_id= #{id,jdbcType=VARCHAR}
+        <if test="begin_time != null">
+            <![CDATA[and happened_at >#{begin_time}]]>
+        </if>
+        <if test="end_time != null">
+            <![CDATA[and happened_at < #{end_time}]]>
+        </if>
+    </select>
+
+    <select id="selPointsRule" parameterType="map" resultMap="selPointsRuleMap">
+        select operation_type,points from consumption_rule ;
+    </select>
+    <select id="selectNews" parameterType="map" resultMap="selectInfoNews">
+        select pic_url,news_link from news_resource A join news B where A.news_id=B.news_id;
+    </select>
+
+    <select id="selectExhibition" parameterType="map" resultMap="selectInfoExhibition">
+        select pic_url from exhibition_resource A join exhibition B where A.exhibition_id=B.exhibition_id;
+    </select>
+
+    <insert id="insertService" parameterType="map">
+        insert into push_service(device,phone,channel_id,user_id,push_token)
+            values(#{device,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR},#{channel_id,jdbcType=VARCHAR},
+                 #{user_id,jdbcType=VARCHAR},#{push_token,jdbcType=VARCHAR});
+    </insert>
+
+    <select id="selUserTerminalByUserAndTer" parameterType="map" resultMap="userTerminalMap">
+        select user_device_id, terminal_id, user_id, manufactory_id, device_type_id,
+            terminal_catagory_id, count, created_at, updated_at
+        from user_terminal
+        where terminal_id = #{terminal_id} and user_id = #{user_id};
+    </select>
+
+    <insert id="inUserTerminal" parameterType="com.jxyq.model.health.UserTerminal">
+        insert into user_terminal(user_device_id, terminal_id, user_id, manufactory_id, device_type_id,
+                terminal_catagory_id, count, created_at, updated_at)
+        values(#{user_device_id}, #{terminal_id}, #{user_id}, #{manufactory_id}, #{device_type_id},
+                #{terminal_catagory_id}, #{count}, #{created_at}, #{updated_at});
+    </insert>
+
+    <update id="upUserTerminalUpdateTm" parameterType="com.jxyq.model.health.UserTerminal">
+        update user_terminal set updated_at = #{updated_at}, count = count + 1 where user_device_id = #{user_device_id};
+    </update>
+    
+    <select id="selRolesByUser" parameterType="com.jxyq.model.user.User" resultMap="roleMap">
+        select a.id, a.name, a.permissions, a.level
+        from role as a, user_urole as b
+        where a.id = b.role_id
+        and b.user_id = #{user_id}
+    </select>
+
+    <insert id="inUserAssociated" parameterType="com.jxyq.model.user.UserAssociated">
+        insert into user_associated(user_associated_id, user_id, associated_user_id, associated_user_name,
+            associated_user_avatar, level)
+        values(#{user_associated_id}, #{user_id}, #{associated_user_id}, #{associated_user_name},
+            #{associated_user_avatar}, #{level})
+    </insert>
+
+    <resultMap type="com.jxyq.model.user.UserAssociated" id="UserAssociatedMap">
+        <result column="user_associated_id" property="user_associated_id" />
+        <result column="user_id" property="user_id" />
+        <result column="associated_user_id" property="associated_user_id" />
+        <result column="associated_user_name" property="associated_user_name" />
+        <result column="associated_user_avatar" property="associated_user_avatar" />
+        <result column="level" property="level" />
+    </resultMap>
+
+    <select id="selUserAssociated" parameterType="map" resultMap="UserAssociatedMap">
+        select user_associated_id, user_id, associated_user_id, associated_user_name,
+            associated_user_avatar, level
+        from user_associated
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id = #{user_id}]]>
+        </if>
+        <if test="associated_user_id != null">
+            <![CDATA[and associated_user_id = #{associated_user_id}]]>
+        </if>
+        limit 1
+    </select>
+
+    <update id="upUserAssociated" parameterType="com.jxyq.model.user.UserAssociated">
+        update user_associated set
+        <if test="user_id != null">
+            user_id = #{user_id},
+        </if>
+        <if test="associated_user_id != null">
+            associated_user_id = #{associated_user_id},
+        </if>
+        <if test="associated_user_name != null">
+            associated_user_name = #{associated_user_name},
+        </if>
+        <if test="associated_user_avatar != null">
+            associated_user_avatar = #{associated_user_avatar},
+        </if>
+        <if test="level != null">
+            level = #{level},
+        </if>
+        user_associated_id = #{user_associated_id}
+        where user_associated_id = #{user_associated_id}
+    </update>
+    
+    <delete id="delUserAssociated"  parameterType="map">
+        delete from user_associated where user_associated_id = #{user_associated_id}
+    </delete>
+
+    <resultMap id="QryAssociatedMap" type="map">
+        <result column="associated_user_phone" property="associated_user_phone" />
+        <result column="associated_user_name" property="associated_user_name" />
+        <result column="associated_user_avatar" property="associated_user_avatar" />
+    </resultMap>
+
+    <select id="qryUserAssociated" parameterType="map" resultMap="QryAssociatedMap">
+        select b.phone as associated_user_phone, associated_user_name, associated_user_avatar
+        from user_associated a, user b
+        where a.associated_user_id = b.user_id
+        and a.user_id = #{user_id}
+    </select>
+
+    <!--hospital-->
+    <select id="selectRecoHospitals" parameterType="map" resultMap="selectRecoHospitalsMap">
+        select * from hospital where hospital_id in(
+            select hospital_id from hospital where
+                #{radius} &gt; lat_long_distance(latitude,longitude,#{latitude},#{longitude}))
+        order by status DESC
+        <if test="limit != -1">
+            limit #{limit}
+        </if>
+    </select>
+
+    <!--app_update-->
+    <select id="selectAppUpdate" parameterType="java.lang.Integer" resultMap="appUpdateMap">
+        select version_code,description,url from app_update where type=#{type};
+    </select>
+
+    <insert id="insertTest" parameterType="map">
+        insert into test values(0, #{text});
+    </insert>
+
+    <select id="selUserCountByPupil" parameterType="map" resultMap="countMap">
+        select count(*) as count as count from user_pupil where user_pupil_id = #{user_pupil_id}
+    </select>
+
+    <insert id="insertUserPupil" parameterType="com.jxyq.model.user.UserPupil">
+        insert into user_pupil (
+            user_pupil_id, user_id, pupil_name, pupil_imei, pupil_avatar_url
+        )
+        values(
+            #{user_pupil_id}, #{user_id}, #{pupil_name}, #{pupil_imei}, #{pupil_avatar_url}
+        )
+    </insert>
+
+    <update id="upUserPupil" parameterType="com.jxyq.model.user.UserPupil">
+        update user_pupil
+        set
+        <if test="pupil_name != null">
+            pupil_name = #{pupil_name},
+        </if>
+        <if test="pupil_avatar_url != null">
+            pupil_avatar_url = #{pupil_avatar_url},
+        </if>
+        pupil_imei = #{pupil_imei}
+        where user_id = #{user_id}
+        and pupil_imei = #{pupil_imei}
+    </update>
+
+    <select id="selPupilsInf" parameterType="map" resultMap="selPupilsInfMap">
+        select user_pupil_id, user_id, pupil_name, pupil_imei, pupil_avatar_url
+        from user_pupil
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id = #{user_id}]]>
+        </if>
+        <if test="pupil_imei != null">
+            <![CDATA[and pupil_imei = #{pupil_imei}]]>
+        </if>
+    </select>
+
+    <delete id="deleteUserPupil" parameterType="map">
+        delete from user_pupil
+        where 1 = 1
+        <if test="user_pupil_id != null">
+            <![CDATA[and user_pupil_id = #{user_pupil_id}]]>
+        </if>
+    </delete>
+
+    <select id="selPushServiceByTerCatId" parameterType="map" resultMap="PushServiceMap">
+        select push_service_id, phone, uid, device, channel_id,
+            a.user_id as user_id, push_token, status
+        from push_service a, user_terminal b
+        where a.uid = b.user_id
+        and terminal_catagory_id = #{terminal_catagory_id}
+    </select>
+
+    <select id="selPushServiceByUserId" parameterType="map" resultMap="PushServiceMap">
+        select push_service_id, phone, uid, device, channel_id,
+        user_id, push_token, status
+        from push_service
+        where uid in
+        <foreach item="item" index="index" collection="user_id_list" open="(" separator="," close=")">#{item}</foreach>
+    </select>
+
+    <select id="selPushServiceByUid" parameterType="map" resultMap="PushServiceMap">
+        select push_service_id, phone, uid, device, channel_id,
+            user_id, push_token, status
+        from push_service
+        where uid = #{uid}
+    </select>
+
+    <insert id="inPushService" parameterType="com.jxyq.model.others.PushService">
+        insert into push_service(push_service_id, phone, uid, device, channel_id,
+            user_id, push_token, status)
+        values(#{push_service_id}, #{phone}, #{uid}, #{device}, #{channel_id},
+            #{user_id}, #{push_token}, #{status})
+    </insert>
+
+    <update id="upPushService" parameterType="com.jxyq.model.others.PushService">
+        update push_service set
+            phone = #{phone},
+            uid = #{uid},
+            device = #{device},
+            channel_id = #{channel_id},
+            user_id = #{user_id},
+            push_token = #{push_token},
+            status = #{status}
+        where push_service_id = #{push_service_id}
+    </update>
+
+    <insert id="inUserRole" parameterType="map">
+        insert into user_urole(user_id, role_id)
+        values(#{user_id}, #{role_id});
+    </insert>
+
+    <resultMap id="OneTimeTokenMap" type="com.jxyq.model.others.OneTimeToken">
+        <result column="one_time_token_id" property="one_time_token_id" />
+        <result column="user_id" property="user_id" />
+        <result column="token" property="token" />
+        <result column="created_at" property="created_at" />
+        <result column="valid_before" property="valid_before" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <select id="selOneTimeToken" parameterType="map" resultMap="OneTimeTokenMap">
+        select one_time_token_id, user_id, token, created_at, valid_before,
+            status
+        from one_time_token
+        where 1 = 1
+        <if test="user_id != null">
+            <![CDATA[and user_id = #{user_id}]]>
+        </if>
+        <if test="token != null">
+            <![CDATA[and token = #{token}]]>
+        </if>
+        limit 1
+    </select>
+
+    <insert id="inOneTimeToken" parameterType="map">
+        insert into one_time_token(one_time_token_id, user_id, token, created_at, valid_before,
+            status)
+        values(#{one_time_token_id}, #{user_id}, #{token}, #{created_at}, #{valid_before},
+            #{status})
+    </insert>
+
+    <delete id="delOneTimeToken" parameterType="map">
+        delete from one_time_token where user_id = #{user_id}
+    </delete>
+
+    <update id="upUserBbsPassword" parameterType="map">
+        update user set bbs_password = #{bbs_password} where user_id = #{user_id}
+    </update>
+
+    <resultMap id="BbsPasswordMap" type="map">
+        <result column="phone" property="username" />
+        <result column="bbs_password" property="password" />
+    </resultMap>
+
+    <select id="selUserBbsPassword" parameterType="map" resultMap="BbsPasswordMap">
+        select phone, bbs_password from user where user_id = #{user_id}
+    </select>
+
+    <update id="upUserMeasuredTime" parameterType="map">
+        update user set last_measured_at = #{last_measured_at} where user_id = #{user_id}
+    </update>
+
+    <resultMap id="UserIdMap" type="int">
+        <result column="user_id" property="user_id"/>
+    </resultMap>
+    
+    <select id="selUserIdByMaxMeasuredTime" parameterType="map" resultMap="UserIdMap">
+        select user_id from user
+        where 1 = 1
+        <if test="max_measured_at != null">
+            <![CDATA[and last_measured_at < #{max_measured_at}]]>
+        </if>
+    </select>
+
+    <update id="upUserOnlineStatus" parameterType="map">
+        update user set
+        online_status = #{online_status}
+        where user_id = #{user_id}
+    </update>
+</mapper>

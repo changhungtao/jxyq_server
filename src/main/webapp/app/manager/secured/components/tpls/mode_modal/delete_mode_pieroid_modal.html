@@ -1,0 +1,86 @@
+<div class="modal-header">
+  <div class="row">
+    <div class="col-md-6">
+      <h4 class="modal-title">删除模式时段</h4>
+    </div>
+    <div class="col-md-6 text-right">
+      <h4 class="modal-title"></h4>
+    </div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <form class="form-horizontal">
+      <div class="form-group">
+        <div class="col-md-3 text-right">
+          <label class="control-label">开始时间：</label>
+        </div>
+        <div class="col-md-6">
+          <input class="form-control" ng-model="pieroid_submit.start" type="text" placeholder="24小时制时间" disabled>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-3 text-right">
+          <label class="control-label">结束时间：</label>
+        </div>
+        <div class="col-md-6">
+          <input class="form-control" ng-model="pieroid_submit.stop" type="text" placeholder="24小时制时间"disabled>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-3 text-right">
+            <label class="control-label">星期选择：</label>
+        </div>
+        <div class="col-md-9">
+          <label class="checkbox-inline">
+            <input type="checkbox" name="weeks" id="week_check1" value="1"disabled> 一
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="weeks" id="week_check2" value="2"disabled> 二
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="weeks" id="week_check3" value="3"disabled> 三
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="weeks" id="week_check4" value="4"disabled> 四
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="weeks" id="week_check5" value="5"disabled> 五
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="weeks" id="week_check6" value="6"disabled> 六
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="weeks" id="week_check7" value="7"disabled> 日
+          </label>
+        </div>
+                              
+      </div>
+
+      <div class="form-group">
+        <div class="col-md-3 text-right">
+            <label class="control-label">模式选择：</label>
+        </div>
+        <div class="col-md-6">
+            <ui-select  ng-model="pieroid_submit.runmode_selected" theme="bootstrap" ng-disabled="disabled" close-on-select="true">
+              <ui-select-match placeholder="选择工作模式">{{$select.selected.mode_name}}</ui-select-match>
+                <ui-select-choices repeat="item in pieroid_submit.runmode | filter: $select.search">
+                  <div ng-bind-html="item.mode_name | highlight: $select.search">
+                    
+                  </div>
+                </ui-select-choices>
+              </ui-select>
+       
+         
+        </div>
+                           
+            </div> 
+     </form>
+  </div>
+</div>
+<div class="modal-footer">
+    <div class="col-sm-offset-7 col-sm-5 text-right">
+      <button ng-click="ok()" class="btn btn-danger">删除</button>
+        <button ng-click="cancel()" type="button" class="btn btn-default">关闭</button>
+    </div>
+</div>

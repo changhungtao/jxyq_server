@@ -1,0 +1,196 @@
+<div class="modal-header">
+  <div class="row">
+    <div class="col-md-6">
+      <h4 class="modal-title">设置管理员权限</h4>
+    </div>
+  </div>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" id="updateMangerPermission" ng-submit="editManagerPermission()">
+    <!--start of alert block-->
+    <div class="alert alert-{{alert.type}} alert-dismissable" style="text-align: center;" role="alert" ng-repeat="alert in alerts" type="{{alert.type}}">
+      <button type="button" class="close" ng-click="closeAlert($index)"></button>
+      {{alert.msg}}
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">管理区域</h3>
+      </div>
+      <div class="panel-body">
+        <div class="form-group">
+          <div class="col-md-10">
+            <div class="col-md-4 text-right">
+              <label class="control-label" for="user_name">区域编号</label>
+            </div>
+            <div class="col-md-8">
+              <div class="input-group input-group ">
+                <!--<input type="text" class="form-control" id="user_name" placeholder="请输入区域编号" ng-model="signUp.signUpInf.login_name" required="required">-->
+                <ui-select ng-model="manPermission.district.district_id" ng-change="changeDistrict(manPermission.district.district_id,2)" required="required" theme="bootstrap">
+                  <ui-select-match placeholder="区域">{{$select.selected.district_name}}</ui-select-match>
+                  <ui-select-choices repeat="item.district_id  as item in district_list | filter: $select.search">
+                    <div ng-bind-html="item.district_name | highlight: $select.search"></div>
+                  </ui-select-choices>
+                </ui-select>
+                <span class="input-group-addon"><i class="fa fa-th-large"></i></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-10">
+            <div class="col-md-4 text-right">
+              <label class="control-label" for="user_name">第一级行政区编号</label>
+            </div>
+            <div class="col-md-8">
+              <div class="input-group input-group ">
+                <!--<input type="text" class="form-control" id="user_name" placeholder="请输入第一级行政区编号" ng-model="signUp.signUpInf.login_name" required="required">-->
+                <ui-select ng-change="changeProvince(manPermission.district.province_id,2)" ng-model="manPermission.district.province_id" theme="bootstrap">
+                  <ui-select-match placeholder="省">{{$select.selected.province_name}}</ui-select-match>
+                  <ui-select-choices repeat="item.province_id as item in province_select_list | filter: $select.search">
+                    <div ng-bind-html="item.province_name | highlight: $select.search"></div>
+                  </ui-select-choices>
+                </ui-select>
+                <span class="input-group-btn">
+                                      <button type="button" ng-click="manPermission.district.province_id = undefined" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                </button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-10">
+            <div class="col-md-4 text-right">
+              <label class="control-label" for="user_name">第二级行政区编号</label>
+            </div>
+            <div class="col-md-8">
+              <div class="input-group input-group ">
+                <!--<input type="text" class="form-control" id="user_name" placeholder="请输入第二级行政区编号" ng-model="signUp.signUpInf.login_name" required="required">-->
+                <ui-select ng-change="changeCity(manPermission.district.city_id,2)" ng-model="manPermission.district.city_id" theme="bootstrap">
+                  <ui-select-match placeholder="市">{{$select.selected.city_name}}</ui-select-match>
+                  <ui-select-choices repeat="item.city_id as item in city_select_list | filter: $select.search">
+                    <div ng-bind-html="item.city_name | highlight: $select.search"></div>
+                  </ui-select-choices>
+                </ui-select>
+                <span class="input-group-btn">
+                                      <button type="button" ng-click="manPermission.district.city_id = undefined" class="btn btn-default">
+                                          <span class="glyphicon glyphicon-trash"></span>
+                </button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-10">
+            <div class="col-md-4 text-right">
+              <label class="control-label" for="user_name">第三级行政区编号</label>
+            </div>
+            <div class="col-md-8">
+              <div class="input-group input-group ">
+                <!--<input type="text" class="form-control" id="user_name" placeholder="请输入第三级行政区编号" ng-model="signUp.signUpInf.login_name" required="required">-->
+                <ui-select ng-model="manPermission.district.zone_id" theme="bootstrap">
+                  <ui-select-match placeholder="县">{{$select.selected.zone_name}}</ui-select-match>
+                  <ui-select-choices repeat="item.zone_id as item in zone_select_list | filter: $select.search">
+                    <div ng-bind-html="item.zone_name | highlight: $select.search"></div>
+                  </ui-select-choices>
+                </ui-select>
+                <span class="input-group-btn">
+                                      <button type="button" ng-click="manPermission.district.zone_id = undefined" class="btn btn-default">
+                                          <span class="glyphicon glyphicon-trash"></span>
+                </button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">设备类型</h3>
+      </div>
+      <div class="panel-body">
+        <div class="form-group">
+          <div class="col-md-10">
+            <div class="col-md-4 text-right">
+              <label class="control-label" for="user_name">设备类型</label>
+            </div>
+            <div class="col-md-8">
+              <div class="input-group input-group ">
+                <!--<ui-select ng-model="manPermission.device_types" theme="bootstrap">-->
+                <!--<ui-select-match placeholder="选择设备类型">{{$select.selected.device_type_name}}</ui-select-match>-->
+                <!--<ui-select-choices repeat="item.device_type_id as item in deviceTypes | filter: $select.search">-->
+                <!--<div ng-bind-html="item.device_type_name | highlight: $select.search"></div>-->
+                <!--</ui-select-choices>-->
+                <!--</ui-select>-->
+                <ui-select multiple ng-model="manPermission.device_types" theme="bootstrap" close-on-select="false">
+                  <ui-select-match placeholder="已有权限类型">{{$item.device_type_name}}</ui-select-match>
+                  <ui-select-choices repeat="item.device_type_id as item in deviceTypes | filter: $select.search">
+                    <div ng-bind-html="item.device_type_name | highlight: $select.search"></div>
+                  </ui-select-choices>
+                </ui-select>
+                <span class="input-group-addon"><i class="fa fa-list"></i></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">数据权限</h3>
+      </div>
+      <div class="panel-body">
+        <div class="form-group">
+          <div class="col-md-offset-2 col-md-8">
+            <div class="col-md-3 text-right">
+              <label class="control-label" for="phone">查看数据权限</label>
+            </div>
+            <div class="col-md-1">
+              <div class="input-group input-group ">
+                <!--<input type="number" class="form-control" id="phone" placeholder="请选择查看数据权限" ng-model="manPermission.select" required="required">-->
+                <input id="checkSlave" type="checkbox" ng-checked="master" ng-model="manPermission.select" aria-label="Slave input">
+                <!--<span class="input-group-addon"><i class="fa fa-lock"></i></span>-->
+              </div>
+            </div>
+            <div class="col-md-3 text-right">
+              <label class="control-label" for="email">修改数据权限</label>
+            </div>
+            <div class="col-md-1">
+              <div class="input-group input-group ">
+                <!--<input type="number" class="form-control" id="mail" placeholder="请选择修改数据权限" ng-model="manPermission.update" required="required">-->
+                <input id="checkSlave" type="checkbox" ng-checked="master" ng-model="manPermission.update" aria-label="Slave input">
+                <!--<span class="input-group-addon"><i class="fa fa-lock"></i></span>-->
+              </div>
+            </div>
+            <div class="col-md-3 text-right">
+              <label class="control-label" for="user_password">导出数据权限</label>
+            </div>
+            <div class="col-md-1">
+              <div class="input-group input-group ">
+                <!--<input type="number" class="form-control" id="user_password" placeholder="请选择导出数据权限" ng-model="manPermission.export" required="required">-->
+                <input id="checkSlave" type="checkbox" ng-checked="master" ng-model="manPermission.export" aria-label="Slave input">
+                <!--<span class="input-group-addon"><i class="fa fa-lock"></i></span>-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <!-- <button form="updateMangerPermission" type="reset" class="btn btn-primary col-md-offset-3 col-md-3">重置</button> -->
+        <button form="updateMangerPermission" type="submit" class="btn btn-success col-md-offset-1 col-md-10">保存</button>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <div class="col-sm-offset-7 col-sm-5">
+    <!-- <button form="updateMangerPermission" type="submit" class="btn btn-success">提交</button> -->
+    <!-- <button form="updateMangerPermission" type="reset" class="btn btn-primary">重置</button> -->
+    <button ng-click="cancel()" type="button" class="btn btn-default">取消</button>
+  </div>
+</div>

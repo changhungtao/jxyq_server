@@ -1,0 +1,68 @@
+<div class="modal-header">
+    <div class="row">
+        <div class="col-md-6">
+            <h4 class="modal-title">编辑</h4>
+        </div>
+
+    </div>
+</div>
+<div class="modal-body">
+    <!--start of alert block-->
+    <div class="alert alert-{{alert.type}} alert-dismissable" style="text-align: center;" role="alert" ng-repeat="alert in alerts" type="{{alert.type}}">
+        <button type="button" class="close" ng-click="closeAlert($index)">
+        </button>
+        {{alert.msg}}
+    </div>
+    <!--end of alert block-->
+   <form class="form-horizontal" id="newForm">
+            <div class="form-group">
+                <div class="col-md-3 text-right">
+                    <label class="control-label">新闻页资源编号</label>
+                </div>
+                <div class="col-md-6">
+                    <input class="form-control" ng-model="modifyNew.news_resource_id" type="text" placeholder="输入宣传页资源编号">
+                </div>
+            </div>
+            <!--<div class="form-group">-->
+                <!--<div class="col-md-3 text-right">-->
+                    <!--<label class="control-label">图片链接</label>-->
+                <!--</div>-->
+                <!--<div class="col-md-6">-->
+                    <!--<input class="form-control" ng-model="modifyNew.pic_url" type="text" placeholder="输入图片链接">-->
+                <!--</div>-->
+            <!--</div>-->
+           <div class="form-group">
+               <div class="col-md-3 text-right">
+                   <label class="control-label">图片链接</label>
+               </div>
+               <div class="col-sm-7">
+                   <div class="row">
+                       <div class="col-md-4">
+                           <a href="{{modifyNew.pic_url}}">
+                               <img ng-src={{modifyNew.pic_url}} style="width: 100px">
+                           </a>
+                       </div>
+                       <div class="col-md-6" style="margin-top: 10px">
+                           <input type="file" file-model="news_pic" accept=".png,.jpg,.jpeg,.gif"/>
+                       </div>
+                   </div>
+               </div>
+           </div>
+            <div class="form-group">
+                <div class="col-md-3 text-right">
+                    <label class="control-label">新闻链接</label>
+                </div>
+                <div class="col-md-6">
+                    <input class="form-control" ng-model="modifyNew.news_link" type="text" placeholder="输入新闻链接">
+                </div>
+            </div>
+            
+        </form>
+</div>
+<div class="modal-footer">
+    <div class="col-sm-offset-7 col-sm-5">
+        <button form="newForm" ng-click="modifyNews()" type="submit" class="btn btn-success" ng-disabled="disabledBtn">提交</button>
+        <button form="newForm" type="reset" class="btn btn-primary">重置</button>
+        <button ng-click="cancel()" type="button"  class="btn btn-default">取消</button>
+    </div>
+</div>

@@ -1,0 +1,190 @@
+</br>
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h1 class="panel-title">轨迹设置</h1>
+  </div>
+  <!--start of alert block-->
+  <div class="alert alert-{{alert.type}} alert-dismissable" style="text-align: center;" role="alert" ng-repeat="alert in alerts" type="{{alert.type}}">
+    <button type="button" class="close" ng-click="closeAlert($index)">
+    </button>
+    {{alert.msg}}
+  </div>
+  <!--end of alert block-->
+  <div class="panel-body">
+    <!-- 查询区域 -->
+    <div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">查询条件</h3>
+            </div>
+            <div class="panel-body">
+              <form class="form-horizontal">
+                <div class="row">
+                  <div class="col-md-8">
+                    <div class="form-group">
+                      <div class="col-md-2">
+                        <label class="control-label">IMEI号码：</label>
+                      </div>
+                      <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="请输入儿童腕表的IMEI号码" ng-model="routeSetting.imei1">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 text-right">
+                    <div class="form-group">
+                      <div class="col-md-offset-4 col-md-8 text-right">
+                        <button type="button" ng-click="queryFile()" class="btn btn-success form-control">查询</i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 操作面板 -->
+    <div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">操作面板</h3>
+            </div>
+            <div class="panel-body">
+              <!-- 腕表号码 -->
+              <form class="form-horizontal">
+                <div class="row">
+                  <div class="col-md-8">
+                    <div class="form-group">
+                      <div class="col-md-2">
+                        <label class="control-label">IMEI号码：</label>
+                      </div>
+                      <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="操作对象儿童腕表IMEI号码" ng-model="routeSetting.imei2" disabled="true">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- 默认模式 -->
+                <div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="panel panel-info">
+                        <div class="panel-heading">
+                          <h3 class="panel-title">轨迹参数设置</h3>
+                        </div>
+                        <div class="panel-body">
+                          <form class="form-horizontal">
+                            <div class="row">
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <div class="col-md-4">
+                                    <label class="control-label">上传方式</label>
+                                  </div>
+                                  <div class="col-md-8">
+                                    <!-- <div class="input-group"> -->
+                                      <ui-select  ng-model="routeSetting.twatch_gps_mode_id" theme="bootstrap" ng-disabled="disabled" close-on-select="true">
+                                        <ui-select-match placeholder="上传方式">{{$select.selected.mode_name}}</ui-select-match>
+                                        <ui-select-choices repeat="item.mode_id as item in routeSetting.twatch_gps_mode | filter: $select.search">
+                                          <div ng-bind-html="item.mode_name | highlight: $select.search">
+                                            
+                                          </div>
+                                        </ui-select-choices>
+                                      </ui-select>
+                                    <!-- </div> -->
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-2">
+                                <div class="form-group">
+                                  <div class="col-md-4">
+                                    <label class="control-label">间隔</label>
+                                  </div>
+                                  <div class="col-md-6">                                    
+                                    <ui-select ng-model="routeSetting.gps_interval"  theme="bootstrap">
+                                      <ui-select-match >{{$select.selected}}</ui-select-match>
+                                      <ui-select-choices repeat="item in  minutes | filter: $select.search">
+                                      <div ng-bind-html="item"></div>
+                                    </ui-select-choices>
+                                  </ui-select>                                
+                              </div> 
+                                  <div >
+                                    <label class="control-label">分钟</label>
+                                  </div>                                 
+                                </div>
+                              </div>
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <div class="col-md-4">
+                                    <label class="control-label">启用状态</label>
+                                  </div>
+                                  <div class="col-md-8">
+                                    <!-- <div class="input-group"> -->
+                                      <ui-select  ng-model="routeSetting.twatch_route_state_id" theme="bootstrap" ng-disabled="disabled" close-on-select="true">
+                                        <ui-select-match placeholder="启用状态">{{$select.selected.state_name}}</ui-select-match>
+                                        <ui-select-choices repeat="item.state_id as item in routeSetting.twatch_route_state | filter: $select.search">
+                                          <div ng-bind-html="item.state_name | highlight: $select.search">
+                                            
+                                          </div>
+                                        </ui-select-choices>
+                                      </ui-select>
+                                    <!-- </div> -->
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-4 text-right">
+                                <div class="form-group">
+                                  <div class="col-md-offset-4 col-md-8 text-right">
+                                    <button type="submit" class="btn btn-primary form-control" ng-click="saveRouteSet()">保存</button>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 轨迹上传时段 -->
+                <div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="panel panel-info">
+                        <div class="panel-heading">
+                          <h3 class="panel-title">轨迹上传时段</h3>
+                        </div>                        
+                        <div class="panel-body">
+                          <form class="form-horizontal">
+                            <div class="row">
+                              <div class="col-md-offset-8 col-md-4 text-right">
+                                <div class="form-group">
+                                  <div class="col-md-offset-4 col-md-8 text-right">
+                                    <button type="button" class="btn btn-primary form-control" ng-click="routeSetting.addRoutePieroid(routeSetting.imei2)">增加<i class="fa fa-plus"></i></button>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                          <div ui-grid="gridPieroids" class="gridStyle" ui-grid-pagination>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,143 @@
+</br>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h1 class="panel-title">厂商权限</h1>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">查询条件</h3>
+                </div>
+                <div class="panel-body">
+                  <form class="form-horizontal" role="form" ng-submit="queryManufactory()" id="queryManufactory">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="col-sm-offset-1 col-sm-10">
+                          <div class="form-group">
+                            <div class="row">
+                              <div class="col-md-4 text-right">
+                                <label class="control-label" for="manufactory_name">
+                                  厂商名称
+                                </label>
+                              </div>
+                              <div class="col-md-8">
+                                <div class="input-group">
+                                  <input type="text" ng-model="manufactory.manufactory_name" class="form-control" id="manufactory_name" placeholder="厂商名称">
+                                  <span class="input-group-btn">
+                                                                                        <button type="button" ng-click="manufactory.manufactory_name = undefined" class="btn btn-default">
+                                                                                            <span class="glyphicon glyphicon-trash"></span>
+                                  </button>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="col-sm-offset-1 col-sm-10">
+                          <div class="form-group">
+                            <div class="row">
+                              <div class="col-md-4 text-right">
+                                <label class="control-label" for="device_type">
+                                  设备类型
+                                </label>
+                              </div>
+                              <div class="col-md-8">
+                                <div class="input-group">
+                                  <ui-select multiple ng-model="manufactory.device_type_ids" theme="bootstrap" ng-disabled="disabled" close-on-select="false">
+                                    <ui-select-match placeholder="选择设备类型">{{$item.device_type_name}}</ui-select-match>
+                                    <ui-select-choices repeat="item.device_type_id as item in device_types | filter: $select.search">
+                                      <div ng-bind-html="item.device_type_name | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                  </ui-select>
+                                  <span class="input-group-btn">
+                                                                                     <button type="button" ng-click="manufactory.device_type_ids = undefined" class="btn btn-default">
+                                                                                         <span class="glyphicon glyphicon-trash"></span>
+                                  </button>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="col-sm-offset-1 col-sm-10">
+                          <div class="form-group">
+                            <div class="row">
+                              <div class="col-md-4 text-right">
+                                <label class="control-label">
+                                  注册时间
+                                </label>
+                              </div>
+                              <div class="col-md-8">
+                                <div class="input-group">
+                                  <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="query_date.registered_from" is-open="opened" min-date="minDate" max-date="dt" datepicker-options="dateOptions" ng-required="true" clear-text="清除" current-text="今天" close-text="关闭" />
+                                  <span class="btn input-group-addon" ng-click="open($event)">
+                                                                                        <i class="fa fa-calendar"></i>
+                                                                                    </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="col-sm-offset-1 col-sm-10">
+                          <div class="form-group">
+                            <div class="row">
+                              <div class="col-md-4 text-right">
+                                <label class="control-label">
+                                  注册时间
+                                </label>
+                              </div>
+                              <div class="col-md-8">
+                                <div class="input-group">
+                                  <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="query_date.registered_to" is-open="opened1" min-date="minDate" max-date="dt" datepicker-options="dateOptions" ng-required="true" clear-text="清除" current-text="今天" close-text="关闭" />
+                                  <span class="btn input-group-addon" ng-click="open1($event)">
+                                                                                        <i class="fa fa-calendar"></i>
+                                                                                    </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="col-sm-offset-1 col-sm-10">
+                          <div class="form-group">
+                            <div class="row">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="col-sm-offset-1 col-sm-10">
+                          <div class="form-group">
+                            <button type="submit" form="queryManufactory" class="btn btn-success col-md-offset-8 col-md-4">查询</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div ui-grid="gridOptions" class="gridStyle" ui-grid-pagination>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,78 @@
+<div class="modal-header">
+  <div class="row">
+    <div class="col-md-6">
+      <h4 class="modal-title">添加GPS上传时段</h4>
+    </div>
+    <div class="col-md-6 text-right">
+      <h4 class="modal-title"></h4>
+    </div>
+  </div>
+</div>
+<!--start of alert block-->
+<div class="alert alert-{{alert.type}} alert-dismissable" style="text-align: center;" role="alert" ng-repeat="alert in alerts" type="{{alert.type}}">
+  <button type="button" class="close" ng-click="closeAlert($index)">
+  </button>
+  {{alert.msg}}
+</div>
+<!--end of alert block-->
+<div class="modal-body">
+  <div class="row">
+    <form class="form-horizontal">
+      <div class="form-group">
+        <div class="col-md-3 text-right">
+          <label class="control-label">开始时间：</label>
+        </div>
+        <div class="col-md-6">
+          <input class="form-control" type="text" placeholder="24小时制时间" ng-model="time.start">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-3 text-right">
+          <label class="control-label">结束时间：</label>
+        </div>
+        <div class="col-md-6">
+          <input class="form-control" type="text" placeholder="24小时制时间" ng-model="time.stop">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-3 text-right">
+          <label class="control-label">
+            星期选择：
+          </label>
+        </div>
+        <div class="col-md-6">
+          <ui-select multiple ng-model="time.weeks" theme="bootstrap" ng-disabled="disabled" close-on-select="false">
+            <ui-select-match placeholder="星期选择">{{$item.day_cn_t}}</ui-select-match>
+            <ui-select-choices repeat="item.day_id as item in weeks | filter: $select.search">
+              <div ng-bind-html="item.day_cn_t | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-3 text-right">
+          <label class="control-label">是否启用：</label>
+        </div>
+        <div class="col-md-6">
+          <label class="radio-inline">
+            <input type="radio" name="defaultmode" id="defaultmode_check1" value="1" ng-model="time.set_en">启用
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="defaultmode" id="defaultmode_check2" value="2" ng-model="time.set_en">禁用
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-offset-3 col-md-6">
+          <button ng-click="addPeriod()" class="btn btn-success col-md-12">保存</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="modal-footer">
+  <div class="col-sm-offset-7 col-sm-5 text-right">
+    <!-- <button ng-click="addPeriod()" class="btn btn-success">保存</button> -->
+    <button ng-click="cancel()" type="button" class="btn btn-default">关闭</button>
+  </div>
+</div>

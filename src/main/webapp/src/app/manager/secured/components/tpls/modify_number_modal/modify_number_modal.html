@@ -1,0 +1,50 @@
+<div class="modal-header">
+  <div class="row">
+    <div class="col-md-6">
+      <h4 class="modal-title">修改亲情号码</h4>
+    </div>
+    <div class="col-md-6 text-right">
+      <h4 class="modal-title"></h4>
+    </div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <form class="form-horizontal" id="modifyWhiteForm" role="form" ng-submit="modifynumber()">
+      <div class="form-group">
+        <div class="col-md-3 text-right">
+          <label class="control-label">
+            称呼：
+          </label>
+        </div>
+        <div class="col-md-6">
+          <ui-select ng-model="currentNumber.name" theme="bootstrap" ng-disabled="name_disabled">
+            <ui-select-match placeholder="{{myPlaceholder}}">{{$select.selected.name_name}}</ui-select-match>
+            <ui-select-choices repeat="item.name_name as item in qing_names | filter: $select.search">
+              <div ng-bind-html="item.name_name | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-3 text-right">
+          <label class="control-label">电话：</label>
+        </div>
+        <div class="col-md-6">
+          <input class="form-control" type="text" placeholder="输入电话" ng-model="currentNumber.number" required="required">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-offset-3 col-md-6">
+          <button form="modifyWhiteForm" type="submit" class="btn btn-success col-md-12">保存</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="modal-footer">
+  <div class="col-sm-offset-7 col-sm-5 text-right">
+    <!-- <button form="modifyWhiteForm" type="submit" class="btn btn-success">保存</button> -->
+    <button ng-click="cancel()" type="button" class="btn btn-default">关闭</button>
+  </div>
+</div>

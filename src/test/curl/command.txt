@@ -1,0 +1,94 @@
+#3.3用户登录模块
+#3.3.1 获取验证码,GET请求（目前只插入phone和code，有效时间未设置）
+curl -si http://127.0.0.1:8080/server/api/open/verification_code?phone="18045101576"
+{"success_message":{"verification_code":"157782","phone":"\"18375325066\""}}
+#3.3.2 一键注册
+curl -si http://127.0.0.1:8080/server/api/open/one_key_register -d {\"phone\":\"18888888888\",\"verification_code\":\"123456\"}
+curl -si http://127.0.0.1:8080/server/config -d  -d {\"phone\":\"18888888888\"}
+#3.3.3重置密码
+curl  -H "X-AUTH-TOKEN: eyJpZCI6MSwicGhvbmUiOiIxODA0NTEwMTU3NiIsInBhc3N3b3JkIjoiNDg5NTA5OTcyMmQ2OTlhMjcxODA0NTAwYjBlNTlkOTMiLCJleHBpcmVzIjoxNDI4NTQ3MTY1MDYyfQ==.WCBqrt25jbG9r7y84T0wSOJIE+Psk1tHdf9UGV7dR3I=" -si http://127.0.0.1:8080/server/api/open/password  -d {\"phone\":\"18045101576\",\"verification_code\":\"123456\",\"new_password\":\"666666\"}
+
+#3.3.4 修改密码：post请求（Json方式传输，登陆后获取token,根据token的得出user全部信息）
+curl  -H "X-Auth-Token:eyJpZCI6MSwicGhvbmUiOiIxODA0NTEwMTU3NiIsInBhc3N3b3JkIjoiNDg5NTA5OTcyMmQ2OTlhMjcxODA0NTAwYjBlNTlkOTMiLCJuaWNrTmFtZSI6ImVlZSIsImZ1bGxOYW1lIjoiaGFoYSIsImdlbmRlciI6IjAiLCJiaXJ0aGRheSI6IjE5ODktMDUtMDUiLCJoZWlnaHQiOjQ0LCJ3ZWlnaHQiOjcwLCJwb2ludHMiOjAsInJ1bk1vZGVJZCI6MCwiZGVmYXVsdE1vZGVJZCI6MCwicnVuRmVuY2VJZCI6MCwic3RhdHVzIjowLCJyZWdpc3RyYXRpb24iOjAsImxhc3RVcGRhdGUiOjB9.MUOM+s4nUubzKeIMGb+zGzsr2QsXwXFpZL1SNDSuU9A=" -si http://127.0.0.1:8080/server/api/user/password -d {\"old_password\":\"123456\",\"new_password\":\"555555\"}
+
+curl -si -X GET -H "X-Auth-Token:eyJpZCI6MSwicGhvbmUiOiIxODA0NTEwMTU3NiIsInBhc3N3b3JkIjoiNDg5NTA5OTcyMmQ2OTlhMjcxODA0NTAwYjBlNTlkOTMiLCJuaWNrTmFtZSI6ImVlZSIsImZ1bGxOYW1lIjoiaGFoYSIsImdlbmRlciI6IjAiLCJiaXJ0aGRheSI6IjE5ODktMDUtMDUiLCJoZWlnaHQiOjQ0LCJ3ZWlnaHQiOjcwLCJwb2ludHMiOjAsInJ1bk1vZGVJZCI6MCwiZGVmYXVsdE1vZGVJZCI6MCwicnVuRmVuY2VJZCI6MCwic3RhdHVzIjowLCJyZWdpc3RyYXRpb24iOjAsImxhc3RVcGRhdGUiOjB9.MUOM+s4nUubzKeIMGb+zGzsr2QsXwXFpZL1SNDSuU9A=" http://127.0.0.1:8080/server/api/user/checktoken
+
+curl -si -X GET -H "X-Auth-Token:eyJpZCI6MSwicGhvbmUiOiIxODA0NTEwMTU3NiIsInBhc3N3b3JkIjoiNDg5NTA5OTcyMmQ2OTlhMjcxODA0NTAwYjBlNTlkOTMifQ==.bWyQC/cpHzXUkdqiuZmvB7vLwR4rTzIs8fLK3HLGMcQ=" http://127.0.0.1:8080/server/api/user/health
+
+#3.3.5 登录/api/open/login
+curl -si http://127.0.0.1:8080/server/api/open/login -d {\"phone\":\"18888888888\",\"password\":\"123456\",\"device\":\"0\"}
+
+#3.3.6 获取积分
+curl  -H "X-Auth-Token:eyJpZCI6MSwicGhvbmUiOiIxODA0NTEwMTU3NiIsInBhc3N3b3JkIjoiNDg5NTA5OTcyMmQ2OTlhMjcxODA0NTAwYjBlNTlkOTMiLCJleHBpcmVzIjoxNDI4NTQ3MTY1MDYyfQ==.WCBqrt25jbG9r7y84T0wSOJIE+Psk1tHdf9UGV7dR3I=" -si http://127.0.0.1:8080/server/api/user/points?verbose=1
+
+#3.3.7 获取新闻页
+curl  -H "X-Auth-Token:eyJpZCI6MSwicGhvbmUiOiIxODA0NTEwMTU3NiIsInBhc3N3b3JkIjoiNDg5NTA5OTcyMmQ2OTlhMjcxODA0NTAwYjBlNTlkOTMiLCJleHBpcmVzIjoxNDI4NTQ3MTY1MDYyfQ==.WCBqrt25jbG9r7y84T0wSOJIE+Psk1tHdf9UGV7dR3I=" -si http://127.0.0.1:8080/server/api/open/news_carousel
+
+#3.3.8 宣传页
+curl  -H "X-Auth-Token:eyJpZCI6MSwicGhvbmUiOiIxODA0NTEwMTU3NiIsInBhc3N3b3JkIjoiNDg5NTA5OTcyMmQ2OTlhMjcxODA0NTAwYjBlNTlkOTMiLCJleHBpcmVzIjoxNDI4NTQ3MTY1MDYyfQ==.WCBqrt25jbG9r7y84T0wSOJIE+Psk1tHdf9UGV7dR3I=" -si http://127.0.0.1:8080/server/api/open/exhibition
+
+#3.3.9服务绑定
+curl  -H "X-Auth-Token:eyJpZCI6MSwicGhvbmUiOiIxODA0NTEwMTU3NiIsInBhc3N3b3JkIjoiNDg5NTA5OTcyMmQ2OTlhMjcxODA0NTAwYjBlNTlkOTMiLCJleHBpcmVzIjoxNDI4NTQ3MTY1MDYyfQ==.WCBqrt25jbG9r7y84T0wSOJIE+Psk1tHdf9UGV7dR3I=" -si http://127.0.0.1:8080/server/api/user/push_service -d {\"device\":\"1\",\"phone\":\"18045101576\",\"phone\":\"18045101576\",\"channel_id\":\"www.baidu\",\"user_id\":\"1\"}
+
+3.4健康咨询模块
+#3.4.1 查询专家团队
+curl  -H "X-Auth-Token:eyJpZCI6MSwicGhvbmUiOiIxODA0NTEwMTU3NiIsInBhc3N3b3JkIjoiNDg5NTA5OTcyMmQ2OTlhMjcxODA0NTAwYjBlNTlkOTMiLCJleHBpcmVzIjoxNDI4NTQ3MTY1MDYyfQ==.WCBqrt25jbG9r7y84T0wSOJIE+Psk1tHdf9UGV7dR3I=" -si http://127.0.0.1:8080/server/api/expert_teams
+
+#3.4.2获取专家号码
+curl  -H "X-Auth-Token:eyJpZCI6MSwicGhvbmUiOiIxODA0NTEwMTU3NiIsInBhc3N3b3JkIjoiNDg5NTA5OTcyMmQ2OTlhMjcxODA0NTAwYjBlNTlkOTMiLCJleHBpcmVzIjoxNDI4NTQ3MTY1MDYyfQ==.WCBqrt25jbG9r7y84T0wSOJIE+Psk1tHdf9UGV7dR3I=" -si http://127.0.0.1:8080/server/api/expert_teams/1/phone
+
+#3.4.3 获取咨询内容列表
+curl  -H "X-AUTH-TOKEN: eyJpZCI6MSwicGhvbmUiOiIxODA0NTEwMTU3NiIsInBhc3N3b3JkIjoiNDg5NTA5OTcyMmQ2OTlhMjcxODA0NTAwYjBlNTlkOTMiLCJleHBpcmVzIjoxNDI4NTQ3MTY1MDYyfQ==.WCBqrt25jbG9r7y84T0wSOJIE+Psk1tHdf9UGV7dR3I=" -si http://127.0.0.1:8080/server/api/open/health_consultations -d {\"department_id\":\"1\",\"district_id\":\"1\"}
+a
+#3.4.4 获取个人咨询历史列表
+curl  -H "X-AUTH-TOKEN: eyJpZCI6MSwicGhvbmUiOiIxODA0NTEwMTU3NiIsInBhc3N3b3JkIjoiNDg5NTA5OTcyMmQ2OTlhMjcxODA0NTAwYjBlNTlkOTMiLCJleHBpcmVzIjoxNDI4NTQ3MTY1MDYyfQ==.WCBqrt25jbG9r7y84T0wSOJIE+Psk1tHdf9UGV7dR3I=" -si http://127.0.0.1:8080/server/api/health_consultations/history -d {\"department_id\":\"1\",\"district_id\":\"1\"}
+a
+#3.4.5 查看问题详情
+curl  -H "X-AUTH-TOKEN: eyJpZCI6MSwicGhvbmUiOiIxODA0NTEwMTU3NiIsInBhc3N3b3JkIjoiNDg5NTA5OTcyMmQ2OTlhMjcxODA0NTAwYjBlNTlkOTMiLCJleHBpcmVzIjoxNDI4NTQ3MTY1MDYyfQ==.WCBqrt25jbG9r7y84T0wSOJIE+Psk1tHdf9UGV7dR3I=" -si http://127.0.0.1:8080/server/api/health_consultation/1
+#3.4.6 创建咨询
+curl  -H "X-AUTH-TOKEN: eyJpZCI6MSwicGhvbmUiOiIxODA0NTEwMTU3NiIsInBhc3N3b3JkIjoiNDg5NTA5OTcyMmQ2OTlhMjcxODA0NTAwYjBlNTlkOTMiLCJleHBpcmVzIjoxNDI4NTQ3MTY1MDYyfQ==.WCBqrt25jbG9r7y84T0wSOJIE+Psk1tHdf9UGV7dR3I=" -si http://127.0.0.1:8080/server/api/health_consultations -d {\"department_id\":\"1\",\"district_id\":\"1\",\"content\":\"aaa\",\"audio_duration\":\"10\"}
+#
+#3.4.7 添加问题信息
+curl  -H "X-AUTH-TOKEN: eyJpZCI6MSwicGhvbmUiOiIxODA0NTEwMTU3NiIsInBhc3N3b3JkIjoiNDg5NTA5OTcyMmQ2OTlhMjcxODA0NTAwYjBlNTlkOTMiLCJleHBpcmVzIjoxNDI4NTQ3MTY1MDYyfQ==.WCBqrt25jbG9r7y84T0wSOJIE+Psk1tHdf9UGV7dR3I=" -si http://127.0.0.1:8080/server/api/health_consultations/1 -d {\"content\":\"aaa\",\"audio_duration\":\"20\"}
+#3.4.8 关闭咨询
+curl  -X PUT -H "X-AUTH-TOKEN: eyJpZCI6MSwicGhvbmUiOiIxODA0NTEwMTU3NiIsInBhc3N3b3JkIjoiNDg5NTA5OTcyMmQ2OTlhMjcxODA0NTAwYjBlNTlkOTMiLCJleHBpcmVzIjoxNDI4NTQ3MTY1MDYyfQ==.WCBqrt25jbG9r7y84T0wSOJIE+Psk1tHdf9UGV7dR3I=" -si http://127.0.0.1:8080/server/api/health_consultations/1 -d {\"comment\":\"good\",\"score\":\"15\"}
+
+
+
+
+
+#3.6  个人健康模块
+#3.6.1 完善个人信息
+curl  -X PUT -H "X-AUTH-TOKEN: eyJpZCI6NSwicGhvbmUiOiIxODM3NTMyNTA2NiIsInBhc3N3b3JkIjoiNTM5ZTIxOTVmMWFhNzllOTdkNGM0NzU1NzU1YThlZTIiLCJwb2ludHMiOjB9.mAPXVRqVHmY/mYcZp2BuzNsa/qsTdZwCo8mNx4wSI0w=" -si http://127.0.0.1:8080/server/api/user -d {\"full_name\":\"haha\",\"nick_name\":\"eee\",\"gender\":\"0\",\"birthday\":\"19890505\",\"height\":\"44\",\"weight\":\"70\",\"target_weight\":\"80\"}
+#3.6.2上传手环
+curl -si -X POST -H "X-AUTH-TOKEN: eyJpZCI6NSwicGhvbmUiOiIxODM3NTMyNTA2NiIsInBhc3N3b3JkIjoiNTM5ZTIxOTVmMWFhNzllOTdkNGM0NzU1NzU1YThlZTIiLCJwb2ludHMiOjB9.mAPXVRqVHmY/mYcZp2BuzNsa/qsTdZwCo8mNx4wSI0w=" http://127.0.0.1:8080/server/api/user/wristbands -d {\"terminal_id\":1,\"manufactory_id\":1,\"records\":[{\"measured_at\":20150302,\"step_count\":1,\"distance\":2,\"calories\":3,\"walk_count\":4,\"walk_distance\":5,\"walk_calories\":6,\"run_count\":7,\"run_distance\":8,\"run_calories\":9,\"run_calories\":10,\"deep_duration\":11,\"shallow_duration\":12,\"heart_rate\":13}]}
+#3.6.3 上传血压信息(POST /api/user/sphygmomanometers)
+curl -si -X POST -H "X-AUTH-TOKEN: eyJpZCI6MSwicGhvbmUiOiIxODA0NTEwMTU3NiIsInBhc3N3b3JkIjoiNDg5NTA5OTcyMmQ2OTlhMjcxODA0NTAwYjBlNTlkOTMiLCJleHBpcmVzIjoxNDI4NTQ3MTY1MDYyfQ==.WCBqrt25jbG9r7y84T0wSOJIE+Psk1tHdf9UGV7dR3I=" http://127.0.0.1:8080/server/api/user/sphygmomanometers -d {\"terminal_id\":5,\"manufactory_id\":11,\"records\":[{\"measured_at\":1000000,\"systolic_pressure\":10,\"diastolic_pressure\":10,\"heart_rate\":10},{\"measured_at\":2000000,\"systolic_pressure\":5,\"diastolic_pressure\":5,\"heart_rate\":10}]}
+
+#3.6.4 上传血糖信息(POST /api/user/glucosemeters)
+curl -si -X POST -H "X-AUTH-TOKEN: eyJpZCI6MSwicGhvbmUiOiIxODA0NTEwMTU3NiIsInBhc3N3b3JkIjoiNDg5NTA5OTcyMmQ2OTlhMjcxODA0NTAwYjBlNTlkOTMiLCJleHBpcmVzIjoxNDI4NTQ3MTY1MDYyfQ==.WCBqrt25jbG9r7y84T0wSOJIE+Psk1tHdf9UGV7dR3I=" http://127.0.0.1:8080/server/api/user/glucosemeters -d {\"terminal_id\":6,\"manufactory_id\":12,\"records\":[{\"measured_at\":1000011,\"glucosemeter_value\":13},{\"measured_at\":2000022,\"glucosemeter_value\":8}]}
+
+#3.6.5上传血氧信息(POST /api/user/oximeters)
+curl -si -X POST -H "X-AUTH-TOKEN: eyJpZCI6MSwicGhvbmUiOiIxODA0NTEwMTU3NiIsInBhc3N3b3JkIjoiNDg5NTA5OTcyMmQ2OTlhMjcxODA0NTAwYjBlNTlkOTMiLCJleHBpcmVzIjoxNDI4NTQ3MTY1MDYyfQ==.WCBqrt25jbG9r7y84T0wSOJIE+Psk1tHdf9UGV7dR3I=" http://127.0.0.1:8080/server/api/user/oximeters -d {\"terminal_id\":6,\"manufactory_id\":12,\"records\":[{\"measured_at\":5000055,\"oximeter_value\":12},{\"measured_at\":5000056,\"oximeter_value\":67}]}
+
+#3.6.6上传体温信息(POST /api/user/thermometers)
+curl -si -X POST -H "X-AUTH-TOKEN: eyJpZCI6MSwicGhvbmUiOiIxODA0NTEwMTU3NiIsInBhc3N3b3JkIjoiNDg5NTA5OTcyMmQ2OTlhMjcxODA0NTAwYjBlNTlkOTMiLCJleHBpcmVzIjoxNDI4NTQ3MTY1MDYyfQ==.WCBqrt25jbG9r7y84T0wSOJIE+Psk1tHdf9UGV7dR3I=" http://127.0.0.1:8080/server/api/user/thermometers -d {\"terminal_id\":6,\"manufactory_id\":12,\"records\":[{\"measured_at\":43232312,\"thermometer_value\":43},{\"measured_at\":43232312,\"thermometer_value\":12}]}
+
+#3.6.7	上传手环 /api/user/wristbands(GET方法用postman，设置hearder为token)
+http://localhost:8080/server/api/user/wristbands?data_type=1&begin_date=20150301&end_date=20150309
+
+#3.6.8	GET /api/user/sphygmomanometers(GET方法用postman，设置hearder为token)
+http://127.0.0.1:8080/server/api/user/sphygmomanometers?data_type=0&begin_date=20150505&end_date=20150506
+
+#3.6.9	查询血糖信息记录GET /api/user/glucosemeters
+http://127.0.0.1:8080/server/api/user/glucosemeters?data_type=0&begin_date=1000000&end_date=2000000
+#3.6.10查询血氧信息记录	GET /api/user/oximeters
+http://127.0.0.1:8080/server/api/user/oximeters?data_type=0&begin_date=1000000&end_date=2000000
+#3.6.11	查询体温信息记录GET /api/user/thermometers
+http://127.0.0.1:8080/server/api/user/thermometers?data_type=0&begin_date=1000000&end_date=2000000
+#3.6.12获取设备信息	POST /api/terminals
+curl -si -X POST -H "X-AUTH-TOKEN: eyJpZCI6MSwicGhvbmUiOiIxODA0NTEwMTU3NiIsInBhc3N3b3JkIjoiNDg5NTA5OTcyMmQ2OTlhMjcxODA0NTAwYjBlNTlkOTMiLCJleHBpcmVzIjoxNDI4NTQ3MTY1MDYyfQ==.WCBqrt25jbG9r7y84T0wSOJIE+Psk1tHdf9UGV7dR3I=" http://127.0.0.1:8080/server/api/terminals -d {\"device_type_id\":1,\"manufactory_code\":\"12\",\"terminal_catagory_code\":\"1\",\"mac_address\":\"aa\"}
+
+
+
+

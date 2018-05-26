@@ -1,0 +1,512 @@
+<div>
+  <form class="form-horizontal" name="myForm" role="form" ng-submit="signUp.signUp()">
+    <div id="id-accoun-info">
+      <div class="col-md-7 col-md-offset-3">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">账户信息</h3>
+          </div>
+          <div class="panel-body">
+            <div class="form-group has-error" id="user_name_group">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="user_name">用户名</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    <input type="text" class="form-control" id="user_name" placeholder="用户名" ng-model="signUp.signUpInf.login_name" ng-change="signUp.checkUserName()" value="" required>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <p class="help-block" id="user_name_helper">必填</p>
+              </div>
+            </div>
+            <div class="form-group has-error" id="password_group">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="user_password">密码</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                    <input type="password" class="form-control" id="user_password" placeholder="设置密码" ng-model="signUp.password" ng-change="signUp.checkPassword()" required>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <p class="help-block" id="password_helper">必填</p>
+              </div>
+            </div>
+            <div class="form-group has-error" id="password_repeat_group">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="identify_password">确认密码</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                    <input type="password" class="form-control" id="identify_password" placeholder="请确认密码" ng-model="signUp.confirm_password" ng-change="signUp.checkPasswordRepeat()" required>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <p class="help-block" id="password_repeat_helper">必填</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="id-contact-info">
+      <div class="col-md-7 col-md-offset-3">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">联系人信息</h3>
+          </div>
+          <div class="panel-body">
+            <div class="form-group has-error" id="contactor_name_group">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="contact_name">姓名</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    <input type="text" class="form-control" id="contact_name" placeholder="请输入您的姓名" ng-model="signUp.signUpInf.contactor" ng-change="signUp.checkContactorName()" required>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <p class="help-block" id="contactor_name_helper">必填</p>
+              </div>
+            </div>
+            <div class="form-group has-error" id="department_group">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="department">公司部门</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <ui-select ng-change="signUp.checkDepartment()" ng-model="signUp.company_department.selected" theme="bootstrap" required>
+                      <ui-select-match placeholder="选择公司部门">{{$select.selected.department_name}}</ui-select-match>
+                      <ui-select-choices repeat="item in signUp.company_departments | filter: $select.search">
+                        <div ng-bind-html="item.department_name | highlight: $select.search"></div>
+                      </ui-select-choices>
+                    </ui-select>
+                    <span class="input-group-btn">
+                          <button ng-click="signUp.company_department.selected = undefined" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <p class="help-block" id="department_helper">必填</p>
+              </div>
+            </div>
+            <div class="form-group has-error" id="devices_group">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="device">设备类型</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <ui-select multiple ng-change="signUp.checkDevices()" ng-model="signUp.device_types_selected" theme="bootstrap" ng-disabled="disabled" close-on-select="false" required>
+                      <ui-select-match placeholder="选择设备类型">{{$item.device_type_name}}</ui-select-match>
+                      <ui-select-choices repeat="dtype.device_type_id as dtype in signUp.device_types | filter: $select.search">
+                        <div ng-bind-html="dtype.device_type_name | highlight: $select.search"></div>
+                      </ui-select-choices>
+                    </ui-select>
+                    <span class="input-group-btn">
+                          <button ng-click="signUp.ctrl.device_types_selected.selected = undefined" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <p class="help-block" id="devices_helper">必填</p>
+              </div>
+            </div>
+            <div class="form-group has-error" id="telephone_group">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="phone">固定电话</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                    <input type="tel" class="form-control" id="phone" placeholder="请输入您的固定电话" ng-model="signUp.signUpInf.telephone" ng-change="signUp.checkTelephone()" required>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <p class="help-block" id="telephone_helper">必填</p>
+              </div>
+            </div>
+            <div class="form-group has-error" id="mobile_group">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="phone">移动电话</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
+                    <input type="tel" class="form-control" id="phone" placeholder="请输入您的移动电话" ng-model="signUp.signUpInf.phone" ng-change="signUp.checkMobile()" required>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <p class="help-block" id="mobile_helper">必填</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="mail">邮箱：</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                    <input type="email" class="form-control" id="mail" placeholder="请输入您的邮箱" ng-model="signUp.signUpInf.email">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="id-contact-info">
+      <div class="col-md-7 col-md-offset-3">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">公司信息</h3>
+          </div>
+          <div class="panel-body">
+            <div class="form-group has-error" id="company_name_group">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="contact_name">公司名称</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                    <input type="text" class="form-control" id="contact_name" placeholder="请输入公司名称" ng-model="signUp.signUpInf.full_name" ng-change="signUp.checkCompanyName()" required>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <p class="help-block" id="company_name_helper">必填</p>
+              </div>
+            </div>
+            <div class="form-group has-error" id="company_code_group">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="department">公司编码</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <span class="input-group-addon"><i class="fa fa-barcode"></i></span>
+                    <input type="text" class="form-control" placeholder="请输入公司编码" ng-model="signUp.signUpInf.code" required="required" ng-change="signUp.checkCompanyCode()" required>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <p class="help-block" id="company_code_helper">必填</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="device">公司简介</label>
+                </div>
+                <div class="col-md-8">
+                  <textarea class="col-md-12 form-control" placeholder="请输入公司简介" ng-model="signUp.signUpInf.profile"></textarea>
+                </div>
+              </div>
+            </div>
+            <!--<div class="form-group">-->
+            <!--<div class="col-md-10">-->
+            <!--<div class="col-md-4 text-right">-->
+            <!--<label class="control-label" for="phone">公司商标</label>-->
+            <!--</div>-->
+            <!--<div class="col-md-8">-->
+            <!--<input type="text" class="form-control" placeholder="请输入公司商标" ng-model="signUp.signUpInf.logo_url" required="required">-->
+            <!--</div>                    -->
+            <!--</div>-->
+            <!--</div>-->
+            <div class="form-group" ng-class="{'has-success':signUp.logoUrl,'has-error':!signUp.logoUrl}">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="logol">公司商标</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <input type="file" file-model="signUp.logoUrl" class="form-control" id="logol" accept=".png,.jpg,.jpeg" required/>
+                    <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
+                  </div>
+                </div>
+              </div>
+            <div class="col-md-2">
+                <p class="help-block">{{signUp.logoUrl?'已填':'必填'}}</p>
+            </div>
+            </div>
+            <div class="form-group has-error" id="district_group">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="phone">公司所在地</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <ui-select ng-change="signUp.changeProvince()" ng-model="signUp.province.selected" theme="bootstrap">
+                        <ui-select-match placeholder="省">{{$select.selected.province_name}}</ui-select-match>
+                        <ui-select-choices repeat="item in signUp.province_list | filter: $select.search">
+                          <div ng-bind-html="item.province_name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                      </ui-select>
+                      </ui-select>
+                    </div>
+                    <div class="col-md-4">
+                      <ui-select ng-change="signUp.changeCity()" ng-model="signUp.city.selected" theme="bootstrap">
+                        <ui-select-match placeholder="市">{{$select.selected.city_name}}</ui-select-match>
+                        <ui-select-choices repeat="item in signUp.city_select_list | filter: $select.search">
+                          <div ng-bind-html="item.city_name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                      </ui-select>
+                    </div>
+                    <div class="col-md-4">
+                      <ui-select ng-change="signUp.changeCounty()" ng-model="signUp.county.selected" theme="bootstrap">
+                        <ui-select-match placeholder="县">{{$select.selected.zone_name}}</ui-select-match>
+                        <ui-select-choices repeat="item in signUp.county_select_list | filter: $select.search">
+                          <div ng-bind-html="item.zone_name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                      </ui-select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <p class="help-block" id="district_helper">必填</p>
+              </div>
+            </div>
+            <div class="form-group has-error" id="address_group">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="phone">详细地址</label>
+                </div>
+                <div class="col-md-8">
+                  <input type="text" class="form-control" placeholder="请输入详细地址" ng-model="signUp.signUpInf.address" ng-change="signUp.checkAddress()" required="required">
+                </div>
+              </div>
+              <div class="col-md-2">
+                <p class="help-block" id="address_helper">必填</p>
+              </div>
+            </div>
+            <div class="form-group" ng-class="{'has-success':signUp.company_members.selected,'has-error':!signUp.company_members.selected}">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="department">企业人数</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <ui-select ng-model="signUp.company_members.selected"  theme="bootstrap">
+                      <ui-select-match placeholder="选择企业人数">{{$select.selected.member_name}}</ui-select-match>
+                      <ui-select-choices repeat="item in signUp.company_members_list | filter: $select.search">
+                        <div ng-bind-html="item.member_name | highlight: $select.search"></div>
+                      </ui-select-choices>
+                    </ui-select>
+                    <span class="input-group-btn">
+                          <button ng-click="signUp.company_members.selected = undefined" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+                <div class="col-md-2">
+                    <p class="help-block">{{signUp.company_members.selected?'已填':'必填'}}</p>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-success':signUp.company_industry.selected,'has-error':!signUp.company_industry.selected}">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="department">公司行业</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <ui-select ng-model="signUp.company_industry.selected" theme="bootstrap">
+                      <ui-select-match placeholder="选择公司行业">{{$select.selected.industry_name}}</ui-select-match>
+                      <ui-select-choices repeat="item in signUp.company_industry_list | filter: $select.search">
+                        <div ng-bind-html="item.industry_name | highlight: $select.search"></div>
+                      </ui-select-choices>
+                    </ui-select>
+                    <span class="input-group-btn">
+                          <button ng-click="signUp.company_industry.selected = undefined" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+                <div class="col-md-2">
+                    <p class="help-block">{{signUp.company_industry.selected?'已填':'必填'}}</p>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-success':signUp.company_nature.selected,'has-error':!signUp.company_nature.selected}">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="department">公司性质</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <ui-select ng-model="signUp.company_nature.selected" theme="bootstrap">
+                      <ui-select-match placeholder="选择公司性质">{{$select.selected.nature_name}}</ui-select-match>
+                      <ui-select-choices repeat="item in signUp.company_nature_list | filter: $select.search">
+                        <div ng-bind-html="item.nature_name | highlight: $select.search"></div>
+                      </ui-select-choices>
+                    </ui-select>
+                    <span class="input-group-btn">
+                          <button ng-click="signUp.company_nature.selected = undefined" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+                <div class="col-md-2">
+                    <p class="help-block">{{signUp.company_nature.selected?'已填':'必填'}}</p>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-success':signUp.businessLicence,'has-error':!signUp.businessLicence}" id="business_licence_group">
+              <!--<div class="col-md-10">-->
+              <!--<div class="col-md-4 text-right">-->
+              <!--<label class="control-label" for="phone">工商营业执照</label>-->
+              <!--</div>-->
+              <!--<div class="col-md-8">-->
+              <!--<input type="text" class="form-control" placeholder="请输入工商营业执照" ng-model="signUp.signUpInf.business_licence" ng-change="signUp.checkBusinessLicence()" required="required">-->
+              <!--</div>-->
+              <!---->
+              <!--</div>-->
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="business_licence">工商营业执照</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <input type="file" file-model="signUp.businessLicence" class="form-control"  id="business_licence" accept=".png,.jpg,.jpeg" required="required" />
+                    <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <p class="help-block" id="business_licence_helper">{{signUp.businessLicence?'已填':'必填'}}</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <!--<div class="col-md-10">-->
+              <!--<div class="col-md-4 text-right">-->
+              <!--<label class="control-label" for="phone">组织机构代码证</label>-->
+              <!--</div>-->
+              <!--<div class="col-md-8">-->
+              <!--<input type="text" class="form-control" placeholder="请输入组织机构代码证" ng-model="signUp.signUpInf.internal_certificate" required="required">-->
+              <!--</div>-->
+              <!---->
+              <!--</div>-->
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="internal_certificate">组织机构代码证</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <input type="file" file-model="signUp.internalCertificate" class="form-control" accept=".png,.jpg,.jpeg" id="internal_certificate"/>
+                    <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <!--<div class="col-md-10">-->
+              <!--<div class="col-md-4 text-right">-->
+              <!--<label class="control-label" for="phone">税务登记证(国)</label>-->
+              <!--</div>-->
+              <!--<div class="col-md-8">-->
+              <!--<input type="text" class="form-control" placeholder="请输入税务登记证(国)" ng-model="signUp.signUpInf.local_certificate" required="required">-->
+              <!--</div>-->
+              <!---->
+              <!--</div>-->
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="local_certificate">税务登记证(国)</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <input type="file" file-model="signUp.localCertificate" class="form-control" accept=".png,.jpg,.jpeg" id="local_certificate"/>
+                    <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <!--<div class="col-md-10">-->
+              <!--<div class="col-md-4 text-right">-->
+              <!--<label class="control-label" for="phone">税务登记证(地)</label>-->
+              <!--</div>-->
+              <!--<div class="col-md-8">-->
+              <!--<input type="text" class="form-control" placeholder="请输入税务登记证(地)" ng-model="signUp.signUpInf.code_certificate" required="required">-->
+              <!--</div>-->
+              <!---->
+              <!--</div>-->
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="code_certificate">税务登记证(地)</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <input type="file" file-model="signUp.codeCertificate" class="form-control" accept=".png,.jpg,.jpeg" id="code_certificate"/>
+                    <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group has-error" id="captcha_group">
+              <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                  <label class="control-label" for="phone">验证码</label>
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group ">
+                    <input type="text" class="form-control" id="captcha" placeholder="请输入验证码" ng-model="signUp.signUpInf.captcha" ng-change="signUp.checkCaptcha()" required="required">
+                    <span class="input-group-addon padlt"><img ng-src="{{signUp.captcha_url}}" style="height:32px" ng-click="signUp.captcha_click()"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <p class="help-block" id="captcha_helper">必填</p>
+              </div>
+            </div>
+            <!--begin of alert block-->
+            <div class="alert alert-{{alert.type}} alert-dismissable" style="text-align: center;" role="alert" ng-repeat="alert in alerts" type="{{alert.type}}">
+                <button type="button" class="close" ng-click="closeAlert($index)">
+                </button>
+                {{alert.msg}}
+            </div>
+            <!--end of alert block-->
+            <div class="form-group">
+              <div class="col-md-10">
+                <div class="col-md-offset-4 col-md-8 text-right">
+                  <button class="btn btn-primary btn-lg btn-block" type="submit">注册</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,102 @@
+</br>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h1 class="panel-title">信息推送</h1>
+  </div>
+  <div class="panel-body">
+    <div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">查询条件</h3>
+            </div>
+            <div class="panel-body">
+              <form class="form-horizontal" role="form" ng-submit="queryCatagoryList()" id="queryCatagoryList">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4 text-right">
+                          <label class="control-label" for="terminal_catagory_name">
+                            终端型号
+                          </label>
+                        </div>
+                        <div class="col-md-8">
+                          <div class="input-group">
+                            <input type="text" ng-model="catagoryList.terminal_catagory_name" class="form-control" id="terminal_catagory_name" placeholder="终端型号名称">
+                            <span class="input-group-btn">
+                              <button type="button" ng-click="catagoryList.terminal_catagory_name = undefined" class="btn btn-default">
+                                <span class="glyphicon glyphicon-trash"></span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4 text-right">
+                          <label class="control-label" for="device_type">
+                            设备类型
+                          </label>
+                        </div>
+                        <div class="col-md-8">
+                          <div class="input-group">
+                            <ui-select ng-model="catagoryList.device_type_id" theme="bootstrap">
+                              <ui-select-match placeholder="选择设备类型">{{$select.selected.device_type_name}}</ui-select-match>
+                              <ui-select-choices repeat="item.device_type_id as item in device_types | filter: $select.search">
+                                <div ng-bind-html="item.device_type_name | highlight: $select.search"></div>
+                              </ui-select-choices>
+                            </ui-select>
+                            <span class="input-group-btn">
+                              <button type="button" ng-click="catagoryList.device_type_id = undefined" class="btn btn-default">
+                                <span class="glyphicon glyphicon-trash"></span>
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4 text-right">
+                                    <label class="control-label" for="manufactory_name">
+                                        厂商名称
+                                    </label>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" ng-model="catagoryList.manufactory_name" class="form-control" id="manufactory_name" placeholder="厂商名称">
+                            <span class="input-group-btn">
+                              <button type="button" ng-click="catagoryList.manufactory_name = undefined" class="btn btn-default">
+                                  <span class="glyphicon glyphicon-trash"></span>
+                              </button>
+                            </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  <div class="col-md-3">
+                    <div class="col-md-offset-4 col-md-8">
+                      <div class="form-group">
+                        <button type="submit" form="queryCatagoryList" class="btn btn-success col-md-12">查询</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div ui-grid="gridOptions" class="gridStyle" ui-grid-pagination style="height: 300px">
+    </div>
+  </div>
+</div>

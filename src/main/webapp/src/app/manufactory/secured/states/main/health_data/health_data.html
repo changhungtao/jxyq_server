@@ -1,0 +1,183 @@
+</br>
+<div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h1 class="panel-title">健康数据查询</h1>
+        </div>
+        <div class="panel-body">
+            <div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">查询条件</h3>
+                            </div>
+                            <div class="panel-body">
+                                <form class="form-horizontal" id="getHealthDatas" ng-submit="queryHealthDatas()">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="col-md-4">
+                                                    <label class="control-label" for="patient_phone">
+                                                        数据类型
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                  <div class="input-group">
+                                                    <ui-select  ng-model="healthDataOptions.data_type_id" ng-change="dataTypeChanged()" theme="bootstrap">
+                                                        <ui-select-match placeholder="数据类型">{{$select.selected.data_type_name}}</ui-select-match>
+                                                        <ui-select-choices repeat="item.data_type_id as item in dataTypes | filter: $select.search">
+                                                            <div ng-bind-html="item.data_type_name | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                    <span class="input-group-btn">
+                                                      <button type="button" ng-click="displayOthers()" class="btn btn-default">
+                                                          <span class="glyphicon glyphicon-trash"></span>
+                                                      </button>
+                                                    </span>
+                                                </div>
+                                               </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="col-md-4">
+                                                    <label class="control-label" for="patient_name">
+                                                        终端型号
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" ng-model="healthDataOptions.terminal_catagory_name" class="form-control" id="patient_name" placeholder="终端型号">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="col-md-4 ">
+                                                    <label class="control-label" for="patient_gender">
+                                                        终端名称
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" ng-model="healthDataOptions.terminal_name" class="form-control" id="patient_name" placeholder="终端名称">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="col-md-4">
+                                                    <label class="control-label" for="start_age">
+                                                        起始年龄
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <ui-select ng-model="healthDataOptions.begin_age" id="start_age" theme="bootstrap">
+                                                        <ui-select-match placeholder="起始年龄">{{$select.selected}}</ui-select-match>
+                                                        <ui-select-choices repeat="item in  ages | filter: $select.search">
+                                                            <div ng-bind-html="item"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="col-md-4">
+                                                    <label class="control-label" for="end_age">
+                                                        结束年龄
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <ui-select ng-model="healthDataOptions.end_age" id="end_age" theme="bootstrap">
+                                                        <ui-select-match placeholder="结束年龄">{{$select.selected}}</ui-select-match>
+                                                        <ui-select-choices repeat="item in ages| filter: $select.search">
+                                                            <div ng-bind-html="item"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="col-md-4 ">
+                                                    <label class="control-label" for="data_type">
+                                                        用户手机
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" ng-model="healthDataOptions.user_phone" class="form-control" id="patient_name" placeholder="患者姓名">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class=" col-md-offset-8 col-md-4">
+                                            <div class="form-group">
+                                                <div class="col-md-offset-4 col-md-8">
+                                                    <button type="submit" form="getHealthDatas" class="btn btn-success btn-block">查询</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="displayOptions.all" ui-grid="gridOptions" class="gridStyle" ui-grid-pagination ui-grid-pinning></div>
+            <div ng-if="displayOptions.others" class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">手环</h3>
+                </div>
+                <div class="panel-body">
+                    <div ng-if="displayOptions.others" ui-grid="gridOptions_wristband" class="gridStyle" ui-grid-pagination ui-grid-pinning></div>
+                </div>
+            </div>
+            <div ng-if="displayOptions.others" class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">血压</h3>
+                </div>
+                <div class="panel-body">
+                    <div ng-if="displayOptions.others" ui-grid="gridOptions_sphygmomanometer" class="gridStyle" ui-grid-pagination ui-grid-pinning></div>
+                </div>
+            </div>
+            <div ng-if="displayOptions.others" class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">血氧</h3>
+                </div>
+                <div class="panel-body">
+                    <div ng-if="displayOptions.others" ui-grid="gridOptions_oximeter" class="gridStyle" ui-grid-pagination ui-grid-pinning></div>
+                </div>
+            </div>
+            <div ng-if="displayOptions.others" class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">血糖</h3>
+                </div>
+                <div class="panel-body">
+                    <div ng-if="displayOptions.others" ui-grid="gridOptions_glucosemeter" class="gridStyle" ui-grid-pagination ui-grid-pinning></div>
+                </div>
+            </div>
+            <div ng-if="displayOptions.others" class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">体温</h3>
+                </div>
+                <div class="panel-body">
+                    <div ng-if="displayOptions.others" ui-grid="gridOptions_thermometer" class="gridStyle" ui-grid-pagination ui-grid-pinning></div>
+                </div>
+            </div>
+            <div ng-if="displayOptions.others" class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">脂肪</h3>
+                </div>
+                <div class="panel-body">
+                    <div ng-if="displayOptions.others" ui-grid="gridOptions_fat" class="gridStyle" ui-grid-pagination ui-grid-pinning></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

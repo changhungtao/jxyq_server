@@ -1,0 +1,67 @@
+<div class="modal-header">
+    <div class="row">
+        <div class="col-md-6">
+            <h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span>&nbsp;聊天记录</h3>
+        </div>
+        <!--<div class="col-md-6 text-right">-->
+            <!--<h4 class="modal-title">联系方式：{{entity.patient_phone}}</h4>-->
+        <!--</div>-->
+    </div>
+</div>
+<div class="modal-body">
+    <div class="panel-body msg-container-base" ng-style="{display:block}" scroll-glue>
+        <div class="row msg-container" ng-repeat="message in messages">
+            <div class="col-md-12 col-xs-12">
+                <div class="chat-msg" ng-class="{'chat-msg-receive':message.qa_type == 0, 'chat-msg-sent':message.qa_type == 1}">
+                    <p>{{message.content}}</p>
+                    <img ng-src="{{message.image_url1}}" ng-if="message.image_url1" width="200">
+                    <div ng-if="message.audio_url">
+                        <img ng-src="{{message.speakBtn}}" width="50" ng-click="playAudio(message)">
+                        <!--<button ng-click="playAudio(message.audio_url)" class="button button-royal button-square button-giant"><i class="fa fa-plus"></i>play</button>-->
+                        <!--<button ng-click='audio.restart()'>Stop</button>-->
+                        <!--<button ng-click='audio.muting = !audio.muting'>Mute</button>-->
+
+                        <!--<label>Current Time</label>-->
+                        <!--<input class='form-control' type=text ng-model='audio.currentTime'>-->
+                        <!--<label>Volume</label>-->
+                        <!--<input class='form-control' type=range min=0 max=1 step=0.01 ng-model='audio.volume'>-->
+                    </div>
+                    <!--<div class="videogular-container" ng-if="message.audio_url">-->
+                        <!--<videogular vg-theme="controller.config.theme.url" class="videogular-container audio">-->
+                            <!--<vg-media vg-src="controller.config.sources" vg-type="audio"></vg-media>-->
+                            <!--<vg-controls>-->
+                                <!--<vg-play-pause-button ng-click="show(message.audio_url)"></vg-play-pause-button>-->
+                                <!--<vg-time-display>{{ currentTime | date:'mm:ss' }}</vg-time-display>-->
+                                <!--<vg-scrub-bar>-->
+                                    <!--<vg-scrub-bar-current-time></vg-scrub-bar-current-time>-->
+                                <!--</vg-scrub-bar>-->
+                                <!--<vg-time-display>{{ timeLeft | date:'mm:ss' }}</vg-time-display>-->
+                                <!--<vg-volume>-->
+                                    <!--<vg-mute-button></vg-mute-button>-->
+                                <!--</vg-volume>-->
+                            <!--</vg-controls>-->
+                        <!--</videogular>-->
+                    <!--</div>-->
+                    <strong class="chat-msg-author">{{message.qa_type == 0 ? "患者" : (message.doctor_name == null ? "医生" :message.doctor_name)}}</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+    <form style="display:inherit" ng-submit="sendReply()">
+        <div class="input-group" >
+            <input type="text" class="form-control input-sm chat-input" placeholder="回复信息" ng-model="replyer.content" />
+            <span class="input-group-btn">
+                  <input type="submit" class="btn btn-sm chat-submit-button" value="推送"/>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="col-sm-offset-7 col-sm-5">
+        <!--<button form="fatForm" ng-click="" type="submit" class="btn btn-success">推送</button>-->
+        <!--<button form="fatForm" type="reset" class="btn btn-primary">重置</button>-->
+        <button ng-click="cancel()" type="button" class="btn btn-default">取消</button>
+    </div>
+</div>

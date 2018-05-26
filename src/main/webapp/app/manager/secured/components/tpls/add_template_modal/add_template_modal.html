@@ -1,0 +1,78 @@
+<div class="modal-header">
+    <div class="row">
+        <div class="col-md-6">
+            <h4 class="modal-title">添加产品模板</h4>
+        </div>
+
+    </div>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                    <label class="control-label" for="gender">设备类型</label>
+                </div>
+                <div class="col-md-8">
+                    <div class="input-group input-group ">
+                        <ui-select ng-model="signUp.gender.selected" theme="bootstrap">
+                        <ui-select-match placeholder="请选择设备类型">{{$select.selected.gender_name}}</ui-select-match>
+                        <ui-select-choices repeat="item in signUp.genders | filter: $select.search">
+                        <div ng-bind-html="item.gender_name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                        </ui-select>
+                        <span class="input-group-addon"><i class="fa fa-list"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                    <label class="control-label" for="user_name">终端型号</label>
+                </div>
+                <div class="col-md-8">
+                    <div class="input-group input-group ">
+                        <input type="text" class="form-control" id="user_name" placeholder="请输入终端型号" ng-model="signUp.signUpInf.login_name" required="required">
+                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                    <label class="control-label" for="gender">模板类型</label>
+                </div>
+                <div class="col-md-8">
+                    <div class="input-group input-group ">
+                        <ui-select ng-model="signUp.gender.selected" theme="bootstrap">
+                        <ui-select-match placeholder="请选择模板类型">{{$select.selected.gender_name}}</ui-select-match>
+                        <ui-select-choices repeat="item in signUp.genders | filter: $select.search">
+                        <div ng-bind-html="item.gender_name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                        </ui-select>
+                        <span class="input-group-addon"><i class="fa fa-list"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <div class="col-md-4 text-right">
+                    <label class="control-label" for="user_name">产品模板</label>
+                </div>
+                <div class="col-md-8">
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <div class="col-sm-offset-7 col-sm-5">
+        <button form="fatForm" ng-click="ok()" type="submit" class="btn btn-success">提交</button>
+        <button form="fatForm" type="reset" class="btn btn-primary">重置</button>
+        <button ng-click="cancel()" type="button" class="btn btn-default">取消</button>
+    </div>
+</div>

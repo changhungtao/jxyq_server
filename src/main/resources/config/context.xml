@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+
+    <context:component-scan base-package="com.jxyq" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+    </context:component-scan>
+
+    <bean id="springContextHolder" class="com.jxyq.config.SpringContextHolder"/>
+
+    <bean id="placeholderConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="fileEncoding" value="UTF-8"/>
+        <property name="locations">
+            <array>
+                <value>classpath:proxool.properties</value>
+                <value>classpath:security.properties</value>
+                <value>classpath:systemParam.properties</value>
+            </array>
+        </property>
+    </bean>
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="messages"/>
+    </bean>
+
+    <!--第一个数据源-->
+    <bean id="oneDataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource">
+        <property name="alias" value="${proxool.alias}"/>
+        <property name="driver" value="${proxool.driver}"/>
+        <property name="user" value="${proxool.user}"/>
+        <property name="password" value="${proxool.password}"/>
+        <property name="driverUrl" value="${proxool.url}"/>
+        <property name="trace" value="${proxool.trace}"/>
+        <property name="prototypeCount" value="${proxool.prototypeCount}"/>
+        <property name="maximumConnectionCount" value="${proxool.maximumConnectionCount}"/>
+        <property name="minimumConnectionCount" value="${proxool.minimumConnectionCount}"/>
+        <property name="simultaneousBuildThrottle" value="${proxool.simultaneousBuildThrottle}"/>
+        <property name="houseKeepingTestSql" value="${proxool.houseKeepingTestSql}"/>
+    </bean>
+
+    <bean id="oneSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="oneDataSource"/>
+        <property name="configLocation" value="classpath:mybatis.xml"/>
+        <property name="mapperLocations">
+            <list>
+                <value>classpath:mapper/normal_mapper/*.xml</value>
+            </list>
+        </property>
+        <property name="typeAliasesPackage" value="com.jxyq.model"/>
+        <property name="plugins">
+            <list>
+                <bean class="com.jxyq.commons.mybatis.pagination.PagingInterceptor">
+                    <property name="dbModel" value="${proxool.dbModel}"/>
+                    <property name="dialect">
+                        <bean class="com.jxyq.commons.mybatis.pagination.dialect.OracleDialect"/>
+                    </property>
+                    <property name="sqlRegex" value=".*ByPage"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="oneDataSource"/>
+    </bean>
+
+    <bean id="oneTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="oneDataSource"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <bean id="oneTransactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager" ref="oneTransactionManager"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="oneSqlSessionFactory"></property>
+        <property name="basePackage" value="com.jxyq.mapper.normal_mapper"/>
+    </bean>
+
+    <bean id="oneResultMapManager" class="com.jxyq.config.ResultMapManager">
+        <property name="sqlSessionFactory" ref="oneSqlSessionFactory"/>
+    </bean>
+
+    <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="3"/>
+        <property name="maxPoolSize" value="5"/>
+        <property name="queueCapacity" value="1000"/>
+        <property name="keepAliveSeconds" value="60"/>
+        <property name="rejectedExecutionHandler">
+            <bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy"/>
+        </property>
+    </bean>
+
+    <!--第二数据源-->
+    <bean id="twoDataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource">
+        <property name="alias" value="${watch.alias}"/>
+        <property name="driver" value="${proxool.driver}"/>
+        <property name="user" value="${watch.user}"/>
+        <property name="password" value="${watch.password}"/>
+        <property name="driverUrl" value="${watch.url}"/>
+        <property name="trace" value="${proxool.trace}"/>
+        <property name="prototypeCount" value="${proxool.prototypeCount}"/>
+        <property name="maximumConnectionCount" value="${proxool.maximumConnectionCount}"/>
+        <property name="minimumConnectionCount" value="${proxool.minimumConnectionCount}"/>
+        <property name="simultaneousBuildThrottle" value="${proxool.simultaneousBuildThrottle}"/>
+        <property name="houseKeepingTestSql" value="${proxool.houseKeepingTestSql}"/>
+    </bean>
+
+    <bean id="twoSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="twoDataSource"/>
+        <property name="configLocation" value="classpath:mybatis.xml"/>
+        <property name="mapperLocations">
+            <list>
+                <value>classpath:mapper/watch_mapper/*.xml</value>
+            </list>
+        </property>
+        <property name="typeAliasesPackage" value="com.jxyq.model"/>
+        <property name="plugins">
+            <list>
+                <bean class="com.jxyq.commons.mybatis.pagination.PagingInterceptor">
+                    <property name="dbModel" value="${proxool.dbModel}"/>
+                    <property name="dialect">
+                        <bean class="com.jxyq.commons.mybatis.pagination.dialect.OracleDialect"/>
+                    </property>
+                    <property name="sqlRegex" value=".*ByPage"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="twoTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="twoDataSource"/>
+    </bean>
+
+    <bean id="twoTransactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager" ref="twoTransactionManager"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="twoSqlSessionFactory"></property>
+        <property name="basePackage" value="com.jxyq.mapper.watch_mapper"/>
+    </bean>
+
+</beans> 

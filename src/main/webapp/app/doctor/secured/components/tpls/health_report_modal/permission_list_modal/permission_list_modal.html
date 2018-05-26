@@ -1,0 +1,53 @@
+<div class="modal-header">
+    <div class="row">
+        <div class="col-md-6">
+            <h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span>&nbsp;过滤条件详情</h3>
+        </div>
+        <!--<div class="col-md-6 text-right">-->
+        <!--<h4 class="modal-title">联系方式：{{entity.patient_phone}}</h4>-->
+        <!--</div>-->
+    </div>
+</div>
+<div class="modal-body">
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">过滤条件列表</div>
+        <!-- Table -->
+        <table class="table">
+            <tr>
+                <th>数据项</th>
+                <th>比较操作符</th>
+                <th>目标值</th>
+                <th>逻辑运算符</th>
+            </tr>
+            <tr ng-repeat="filter in filters">
+                <td ng-if="type==1">{{filter.name_id | mapWristbandColumn}}</td>
+                <td ng-if="type==2">{{filter.name_id | mapSphygmomanometerColumn}}</td>
+                <td ng-if="type==3">{{filter.name_id | mapOximeterColumn}}</td>
+                <td ng-if="type==4">{{filter.name_id | mapGlucosemeterColumn}}</td>
+                <td ng-if="type==5">{{filter.name_id | mapThermometerColumn}}</td>
+                <td ng-if="type==6">{{filter.name_id | mapFatColumn}}</td>
+                <td>{{filter.comparison_op_id | mapComparisonOps}}</td>
+                <td>{{filter.value}}</td>
+                <td>{{filter.logical_op_id | mapLogicalOps}}</td>
+            </tr>
+        </table>
+    </div>
+    <!--<div class="panel-footer">-->
+        <!--<form style="display:inherit" ng-submit="sendReply()">-->
+            <!--<div class="input-group" >-->
+                <!--<input type="text" class="form-control input-sm chat-input" placeholder="回复信息" ng-model="replyer.content" />-->
+            <!--<span class="input-group-btn">-->
+                  <!--<input type="submit" class="btn btn-sm chat-submit-button" value="发送"/>-->
+                <!--</span>-->
+            <!--</div>-->
+        <!--</form>-->
+    <!--</div>-->
+</div>
+<div class="modal-footer">
+    <div class="col-sm-offset-7 col-sm-5">
+        <!--<button form="fatForm" ng-click="" type="submit" class="btn btn-success">推送</button>-->
+        <!--<button form="fatForm" type="reset" class="btn btn-primary">重置</button>-->
+        <button ng-click="cancel()" type="button" class="btn btn-default">关闭</button>
+    </div>
+</div>

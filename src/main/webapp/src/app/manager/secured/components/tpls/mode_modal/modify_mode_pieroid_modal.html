@@ -1,0 +1,93 @@
+<div class="modal-header">
+  <div class="row">
+    <div class="col-md-6">
+      <h4 class="modal-title">修改模式时段</h4>
+    </div>
+    <div class="col-md-6 text-right">
+      <h4 class="modal-title"></h4>
+    </div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <form class="form-horizontal" id="modifyPeriodForm" role="form" ng-submit="modifyPeriod()">
+      <div class="form-group">
+        <div class="col-md-3 text-right">
+          <label class="control-label">开始时间：</label>
+        </div>
+        <div class="col-md-6">
+          <input class="form-control" ng-model="period_submit.start" type="text" placeholder="24小时制时间" required="required">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-3 text-right">
+          <label class="control-label">结束时间：</label>
+        </div>
+        <div class="col-md-6">
+          <input class="form-control" ng-model="period_submit.stop" type="text" placeholder="24小时制时间" required="required">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-3 text-right">
+            <label class="control-label">星期选择：</label>
+        </div>
+        <div class="col-md-9">
+          <!-- <label class="checkbox-inline">
+            <input type="checkbox" name="weeks" id="week_check1" value="1"> 一
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="weeks" id="week_check2" value="2"> 二
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="weeks" id="week_check3" value="3"> 三
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="weeks" id="week_check4" value="4"> 四
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="weeks" id="week_check5" value="5"> 五
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="weeks" id="week_check6" value="6"> 六
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="weeks" id="week_check7" value="7"> 日
+          </label> -->
+          <div class="input-group input-group ">
+            <ui-select multiple ng-model="weekdays.week" theme="bootstrap" ng-disabled="disabled" close-on-select="false" style="height:68px; width:284px">
+              <ui-select-match placeholder="选择星期">{{$item.day_cn_t}}</ui-select-match>
+              <ui-select-choices repeat="dtype.day_id as dtype in week_days | filter: $select.search">
+                <div ng-bind-html="dtype.day_cn_t | highlight: $select.search"></div>
+              </ui-select-choices>
+            </ui-select>
+          </div>
+        </div>
+                              
+      </div>
+
+      <div class="form-group">
+        <div class="col-md-3 text-right">
+            <label class="control-label">模式选择：</label>
+        </div>
+        <div class="col-md-6">
+            <!-- <ui-select  ng-model="pieroid_submit.runmode_selected" theme="bootstrap" ng-disabled="disabled" close-on-select="true">
+              <ui-select-match placeholder="选择工作模式">{{$select.selected.mode_name}}</ui-select-match>
+                <ui-select-choices repeat="item in pieroid_submit.runmode | filter: $select.search">
+                  <div ng-bind-html="item.mode_name | highlight: $select.search">
+                    
+                  </div>
+                </ui-select-choices>
+              </ui-select> -->
+            <input class="form-control" type="text" value="GPS模式" readOnly="true">     
+        </div>
+                           
+            </div> 
+     </form>
+  </div>
+</div>
+<div class="modal-footer">
+    <div class="col-sm-offset-7 col-sm-5 text-right">
+      <button form="modifyPeriodForm" type="submit" class="btn btn-success">保存</button>
+        <button ng-click="cancel()" type="button" class="btn btn-default">关闭</button>
+    </div>
+</div>

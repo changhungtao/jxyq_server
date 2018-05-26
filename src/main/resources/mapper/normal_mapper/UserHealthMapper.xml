@@ -1,0 +1,1219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxyq.mapper.normal_mapper.UserHealthMapper">
+    <sql id="sphygmomanometer_data_list">
+        sphygmomanometer_data_id, measured_at, systolic_pressure, diastolic_pressure,heart_rate,
+        user_id,terminal_id, manufactory_id,  proposal, doctor_id,status
+    </sql>
+
+
+    <sql id="glucosemeter_data_list">
+        glucosemeter_data_id, measured_at, glucosemeter_value, user_id, terminal_id,
+        manufactory_id, proposal, doctor_id, status,period
+    </sql>
+
+    <sql id="oximeter_data_list">
+        oximeter_data_id, measured_at, oximeter_value, user_id, terminal_id,
+        manufactory_id,  proposal, doctor_id, status
+    </sql>
+
+    <sql id="thermometer_data_list">
+        thermometer_data_id, measured_at, thermometer_value, user_id, terminal_id,
+        manufactory_id, proposal, doctor_id, status
+    </sql>
+
+    <sql id="fat_data_list">
+    fat_data_id,measured_at,bmi_value,fat_value,calorie_value,moisture_value,
+    muscle_value,visceral_fat_value,bone_value,weight_value,user_id,
+    terminal_id,manufactory_id,proposal,doctor_id,status
+    </sql>
+    <resultMap id="wristbandMap" type="com.jxyq.model.health.UserWristbandData" >
+        <result column="step_count" property="step_count" />
+        <result column="measured_at" property="measured_at" />
+        <result column="distance" property="distance" />
+        <result column="calories" property="calories" />
+        <result column="walk_count" property="walk_count" />
+        <result column="walk_distance" property="walk_distance" />
+        <result column="walk_calories" property="walk_calories" />
+        <result column="run_calories" property="run_calories" />
+        <result column="run_count" property="run_count" />
+        <result column="run_distance" property="run_distance" />
+        <result column="deep_duration" property="deep_duration" />
+        <result column="shallow_duration" property="shallow_duration" />
+        <result column="heart_rate" property="heart_rate" />
+    </resultMap>
+
+    <resultMap id="WristbandDataMap" type="com.jxyq.model.health.WristbandData">
+        <result column="wristband_data_id" property="wristband_data_id" />
+        <result column="step_count" property="step_count" />
+        <result column="measured_at" property="measured_at" />
+        <result column="distance" property="distance" />
+        <result column="calories" property="calories" />
+        <result column="walk_count" property="walk_count" />
+        <result column="walk_distance" property="walk_distance" />
+        <result column="walk_calories" property="walk_calories" />
+        <result column="run_calories" property="run_calories" />
+        <result column="run_count" property="run_count" />
+        <result column="run_distance" property="run_distance" />
+        <result column="deep_duration" property="deep_duration" />
+        <result column="shallow_duration" property="shallow_duration" />
+        <result column="heart_rate" property="heart_rate" />
+        <result column="user_id" property="user_id" />
+        <result column="terminal_id" property="terminal_id" />
+        <result column="manufactory_id" property="manufactory_id" />
+        <result column="proposal" property="proposal" />
+        <result column="doctor_id" property="doctor_id" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <resultMap id="WristbandSummary" type="map" >
+        <result column="avg_walk_count" property="avg_walk_count" />
+        <result column="avg_walk_distance" property="avg_walk_distance" />
+        <result column="avg_walk_calories" property="avg_walk_calories" />
+        <result column="avg_run_count" property="avg_run_count" />
+        <result column="avg_run_distance" property="avg_run_distance" />
+        <result column="avg_run_calories" property="avg_run_calories" />
+        <result column="avg_deep" property="avg_deep" />
+        <result column="avg_shallow" property="avg_shallow" />
+        <result column="avg_heart_rate" property="avg_heart_rate" />
+    </resultMap>
+
+    <resultMap id="selSph" type="com.jxyq.model.health.UserSphygmomanometerData" >
+        <result column="sphygmomanometer_data_id" property="sphygmomanometer_data_id" />
+        <result column="measured_at" property="measured_at" />
+        <result column="heart_rate" property="heart_rate" />
+        <result column="systolic_pressure" property="systolic_pressure" />
+        <result column="diastolic_pressure" property="diastolic_pressure" />
+        <result column="user_id" property="user_id" />
+        <result column="terminal_id" property="terminal_id" />
+        <result column="manufactory_id" property="manufactory_id" />
+        <result column="proposal" property="proposal" />
+        <result column="doctor_id" property="doctor_id" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <resultMap id="glucosemeterMap" type="com.jxyq.model.health.UserGlucosemeterData">
+        <result column="glucosemeter_data_id" property="glucosemeter_data_id" />
+        <result column="measured_at" property="measured_at" />
+        <result column="glucosemeter_value" property="glucosemeter_value" />
+        <result column="user_id" property="user_id" />
+        <result column="terminal_id" property="terminal_id" />
+        <result column="manufactory_id" property="manufactory_id" />
+        <result column="proposal" property="proposal" />
+        <result column="doctor_id" property="doctor_id" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <resultMap id="oximeterMap" type="com.jxyq.model.health.UserOximeterData">
+        <result column="oximeter_data_id" property="oximeter_data_id" />
+        <result column="measured_at" property="measured_at" />
+        <result column="oximeter_value" property="oximeter_value" />
+        <result column="user_id" property="user_id" />
+        <result column="terminal_id" property="terminal_id" />
+        <result column="manufactory_id" property="manufactory_id" />
+        <result column="proposal" property="proposal" />
+        <result column="doctor_id" property="doctor_id" />
+        <result column="status" property="status" />
+    </resultMap>
+
+
+    <resultMap id="thermometerMap" type="com.jxyq.model.health.UserThermometersData">
+        <result column="thermometer_data_id" property="thermometer_data_id" />
+        <result column="measured_at" property="measured_at" />
+        <result column="thermometer_value" property="thermometer_value" />
+        <result column="user_id" property="user_id" />
+        <result column="terminal_id" property="terminal_id" />
+        <result column="manufactory_id" property="manufactory_id" />
+        <result column="proposal" property="proposal" />
+        <result column="doctor_id" property="doctor_id" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <resultMap id="fatMap" type="com.jxyq.model.health.UserFatData">
+        <result column="fat_data_id" property="fat_data_id" />
+        <result column="measured_at" property="measured_at" />
+        <result column="bmi_value" property="bmi_value" />
+        <result column="fat_value" property="fat_value" />
+        <result column="calorie_value" property="calorie_value" />
+        <result column="moisture_value" property="moisture_value" />
+        <result column="muscle_value" property="muscle_value" />
+        <result column="visceral_fat_value" property="visceral_fat_value" />
+        <result column="bone_value" property="bone_value" />
+        <result column="weight_value" property="weight_value" />
+        <result column="user_id" property="user_id" />
+        <result column="terminal_id" property="terminal_id" />
+        <result column="manufactory_id" property="manufactory_id" />
+        <result column="proposal" property="proposal" />
+        <result column="doctor_id" property="doctor_id" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <resultMap id="Wris4DocMap" type="map">
+        <result column="wristband_data_id" property="id" />
+        <result column="step_count" property="step_count" />
+        <result column="measured_at" property="measured_at" />
+        <result column="distance" property="distance" />
+        <result column="calories" property="calories" />
+        <result column="walk_count" property="walk_count" />
+        <result column="walk_distance" property="walk_distance" />
+        <result column="walk_calories" property="walk_calories" />
+        <result column="run_calories" property="run_calories" />
+        <result column="run_count" property="run_count" />
+        <result column="run_distance" property="run_distance" />
+        <result column="deep_duration" property="deep_duration" />
+        <result column="shallow_duration" property="shallow_duration" />
+        <result column="heart_rate" property="heart_rate" />
+        <result column="user_name" property="user_name" />
+        <result column="phone" property="phone" />
+        <result column="nick_name" property="nick_name" />
+        <result column="proposal" property="proposal" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <resultMap id="Sphy4DocMap" type="map" >
+        <result column="sphygmomanometer_data_id" property="id" />
+        <result column="measured_at" property="measured_at" />
+        <result column="heart_rate" property="heart_rate" />
+        <result column="systolic_pressure" property="systolic_pressure" />
+        <result column="diastolic_pressure" property="diastolic_pressure" />
+        <result column="user_name" property="user_name" />
+        <result column="phone" property="phone" />
+        <result column="nick_name" property="nick_name" />
+        <result column="proposal" property="proposal" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <resultMap id="Glu4DocMap" type="map">
+        <result column="glucosemeter_data_id" property="id" />
+        <result column="measured_at" property="measured_at" />
+        <result column="glucosemeter_value" property="glucosemeter_value" />
+        <result column="user_name" property="user_name" />
+        <result column="phone" property="phone" />
+        <result column="nick_name" property="nick_name" />
+        <result column="proposal" property="proposal" />
+        <result column="period" property="period" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <resultMap id="Oxi4DocMap" type="map">
+        <result column="oximeter_data_id" property="id" />
+        <result column="measured_at" property="measured_at" />
+        <result column="oximeter_value" property="oximeter_value" />
+        <result column="user_name" property="user_name" />
+        <result column="phone" property="phone" />
+        <result column="nick_name" property="nick_name" />
+        <result column="proposal" property="proposal" />
+        <result column="status" property="status" />
+    </resultMap>
+
+
+    <resultMap id="The4DocMap" type="map">
+        <result column="thermometer_data_id" property="id" />
+        <result column="measured_at" property="measured_at" />
+        <result column="thermometer_value" property="thermometer_value" />
+        <result column="user_name" property="user_name" />
+        <result column="phone" property="phone" />
+        <result column="nick_name" property="nick_name" />
+        <result column="proposal" property="proposal" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <resultMap id="Fat4DocMap" type="map">
+        <result column="fat_data_id" property="id" />
+        <result column="measured_at" property="measured_at" />
+        <result column="bmi_value" property="bmi_value" />
+        <result column="fat_value" property="fat_value" />
+        <result column="calorie_value" property="calorie_value" />
+        <result column="moisture_value" property="moisture_value" />
+        <result column="muscle_value" property="muscle_value" />
+        <result column="visceral_fat_value" property="visceral_fat_value" />
+        <result column="bone_value" property="bone_value" />
+        <result column="weight_value" property="weight_value" />
+        <result column="user_name" property="user_name" />
+        <result column="phone" property="phone" />
+        <result column="nick_name" property="nick_name" />
+        <result column="proposal" property="proposal" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <update id="updateUserInfo" parameterType="map" >
+        update user set nick_name=#{nick_name,jdbcType=VARCHAR},gender=#{gender,jdbcType=NUMERIC},
+        birthday=#{birthday,jdbcType=VARCHAR}, height=#{height,jdbcType=NUMERIC}, weight=#{weight,jdbcType=NUMERIC},
+        target_weight=#{target_weight,jdbcType=NUMERIC},
+        <if test="district_id != null">
+            district_id = #{district_id},
+        </if>
+        <if test="province_id != null">
+            province_id = #{province_id},
+        </if>
+        <if test="city_id != null">
+            city_id = #{city_id},
+        </if>
+        <if test="zone_id != null">
+            zone_id = #{zone_id},
+        </if>
+        <if test="full_name != null">
+            full_name = #{full_name},
+        </if>
+        <if test="avatar_url != null">
+            avatar_url = #{avatar_url},
+        </if>
+        <if test="address != null">
+            address = #{address},
+        </if>
+        <if test="qq != null">
+            qq = #{qq},
+        </if>
+        <if test="email != null">
+            email = #{email},
+        </if>
+        <if test="points != null">
+            points = #{points},
+        </if>
+        <if test="authenticity != null">
+            authenticity = #{authenticity},
+        </if>
+        <if test="filled_in_at != null">
+            filled_in_at = #{filled_in_at},
+        </if>
+        user_id=#{user_id,jdbcType=NUMERIC}
+        where user_id=#{user_id,jdbcType=NUMERIC};
+    </update>
+    <insert id="inPoints" parameterType="com.jxyq.model.user.Consumption">
+        insert into consumption(happened_at,points,user_id,new_points,operation_type,description)
+        values(#{happened_at},#{points},#{user_id},#{new_points},#{operation_type},#{description})
+    </insert>
+
+    <insert id="insertWristband" parameterType="com.jxyq.model.health.WristbandData">
+        replace into wristband_data (
+            measured_at, step_count, distance, calories, walk_count,
+            walk_distance, walk_calories, run_count, run_distance, run_calories,
+            deep_duration, shallow_duration, heart_rate, user_id, terminal_id,
+            manufactory_id, proposal, doctor_id, status
+        )
+        values (
+            #{measured_at}, #{step_count}, #{distance}, #{calories}, #{walk_count},
+            #{walk_distance}, #{walk_calories}, #{run_count}, #{run_distance}, #{run_calories},
+            #{deep_duration}, #{shallow_duration}, #{heart_rate}, #{user_id}, #{terminal_id},
+            #{manufactory_id}, #{proposal}, #{doctor_id}, #{status}
+        )
+    </insert>
+
+    <select id="selWristbandData" parameterType="map" resultMap="WristbandDataMap">
+        select wristband_data_id, measured_at, step_count, distance, calories,
+            walk_count, walk_distance, walk_calories, run_count, run_distance,
+            run_calories, deep_duration, shallow_duration, heart_rate, user_id,
+            terminal_id, manufactory_id, proposal, doctor_id, status
+        from wristband_data
+        where wristband_data_id = #{wristband_data_id}
+    </select>
+
+    <select id="selLastWristbandDataId" parameterType="map" resultMap="WristbandDataMap">
+        select wristband_data_id from wristband_data
+        where wristband_data_id &lt; #{wristband_data_id}
+        and user_id = #{user_id}
+        order by measured_at DESC
+        limit 1
+    </select>
+
+    <update id="upWristbandData" parameterType="com.jxyq.model.health.WristbandData">
+        update wristband_data
+        set
+        <if test="step_count != null">
+            step_count = #{step_count},
+        </if>
+        <if test="distance != null">
+            distance = #{distance},
+        </if>
+        <if test="calories != null">
+            calories = #{calories},
+        </if>
+        <if test="walk_count != null">
+            walk_count = #{walk_count},
+        </if>
+        <if test="walk_distance != null">
+            walk_distance = #{walk_distance},
+        </if>
+        <if test="walk_calories != null">
+            walk_calories = #{walk_calories},
+        </if>
+        <if test="run_count != null">
+            run_count = #{run_count},
+        </if>
+        <if test="run_distance != null">
+            run_distance = #{run_distance},
+        </if>
+        <if test="run_calories != null">
+            run_calories = #{run_calories},
+        </if>
+        <if test="deep_duration != null">
+            deep_duration = #{deep_duration},
+        </if>
+        <if test="shallow_duration != null">
+            shallow_duration = #{shallow_duration},
+        </if>
+        <if test="heart_rate != null">
+            heart_rate = #{heart_rate},
+        </if>
+        <if test="proposal != null">
+            proposal = #{proposal},
+        </if>
+        <if test="doctor_id != null">
+            doctor_id = #{doctor_id},
+        </if>
+        <if test="status != null">
+            status = #{status},
+        </if>
+        wristband_data_id = #{wristband_data_id}
+        where wristband_data_id = #{wristband_data_id}
+    </update>
+
+    <insert id="insertSphyg" parameterType="com.jxyq.model.health.UserSphygmomanometerData">
+        insert into sphygmomanometer_data(
+            <include refid="sphygmomanometer_data_list" />
+        )
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            #{sphygmomanometer_data_id},#{measured_at},#{systolic_pressure},#{diastolic_pressure},
+            #{heart_rate},#{user_id},#{terminal_id},#{manufactory_id},#{proposal},#{doctor_id},
+            #{status},
+        </trim>
+    </insert>
+
+
+    <insert id="insertGlucose" parameterType="com.jxyq.model.health.UserGlucosemeterData">
+        insert into glucosemeter_data(
+            <include refid="glucosemeter_data_list" />
+        )
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            #{glucosemeter_data_id},#{measured_at},#{glucosemeter_value},#{user_id},#{terminal_id},
+            #{manufactory_id},#{proposal},#{doctor_id},#{status},#{period}
+        </trim>
+    </insert>
+
+    <insert id="insertOximeter" parameterType="com.jxyq.model.health.UserOximeterData">
+        insert into oximeter_data(
+            <include refid="oximeter_data_list" />
+        )
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            #{oximeter_data_id},#{measured_at},#{oximeter_value},#{user_id},#{terminal_id},
+            #{manufactory_id}, #{proposal},#{doctor_id},#{status},
+        </trim>
+    </insert>
+
+    <insert id="insertThermometer" parameterType="com.jxyq.model.health.UserThermometersData">
+        insert into thermometer_data(
+            <include refid="thermometer_data_list" />
+        )
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            #{thermometer_data_id},#{measured_at},#{thermometer_value},#{user_id},#{terminal_id},
+            #{manufactory_id},#{proposal},#{doctor_id},#{status},
+        </trim>
+    </insert>
+
+    <insert id="insertFat" parameterType="com.jxyq.model.health.UserFatData">
+        insert into fat_data(
+        <include refid="fat_data_list" />
+        )
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            #{fat_data_id},#{measured_at},#{bmi_value},#{fat_value},#{calorie_value},
+        #{moisture_value},#{muscle_value},#{visceral_fat_value},#{bone_value},#{weight_value},
+        #{user_id},#{terminal_id},#{manufactory_id},#{proposal},#{doctor_id},#{status},
+        </trim>
+    </insert>
+
+    <select id="selWristbandDetail" parameterType="map" resultMap="wristbandMap">
+        select wristband_data_id, measured_at, step_count, distance, calories,
+            walk_count, walk_distance, walk_calories, run_count, run_distance,
+            run_calories, deep_duration, shallow_duration, heart_rate
+        from wristband_data
+        where user_id = #{user_id}
+        <![CDATA[and measured_at >= #{begin_date}]]>
+        <![CDATA[and measured_at < #{end_date}]]>
+        order by measured_at ASC
+    </select>
+
+    <select id="selWristbandSummary" parameterType="map" resultMap="WristbandSummary">
+        select ROUND(avg(walk_count),0) as avg_walk_count, ROUND(avg(walk_distance), 0) as avg_walk_distance,
+        ROUND(avg(walk_calories), 0) as avg_walk_calories,ROUND(avg(run_count), 0) as avg_run_count,
+        ROUND(avg(run_distance), 0) as avg_run_distance,ROUND(avg(run_calories),0) as avg_run_calories,
+        ROUND(avg(deep_duration), 0) as avg_deep, ROUND(avg(shallow_duration), 0) as avg_shallow,
+        ROUND(avg(heart_rate), 0) as avg_heart_rate
+        from  wristband_data where user_id = #{user_id}
+        <![CDATA[and measured_at >= #{begin_date}]]>
+        <![CDATA[and measured_at < #{end_date}]]>
+    </select>
+
+    <select id="selSDetail" parameterType="map" resultMap="selSph">
+        select
+            <include refid="sphygmomanometer_data_list" />
+        from sphygmomanometer_data
+        where user_id = #{user_id}
+        <![CDATA[and measured_at >= #{begin_date}]]>
+        <![CDATA[and measured_at < #{end_date}]]>
+        order by measured_at;
+    </select>
+
+    <select id="selSphygmomanometerData" parameterType="map" resultMap="selSph">
+        select
+        <include refid="sphygmomanometer_data_list" />
+        from sphygmomanometer_data
+        where sphygmomanometer_data_id = #{sphygmomanometer_data_id}
+    </select>
+
+    <select id="selLastSphygmomanometerData" parameterType="map" resultMap="selSph">
+        select sphygmomanometer_data_id from sphygmomanometer_data
+        where user_id = #{user_id}
+        and measured_at &lt; #{measured_at}
+        order by measured_at DESC
+        limit 1
+    </select>
+
+    <update id="upSphygmomanometerData" parameterType="com.jxyq.model.health.UserSphygmomanometerData">
+        update sphygmomanometer_data
+        set
+        <if test="systolic_pressure != null">
+            systolic_pressure = #{systolic_pressure},
+        </if>
+        <if test="diastolic_pressure != null">
+            diastolic_pressure = #{diastolic_pressure},
+        </if>
+        <if test="heart_rate != null">
+            heart_rate = #{heart_rate},
+        </if>
+        <if test="proposal != null">
+            proposal = #{proposal},
+        </if>
+        <if test="doctor_id != null">
+            doctor_id = #{doctor_id},
+        </if>
+        <if test="status != null">
+            status = #{status},
+        </if>
+        sphygmomanometer_data_id = #{sphygmomanometer_data_id}
+        where sphygmomanometer_data_id = #{sphygmomanometer_data_id}
+    </update>
+
+    <select id="selGlucosemeterDetail" parameterType="map" resultMap="glucosemeterMap">
+        select
+            <include refid="glucosemeter_data_list" />
+        from glucosemeter_data
+        where user_id = #{user_id}
+        <![CDATA[and measured_at >= #{begin_date}]]>
+        <![CDATA[and measured_at < #{end_date}]]>
+        order by measured_at
+    </select>
+
+    <select id="selGlucosemeterData" parameterType="map" resultMap="glucosemeterMap">
+        select
+        <include refid="glucosemeter_data_list" />
+        from glucosemeter_data
+        where glucosemeter_data_id = #{glucosemeter_data_id}
+    </select>
+
+    <select id="selLastGlucosemeterData" parameterType="map" resultMap="glucosemeterMap">
+        select glucosemeter_data_id from glucosemeter_data
+        where measured_at &lt; #{measured_at}
+        and user_id = #{user_id}
+        order by measured_at DESC
+        limit 1
+    </select>
+
+    <update id="upGlucosemeterData" parameterType="com.jxyq.model.health.UserGlucosemeterData">
+        update glucosemeter_data
+        set
+        <if test="glucosemeter_value != null">
+            glucosemeter_value = #{glucosemeter_value},
+        </if>
+        <if test="proposal != null">
+            proposal = #{proposal},
+        </if>
+        <if test="period != null">
+            period = #{period},
+        </if>
+        <if test="doctor_id != null">
+            doctor_id = #{doctor_id},
+        </if>
+        <if test="status != null">
+            status = #{status},
+        </if>
+        glucosemeter_data_id = #{glucosemeter_data_id}
+        where glucosemeter_data_id = #{glucosemeter_data_id}
+    </update>
+
+    <select id="selOximeterDetail" parameterType="map" resultMap="oximeterMap">
+        select
+            <include refid="oximeter_data_list" />
+        from oximeter_data
+        where user_id = #{user_id}
+        <![CDATA[and measured_at >= #{begin_date}]]>
+        <![CDATA[and measured_at < #{end_date}]]>
+        order by measured_at;
+    </select>
+
+    <select id="selOximeterData" parameterType="map" resultMap="oximeterMap">
+        select
+        <include refid="oximeter_data_list" />
+        from oximeter_data
+        where oximeter_data_id = #{oximeter_data_id}
+    </select>
+
+    <select id="selLastOximeterDataId" parameterType="map" resultMap="oximeterMap">
+        select oximeter_data_id from oximeter_data
+        where measured_at &lt; #{measured_at}
+        and user_id = #{user_id}
+        order by measured_at DESC
+        limit 1
+    </select>
+
+    <update id="upOximeterData" parameterType="com.jxyq.model.health.UserOximeterData">
+        update oximeter_data
+        set
+        <if test="oximeter_value != null">
+            oximeter_value = #{oximeter_value},
+        </if>
+        <if test="proposal != null">
+            proposal = #{proposal},
+        </if>
+        <if test="doctor_id != null">
+            doctor_id = #{doctor_id},
+        </if>
+        <if test="status != null">
+            status = #{status},
+        </if>
+        oximeter_data_id = #{oximeter_data_id}
+        where oximeter_data_id = #{oximeter_data_id}
+    </update>
+
+    <select id="selThermometerDetail" parameterType="map" resultMap="thermometerMap">
+        select
+            <include refid="thermometer_data_list" />
+        from thermometer_data
+        where user_id = #{user_id}
+        <![CDATA[and measured_at >= #{begin_date}]]>
+        <![CDATA[and measured_at < #{end_date}]]>
+        order by measured_at;
+    </select>
+
+    <select id="selThermometerData" parameterType="map" resultMap="thermometerMap">
+        select
+        <include refid="thermometer_data_list" />
+        from thermometer_data
+        where thermometer_data_id = #{thermometer_data_id}
+    </select>
+
+    <select id="selLastThermometerData" parameterType="map" resultMap="thermometerMap">
+        select thermometer_data_id from thermometer_data
+        where user_id = #{user_id}
+        and measured_at &lt; #{measured_at}
+        order by measured_at DESC
+        limit 1
+    </select>
+
+    <update id="upThermometersData" parameterType="com.jxyq.model.health.UserThermometersData">
+        update thermometer_data set
+        <if test="thermometer_value != null">
+            thermometer_value = #{thermometer_value},
+        </if>
+        <if test="proposal != null">
+            proposal = #{proposal},
+        </if>
+        <if test="doctor_id != null">
+            doctor_id = #{doctor_id},
+        </if>
+        <if test="status != null">
+            status = #{status},
+        </if>
+        thermometer_data_id = #{thermometer_data_id}
+        where thermometer_data_id = #{thermometer_data_id}
+    </update>
+
+    <select id="selFatDetail" parameterType="map" resultMap="fatMap">
+        select
+        <include refid="fat_data_list" />
+        from fat_data
+        where user_id = #{user_id}
+        <![CDATA[and measured_at >= #{begin_date}]]>
+        <![CDATA[and measured_at < #{end_date}]]>
+        order by measured_at;
+    </select>
+
+    <select id="selFatData" parameterType="map" resultMap="fatMap">
+        select
+        <include refid="fat_data_list" />
+        from fat_data
+        where fat_data_id = #{fat_data_id}
+    </select>
+
+    <select id="selLastFatData" parameterType="map" resultMap="fatMap">
+        select fat_data_id from fat_data
+        where user_id = #{user_id}
+        and measured_at &lt; #{measured_at}
+        order by measured_at DESC
+        limit 1
+    </select>
+
+    <update id="upFatData" parameterType="com.jxyq.model.health.UserFatData">
+        update fat_data set
+        <if test="bmi_value != null">
+            bmi_value = #{bmi_value},
+        </if>
+        <if test="weight_value != null">
+            weight_value = #{weight_value},
+        </if>
+        <if test="fat_value != null">
+            fat_value = #{fat_value},
+        </if>
+        <if test="calorie_value != null">
+            calorie_value = #{calorie_value},
+        </if>
+        <if test="moisture_value != null">
+            moisture_value = #{moisture_value},
+        </if>
+        <if test="muscle_value != null">
+            muscle_value = #{muscle_value},
+        </if>
+        <if test="visceral_fat_value != null">
+            visceral_fat_value = #{visceral_fat_value},
+        </if>
+        <if test="bone_value != null">
+            bone_value = #{bone_value},
+        </if>
+        <if test="proposal != null">
+            proposal = #{proposal},
+        </if>
+        <if test="doctor_id != null">
+            doctor_id = #{doctor_id},
+        </if>
+        <if test="status != null">
+            status = #{status},
+        </if>
+        fat_data_id = #{fat_data_id}
+        where fat_data_id = #{fat_data_id}
+    </update>
+    
+    <select id="selWristbandData4DoctorByPage" parameterType="map" resultMap="Wris4DocMap">
+        select wristband_data_id, b.full_name as user_name, b.phone as phone, b.nick_name as nick_name, measured_at, step_count, distance, calories,
+            walk_count, walk_distance, walk_calories, run_count, run_distance,
+            run_calories, deep_duration, shallow_duration, heart_rate, proposal,
+            a.status as status
+        from wristband_data a, user b
+        where a.user_id = b.user_id
+        <if test="district_id != null">
+            <![CDATA[and b.district_id = #{district_id}]]>
+        </if>
+        <if test="province_id != null">
+            <![CDATA[and b.province_id = #{province_id}]]>
+        </if>
+        <if test="city_id != null">
+            <![CDATA[and b.city_id = #{city_id}]]>
+        </if>
+        <if test="zone_id != null">
+            <![CDATA[and b.zone_id = #{zone_id}]]>
+        </if>
+        <if test="filter != null">
+            <![CDATA[and (${filter})]]>
+        </if>
+        <if test="query_date != null">
+            <![CDATA[and measured_at < #{query_date}]]>
+        </if>
+        order by measured_at DESC
+    </select>
+
+    <select id="selSphyData4DoctorByPage" parameterType="map" resultMap="Sphy4DocMap">
+        select sphygmomanometer_data_id, b.full_name as user_name, b.phone as phone, b.nick_name as nick_name, measured_at, systolic_pressure, diastolic_pressure,
+            heart_rate, proposal, a.status as status
+        from sphygmomanometer_data a, user b
+        where a.user_id = b.user_id
+        <if test="district_id != null">
+            <![CDATA[and b.district_id = #{district_id}]]>
+        </if>
+        <if test="province_id != null">
+            <![CDATA[and b.province_id = #{province_id}]]>
+        </if>
+        <if test="city_id != null">
+            <![CDATA[and b.city_id = #{city_id}]]>
+        </if>
+        <if test="zone_id != null">
+            <![CDATA[and b.zone_id = #{zone_id}]]>
+        </if>
+        <if test="filter != null">
+            <![CDATA[and (${filter})]]>
+        </if>
+        <if test="query_date != null">
+            <![CDATA[and measured_at < #{query_date}]]>
+        </if>
+        order by measured_at DESC
+    </select>
+
+    <select id="selOximeterData4DoctorByPage" parameterType="map" resultMap="Oxi4DocMap">
+        select oximeter_data_id, b.full_name as user_name, b.phone as phone, b.nick_name as nick_name, measured_at, oximeter_value, proposal,
+            a.status as status
+        from oximeter_data a, user b
+        where a.user_id = b.user_id
+        <if test="district_id != null">
+            <![CDATA[and b.district_id = #{district_id}]]>
+        </if>
+        <if test="province_id != null">
+            <![CDATA[and b.province_id = #{province_id}]]>
+        </if>
+        <if test="city_id != null">
+            <![CDATA[and b.city_id = #{city_id}]]>
+        </if>
+        <if test="zone_id != null">
+            <![CDATA[and b.zone_id = #{zone_id}]]>
+        </if>
+        <if test="filter != null">
+            <![CDATA[and (${filter})]]>
+        </if>
+        <if test="query_date != null">
+            <![CDATA[and measured_at < #{query_date}]]>
+        </if>
+        order by measured_at DESC
+    </select>
+
+    <select id="selGlucosemeterData4DoctorByPage" parameterType="map" resultMap="Glu4DocMap">
+        select glucosemeter_data_id, b.full_name as user_name, b.phone as phone, b.nick_name as nick_name, measured_at, glucosemeter_value, proposal,
+            a.status as status, period
+        from glucosemeter_data a, user b
+        where a.user_id = b.user_id
+        <if test="district_id != null">
+            <![CDATA[and b.district_id = #{district_id}]]>
+        </if>
+        <if test="province_id != null">
+            <![CDATA[and b.province_id = #{province_id}]]>
+        </if>
+        <if test="city_id != null">
+            <![CDATA[and b.city_id = #{city_id}]]>
+        </if>
+        <if test="zone_id != null">
+            <![CDATA[and b.zone_id = #{zone_id}]]>
+        </if>
+        <if test="filter != null">
+            <![CDATA[and (${filter})]]>
+        </if>
+        <if test="query_date != null">
+            <![CDATA[and measured_at < #{query_date}]]>
+        </if>
+        order by measured_at DESC
+    </select>
+
+    <select id="selThermometerData4DoctorByPage" parameterType="map" resultMap="The4DocMap">
+        select thermometer_data_id, b.full_name as user_name, b.phone as phone, b.nick_name as nick_name, measured_at, thermometer_value, proposal,
+            a.status as status
+        from thermometer_data a, user b
+        where a.user_id = b.user_id
+        <if test="district_id != null">
+            <![CDATA[and b.district_id = #{district_id}]]>
+        </if>
+        <if test="province_id != null">
+            <![CDATA[and b.province_id = #{province_id}]]>
+        </if>
+        <if test="city_id != null">
+            <![CDATA[and b.city_id = #{city_id}]]>
+        </if>
+        <if test="zone_id != null">
+            <![CDATA[and b.zone_id = #{zone_id}]]>
+        </if>
+        <if test="filter != null">
+            <![CDATA[and (${filter})]]>
+        </if>
+        <if test="query_date != null">
+            <![CDATA[and measured_at < #{query_date}]]>
+        </if>
+        order by measured_at DESC
+    </select>
+
+    <select id="selFatData4DoctorByPage" parameterType="map" resultMap="Fat4DocMap">
+        select fat_data_id, b.full_name as user_name, b.phone as phone, b.nick_name as nick_name, measured_at, bmi_value, weight_value,
+            fat_value, calorie_value, moisture_value, muscle_value, visceral_fat_value,
+            bone_value, proposal, a.status as status
+        from fat_data a, user b
+        where a.user_id = b.user_id
+        <if test="district_id != null">
+            <![CDATA[and b.district_id = #{district_id}]]>
+        </if>
+        <if test="province_id != null">
+            <![CDATA[and b.province_id = #{province_id}]]>
+        </if>
+        <if test="city_id != null">
+            <![CDATA[and b.city_id = #{city_id}]]>
+        </if>
+        <if test="zone_id != null">
+            <![CDATA[and b.zone_id = #{zone_id}]]>
+        </if>
+        <if test="filter != null">
+            <![CDATA[and (${filter})]]>
+        </if>
+        <if test="query_date != null">
+            <![CDATA[and measured_at < #{query_date}]]>
+        </if>
+        order by measured_at DESC
+    </select>
+
+    <resultMap id="MeasurementsMap" type="map">
+        <result column="data_type" property="data_type" />
+        <result column="measurement_id" property="measurement_id" />
+        <result column="terminal_name" property="terminal_name" />
+        <result column="manufactory_name" property="manufactory_name" />
+        <result column="user_nick_name" property="user_nick_name" />
+        <result column="user_full_name" property="user_full_name" />
+        <result column="user_phone" property="user_phone" />
+        <result column="measured_at" property="measured_at" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <select id="selMeasurementsByPage" parameterType="map" resultMap="MeasurementsMap">
+        select ${data_type} as data_type, ${table_name}_id as measurement_id, b.name as terminal_name, c.full_name as manufactory_name,
+            d.nick_name as user_nick_name, d.full_name as user_full_name, d.phone as user_phone, a.measured_at as measured_at,
+            a.status as status
+        from ${table_name} a left join terminal b on a.terminal_id = b.terminal_id
+            left join manufactory c on a.manufactory_id = c.manufactory_id
+            left join user d on a.user_id = d.user_id
+        where 1 = 1
+        <if test="status != null">
+            <![CDATA[and a.status = ${status}]]>
+        </if>
+        <if test="measured_from != null">
+            <![CDATA[and measured_at >= #{measured_from}]]>
+        </if>
+        <if test="measured_to != null">
+            <![CDATA[and measured_at < #{measured_to}]]>
+        </if>
+        <if test="query_date != null">
+            <![CDATA[and measured_at < #{query_date}]]>
+        </if>
+        <if test="district_id != null">
+            <![CDATA[and d.district_id = #{district_id}]]>
+        </if>
+        <if test="province_id != null">
+            <![CDATA[and d.province_id = #{province_id}]]>
+        </if>
+        <if test="city_id != null">
+            <![CDATA[and d.city_id = #{city_id}]]>
+        </if>
+        <if test="zone_id != null">
+            <![CDATA[and d.zone_id = #{zone_id}]]>
+        </if>
+        <if test="phone != null">
+            <![CDATA[and d.phone like "%${phone}%"]]>
+        </if>
+    </select>
+
+    <resultMap id="WristbandData4FactoryMap" type="map">
+        <result column="data_type_id" property="data_type_id" />
+        <result column="terminal_name" property="terminal_name" />
+        <result column="terminal_catagory_name" property="terminal_catagory_name" />
+        <result column="phone" property="phone" />
+        <result column="nick_name" property="nick_name" />
+        <result column="user_name" property="user_name" />
+        <result column="user_age" property="user_age" />
+        <result column="wristband_data_id" property="id" />
+        <result column="step_count" property="step_count" />
+        <result column="measured_at" property="measured_at" />
+        <result column="distance" property="distance" />
+        <result column="calories" property="calories" />
+        <result column="walk_count" property="walk_count" />
+        <result column="walk_distance" property="walk_distance" />
+        <result column="walk_calories" property="walk_calories" />
+        <result column="run_calories" property="run_calories" />
+        <result column="run_count" property="run_count" />
+        <result column="run_distance" property="run_distance" />
+        <result column="deep_duration" property="deep_duration" />
+        <result column="shallow_duration" property="shallow_duration" />
+        <result column="heart_rate" property="heart_rate" />
+        <result column="proposal" property="proposal" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <select id="selWristbandData4FactoryByPage" parameterType="map" resultMap="WristbandData4FactoryMap">
+        select #{data_type_id} as data_type_id, c.name as terminal_name, d.name as terminal_catagory_name,
+            b.phone, b.nick_name, b.full_name as user_name,
+            (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5) &lt; RIGHT(birthday,5)) as user_age,
+            wristband_data_id, measured_at, step_count, distance, calories,
+            walk_count, walk_distance, walk_calories, run_count, run_distance,
+            run_calories, deep_duration, shallow_duration, heart_rate, proposal,
+            a.status as status
+        from wristband_data a, user b, terminal c, terminal_catagory d
+        where a.user_id = b.user_id
+        and a.terminal_id = c.terminal_id
+        and c.terminal_catagory_id = d.terminal_catagory_id
+        <if test="manufactory_id != null">
+            <![CDATA[and a.manufactory_id = #{manufactory_id}]]>
+        </if>
+        <if test="terminal_catagory_name != null">
+            <![CDATA[and d.name like "%${terminal_catagory_name}%"]]>
+        </if>
+        <if test="terminal_name != null">
+            <![CDATA[and c.name like "%${terminal_name}%"]]>
+        </if>
+        <if test="user_phone != null">
+            <![CDATA[and b.phone like "%${user_phone}%"]]>
+        </if>
+        <if test="begin_age != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) >= #{begin_age}]]>
+        </if>
+        <if test="end_age != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) <= #{end_age}]]>
+        </if>
+        <if test="query_date != null">
+            <![CDATA[and a.measured_at <= #{query_date}]]>
+        </if>
+        order by measured_at DESC
+    </select>
+
+    <resultMap id="SphyData4FactoryMap" type="map">
+        <result column="data_type_id" property="data_type_id" />
+        <result column="terminal_name" property="terminal_name" />
+        <result column="terminal_catagory_name" property="terminal_catagory_name" />
+        <result column="phone" property="phone" />
+        <result column="nick_name" property="nick_name" />
+        <result column="user_name" property="user_name" />
+        <result column="user_age" property="user_age" />
+        <result column="sphygmomanometer_data_id" property="id" />
+        <result column="measured_at" property="measured_at" />
+        <result column="heart_rate" property="heart_rate" />
+        <result column="systolic_pressure" property="systolic_pressure" />
+        <result column="diastolic_pressure" property="diastolic_pressure" />
+        <result column="proposal" property="proposal" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <select id="selSphyData4FactoryByPage" parameterType="map" resultMap="SphyData4FactoryMap">
+        select #{data_type_id} as data_type_id, c.name as terminal_name, d.name as terminal_catagory_name,
+        b.phone, b.nick_name, b.full_name as user_name,
+        (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5) &lt; RIGHT(birthday,5)) as user_age,
+        sphygmomanometer_data_id, measured_at, systolic_pressure, diastolic_pressure,
+        heart_rate, proposal, a.status as status
+        from sphygmomanometer_data a, user b, terminal c, terminal_catagory d
+        where a.user_id = b.user_id
+        and a.terminal_id = c.terminal_id
+        and c.terminal_catagory_id = d.terminal_catagory_id
+        <if test="manufactory_id != null">
+            <![CDATA[and a.manufactory_id = #{manufactory_id}]]>
+        </if>
+        <if test="terminal_catagory_name != null">
+            <![CDATA[and d.name like "%${terminal_catagory_name}%"]]>
+        </if>
+        <if test="terminal_name != null">
+            <![CDATA[and c.name like "%${terminal_name}%"]]>
+        </if>
+        <if test="user_phone != null">
+            <![CDATA[and b.phone like "%${user_phone}%"]]>
+        </if>
+        <if test="begin_age != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) >= #{begin_age}]]>
+        </if>
+        <if test="end_age != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) <= #{end_age}]]>
+        </if>
+        <if test="query_date != null">
+            <![CDATA[and a.measured_at <= #{query_date}]]>
+        </if>
+        order by measured_at DESC
+    </select>
+
+    <resultMap id="OximeterData4FactoryMap" type="map">
+        <result column="data_type_id" property="data_type_id" />
+        <result column="terminal_name" property="terminal_name" />
+        <result column="terminal_catagory_name" property="terminal_catagory_name" />
+        <result column="phone" property="phone" />
+        <result column="nick_name" property="nick_name" />
+        <result column="user_name" property="user_name" />
+        <result column="user_age" property="user_age" />
+        <result column="oximeter_data_id" property="id" />
+        <result column="measured_at" property="measured_at" />
+        <result column="oximeter_value" property="oximeter_value" />
+        <result column="proposal" property="proposal" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <select id="selOximeterData4FactoryByPage" parameterType="map" resultMap="OximeterData4FactoryMap">
+        select #{data_type_id} as data_type_id, c.name as terminal_name, d.name as terminal_catagory_name,
+        b.phone, b.nick_name, b.full_name as user_name,
+        (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5) &lt; RIGHT(birthday,5)) as user_age,
+        oximeter_data_id, measured_at, oximeter_value, proposal,
+        a.status as status
+        from oximeter_data a, user b, terminal c, terminal_catagory d
+        where a.user_id = b.user_id
+        and a.terminal_id = c.terminal_id
+        and c.terminal_catagory_id = d.terminal_catagory_id
+        <if test="manufactory_id != null">
+            <![CDATA[and a.manufactory_id = #{manufactory_id}]]>
+        </if>
+        <if test="terminal_catagory_name != null">
+            <![CDATA[and d.name like "%${terminal_catagory_name}%"]]>
+        </if>
+        <if test="terminal_name != null">
+            <![CDATA[and c.name like "%${terminal_name}%"]]>
+        </if>
+        <if test="user_phone != null">
+            <![CDATA[and b.phone like "%${user_phone}%"]]>
+        </if>
+        <if test="begin_age != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) >= #{begin_age}]]>
+        </if>
+        <if test="end_age != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) <= #{end_age}]]>
+        </if>
+        <if test="query_date != null">
+            <![CDATA[and a.measured_at <= #{query_date}]]>
+        </if>
+        order by measured_at DESC
+    </select>
+
+    <resultMap id="GlucosemeterData4FactoryMap" type="map">
+        <result column="data_type_id" property="data_type_id" />
+        <result column="terminal_name" property="terminal_name" />
+        <result column="terminal_catagory_name" property="terminal_catagory_name" />
+        <result column="phone" property="phone" />
+        <result column="nick_name" property="nick_name" />
+        <result column="user_name" property="user_name" />
+        <result column="user_age" property="user_age" />
+        <result column="glucosemeter_data_id" property="id" />
+        <result column="measured_at" property="measured_at" />
+        <result column="glucosemeter_value" property="glucosemeter_value" />
+        <result column="proposal" property="proposal" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <select id="selGlucosemeterData4FactoryByPage" parameterType="map" resultMap="GlucosemeterData4FactoryMap">
+        select #{data_type_id} as data_type_id, c.name as terminal_name, d.name as terminal_catagory_name,
+        b.phone, b.nick_name, b.full_name as user_name,
+        (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5) &lt; RIGHT(birthday,5)) as user_age,
+        glucosemeter_data_id, measured_at, glucosemeter_value, proposal,
+        a.status as status, period
+        from glucosemeter_data a, user b, terminal c, terminal_catagory d
+        where a.user_id = b.user_id
+        and a.terminal_id = c.terminal_id
+        and c.terminal_catagory_id = d.terminal_catagory_id
+        <if test="manufactory_id != null">
+            <![CDATA[and a.manufactory_id = #{manufactory_id}]]>
+        </if>
+        <if test="terminal_catagory_name != null">
+            <![CDATA[and d.name like "%${terminal_catagory_name}%"]]>
+        </if>
+        <if test="terminal_name != null">
+            <![CDATA[and c.name like "%${terminal_name}%"]]>
+        </if>
+        <if test="user_phone != null">
+            <![CDATA[and b.phone like "%${user_phone}%"]]>
+        </if>
+        <if test="begin_age != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) >= #{begin_age}]]>
+        </if>
+        <if test="end_age != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) <= #{end_age}]]>
+        </if>
+        <if test="query_date != null">
+            <![CDATA[and a.measured_at <= #{query_date}]]>
+        </if>
+        order by measured_at DESC
+    </select>
+
+    <resultMap id="ThermometerData4FactoryMap" type="map">
+        <result column="data_type_id" property="data_type_id" />
+        <result column="terminal_name" property="terminal_name" />
+        <result column="terminal_catagory_name" property="terminal_catagory_name" />
+        <result column="phone" property="phone" />
+        <result column="nick_name" property="nick_name" />
+        <result column="user_name" property="user_name" />
+        <result column="user_age" property="user_age" />
+        <result column="thermometer_data_id" property="id" />
+        <result column="measured_at" property="measured_at" />
+        <result column="thermometer_value" property="thermometer_value" />
+        <result column="proposal" property="proposal" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <select id="selThermometerData4FactoryByPage" parameterType="map" resultMap="ThermometerData4FactoryMap">
+        select #{data_type_id} as data_type_id, c.name as terminal_name, d.name as terminal_catagory_name,
+        b.phone, b.nick_name, b.full_name as user_name,
+        (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5) &lt; RIGHT(birthday,5)) as user_age,
+        thermometer_data_id, measured_at, thermometer_value, proposal,
+        a.status as status
+        from thermometer_data a, user b, terminal c, terminal_catagory d
+        where a.user_id = b.user_id
+        and a.terminal_id = c.terminal_id
+        and c.terminal_catagory_id = d.terminal_catagory_id
+        <if test="manufactory_id != null">
+            <![CDATA[and a.manufactory_id = #{manufactory_id}]]>
+        </if>
+        <if test="terminal_catagory_name != null">
+            <![CDATA[and d.name like "%${terminal_catagory_name}%"]]>
+        </if>
+        <if test="terminal_name != null">
+            <![CDATA[and c.name like "%${terminal_name}%"]]>
+        </if>
+        <if test="user_phone != null">
+            <![CDATA[and b.phone like "%${user_phone}%"]]>
+        </if>
+        <if test="begin_age != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) >= #{begin_age}]]>
+        </if>
+        <if test="end_age != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) <= #{end_age}]]>
+        </if>
+        <if test="query_date != null">
+            <![CDATA[and a.measured_at <= #{query_date}]]>
+        </if>
+        order by measured_at DESC
+    </select>
+
+    <resultMap id="FatData4FactoryMap" type="map">
+        <result column="data_type_id" property="data_type_id" />
+        <result column="terminal_name" property="terminal_name" />
+        <result column="terminal_catagory_name" property="terminal_catagory_name" />
+        <result column="phone" property="phone" />
+        <result column="nick_name" property="nick_name" />
+        <result column="user_name" property="user_name" />
+        <result column="user_age" property="user_age" />
+        <result column="fat_data_id" property="id" />
+        <result column="measured_at" property="measured_at" />
+        <result column="bmi_value" property="bmi_value" />
+        <result column="fat_value" property="fat_value" />
+        <result column="calorie_value" property="calorie_value" />
+        <result column="moisture_value" property="moisture_value" />
+        <result column="muscle_value" property="muscle_value" />
+        <result column="visceral_fat_value" property="visceral_fat_value" />
+        <result column="bone_value" property="bone_value" />
+        <result column="weight_value" property="weight_value" />
+        <result column="proposal" property="proposal" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <select id="selFatData4FactoryByPage" parameterType="map" resultMap="FatData4FactoryMap">
+        select #{data_type_id} as data_type_id, c.name as terminal_name, d.name as terminal_catagory_name,
+        b.phone, b.nick_name, b.full_name as user_name,
+        (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5) &lt; RIGHT(birthday,5)) as user_age,
+        fat_data_id, measured_at, bmi_value, weight_value,
+        fat_value, calorie_value, moisture_value, muscle_value, visceral_fat_value,
+        bone_value, proposal, a.status as status
+        from fat_data a, user b, terminal c, terminal_catagory d
+        where a.user_id = b.user_id
+        and a.terminal_id = c.terminal_id
+        and c.terminal_catagory_id = d.terminal_catagory_id
+        <if test="manufactory_id != null">
+            <![CDATA[and a.manufactory_id = #{manufactory_id}]]>
+        </if>
+        <if test="terminal_catagory_name != null">
+            <![CDATA[and d.name like "%${terminal_catagory_name}%"]]>
+        </if>
+        <if test="terminal_name != null">
+            <![CDATA[and c.name like "%${terminal_name}%"]]>
+        </if>
+        <if test="user_phone != null">
+            <![CDATA[and b.phone like "%${user_phone}%"]]>
+        </if>
+        <if test="begin_age != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) >= #{begin_age}]]>
+        </if>
+        <if test="end_age != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) <= #{end_age}]]>
+        </if>
+        <if test="query_date != null">
+            <![CDATA[and a.measured_at <= #{query_date}]]>
+        </if>
+        order by measured_at DESC
+    </select>
+
+</mapper>

@@ -1,0 +1,58 @@
+<div class="modal-header">
+  <div class="row">
+    <div class="col-md-6">
+      <h4 class="modal-title">修改产品类型</h4>
+    </div>
+    <div class="col-md-6 text-right">
+      <h4 class="modal-title"></h4>
+    </div>
+  </div>
+</div>
+<div class="modal-body">
+    <!--start of alert block-->
+    <div class="alert alert-{{alert.type}} alert-dismissable" style="text-align: center;" role="alert" ng-repeat="alert in alerts" type="{{alert.type}}">
+        <button type="button" class="close" ng-click="closeAlert($index)">
+        </button>
+        {{alert.msg}}
+    </div>
+    <!--end of alert block-->
+  <div class="row">
+    <form class="form-horizontal">
+      <div class="form-group">
+        <div class="col-md-3 text-right">
+          <label class="control-label">产品类型名称：</label>
+        </div>
+        <div class="col-md-6">
+          <!-- <input class="form-control"  type="text" placeholder="输入新的产品类型名称" ng-model = "productName"> -->
+          <input class="form-control" type="text" ng-model="productName">
+        </div>
+      </div>
+      <div class="form-group" ng-show="false">
+        <div class="col-md-3 text-right">
+          <label class="control-label">选择旗下设备类型：</label>
+        </div>
+        <div class="col-md-6">
+          <div class="input-group">
+            <ui-select multiple ng-model="help.device_types_selected" theme="bootstrap" ng-disabled="disabled" close-on-select="false" style="height:34px;">
+              <ui-select-match placeholder="选择设备类型">{{$item.device_type_name}}</ui-select-match>
+              <ui-select-choices repeat="item.device_type_id as item in device_types | filter: $select.search">
+                <div ng-bind-html="item.device_type_name | highlight: $select.search"></div>
+              </ui-select-choices>
+            </ui-select>
+            <span class="input-group-btn">
+               <button type="button" ng-click="help.device_types_selected = []" class="btn btn-default">
+               <span class="glyphicon glyphicon-trash"></span>
+            </button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="modal-footer">
+  <div class="col-sm-offset-7 col-sm-5 text-right">
+    <button ng-click="submit()" class="btn btn-success" ng-disabled="disabledBtn">保存</button>
+    <button ng-click="cancel()" type="button" class="btn btn-default">关闭</button>
+  </div>
+</div>

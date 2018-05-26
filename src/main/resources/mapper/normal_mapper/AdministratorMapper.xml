@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxyq.mapper.normal_mapper.AdministratorMapper">
+    <resultMap id="adminMap" type="com.jxyq.model.admin.Administrator">
+        <result column="administrator_id" property="administrator_id"/>
+        <result column="login_name" property="login_name"/>
+        <result column="password" property="password"/>
+        <result column="full_name" property="full_name"/>
+        <result column="avatar_url" property="avatar_url"/>
+        <result column="gender" property="gender"/>
+        <result column="birthday" property="birthday"/>
+        <result column="phone" property="phone"/>
+        <result column="email" property="email"/>
+        <result column="status" property="status"/>
+    </resultMap>
+    <resultMap id="adminInfoMap" type="com.jxyq.model.admin.Administrator">
+        <result column="administrator_id" property="administrator_id"/>
+        <result column="login_name" property="login_name"/>
+        <result column="password" property="password"/>
+        <result column="full_name" property="full_name"/>
+        <result column="avatar_url" property="avatar_url"/>
+        <result column="gender" property="gender"/>
+        <result column="birthday" property="birthday"/>
+        <result column="phone" property="phone"/>
+        <result column="email" property="email"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <resultMap id="RoleMap" type="com.jxyq.model.Role">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="permissions" property="permissions"/>
+        <result column="level" property="level"/>
+    </resultMap>
+
+    <resultMap id="wristbandMap" type="com.jxyq.model.health.UserWristbandData">
+        <result column="step_count" property="step_count"/>
+        <result column="measured_at" property="measured_at"/>
+        <result column="distance" property="distance"/>
+        <result column="calories" property="calories"/>
+        <result column="walk_count" property="walk_count"/>
+        <result column="walk_distance" property="walk_distance"/>
+        <result column="walk_calories" property="walk_calories"/>
+        <result column="run_calories" property="run_calories"/>
+        <result column="run_count" property="run_count"/>
+        <result column="run_distance" property="run_distance"/>
+        <result column="deep_duration" property="deep_duration"/>
+        <result column="shallow_duration" property="shallow_duration"/>
+        <result column="heart_rate" property="heart_rate"/>
+        <result column="proposal" property="proposal"/>
+    </resultMap>
+
+    <resultMap id="sphygmomanometersMap" type="map">
+        <result column="sphygmomanometer_file_id" property="sphygmomanometer_file_id"/>
+        <result column="measured_at" property="measured_at"/>
+        <result column="systolic_pressure" property="systolic_pressure"/>
+        <result column="diastolic_pressure" property="diastolic_pressure"/>
+        <result column="heart_rate" property="heart_rate"/>
+        <result column="proposal" property="proposal"/>
+    </resultMap>
+
+    <resultMap id="oximeterMap" type="map">
+        <result column="oximeter_file_id" property="oximeter_file_id"/>
+        <result column="measured_at" property="measured_at"/>
+        <result column="oximeter_value" property="oximeter_value"/>
+        <result column="proposal" property="proposal"/>
+    </resultMap>
+
+    <resultMap id="glucosemeterMap" type="map">
+        <result column="glucosemeter_file_id" property="glucosemeter_file_id"/>
+        <result column="measured_at" property="measured_at"/>
+        <result column="glucosemeter_value" property="glucosemeter_value"/>
+        <result column="proposal" property="proposal"/>
+    </resultMap>
+
+    <resultMap id="thermometerMap" type="map">
+        <result column="thermometer_file_id" property="thermometer_file_id"/>
+        <result column="measured_at" property="measured_at"/>
+        <result column="thermometer_value" property="thermometer_value"/>
+        <result column="proposal" property="proposal"/>
+    </resultMap>
+
+
+    <resultMap id="MeasurementsByPage" type="map">
+        <result column="name" property="name"/>
+        <result column="full_name" property="full_name"/>
+        <result column="full_name" property="full_name"/>
+        <result column="phone" property="phone"/>
+        <result column="measured_at" property="measured_at"/>
+    </resultMap>
+
+    <resultMap id="selDistrictsMap" type="map">
+        <result column="district_id" property="district_id"/>
+        <result column="district_name" property="district_name"/>
+    </resultMap>
+    <resultMap id="selProvincesMap" type="map">
+        <result column="province_id" property="province_id"/>
+        <result column="province_name" property="province_name"/>
+        <result column="district_id" property="district_id"/>
+    </resultMap>
+    <resultMap id="selCitiesMap" type="map">
+        <result column="city_id" property="city_id"/>
+        <result column="city_name" property="city_name"/>
+        <result column="province_id" property="province_id"/>
+    </resultMap>
+    <resultMap id="selZonesMap" type="map">
+        <result column="zone_id" property="zone_id"/>
+        <result column="zone_name" property="zone_name"/>
+        <result column="city_id" property="city_id"/>
+    </resultMap>
+
+    <resultMap id="selProduct_typesMap" type="map">
+        <result column="product_type_id" property="product_type_id"/>
+        <result column="product_type_name" property="product_type_name"/>
+    </resultMap>
+    <resultMap id="selDevice_typesMap" type="map">
+        <result column="device_type_id" property="device_type_id"/>
+        <result column="device_type_name" property="device_type_name"/>
+        <result column="product_type_id" property="product_type_id"/>
+    </resultMap>
+
+    <!--页面设置-->
+    <resultMap id="selWeb_templatesMap" type="map">
+        <result column="template_type" property="template_type"/>
+        <result column="template" property="template"/>
+    </resultMap>
+    <resultMap id="selExhibitionMap" type="map">
+        <result column="exhibition_resource_id" property="exhibition_resource_id"/>
+        <result column="pic_url" property="pic_url"/>
+    </resultMap>
+    <resultMap id="selNewsMap" type="map">
+        <result column="news_resource_id" property="news_resource_id"/>
+        <result column="pic_url" property="pic_url"/>
+        <result column="news_link" property="news_link"/>
+    </resultMap>
+    <resultMap id="postCatagoryMap" type="map">
+        <result column="terminal_catagory_id" property="terminal_catagory_id"/>
+        <result column="name" property="terminal_catagory_name"/>
+    </resultMap>
+
+    <resultMap id="AdminDistrictMap" type="com.jxyq.model.admin.AdministratorDistrict">
+        <result column="district_id" property="district_id"/>
+        <result column="province_id" property="province_id"/>
+        <result column="city_id" property="city_id"/>
+        <result column="zone_id" property="zone_id"/>
+    </resultMap>
+
+    <resultMap id="selAdminDeviceMap" type="int">
+        <result column="device_type_id" property="device_type_id"/>
+    </resultMap>
+
+    <resultMap id="selAdminPermissionMap" type="map">
+        <result column="permissions" property="permissions"/>
+        <result column="name" property="name"/>
+        <result column="level" property="level"/>
+        <result column="id" property="id"/>
+    </resultMap>
+
+    <resultMap id="selRolePermissionMap" type="map">
+        <result column="permissions" property="permissions"/>
+        <result column="name" property="name"/>
+        <result column="level" property="level"/>
+        <result column="id" property="id"/>
+    </resultMap>
+
+    <select id="selAdminDistrict" parameterType="map" resultMap="AdminDistrictMap">
+        select administrator_district_id, administrator_id, district_id , province_id, city_id,
+        zone_id
+        from administrator_district
+        where 1 = 1
+        <if test="administrator_id !=null">
+            <![CDATA[and administrator_id = #{administrator_id}]]>
+        </if>
+    </select>
+
+    <select id="selAdminDevice" parameterType="map" resultMap="selAdminDeviceMap">
+        select device_type_id from administrator_device_type
+        where administrator_id=#{administrator_id}
+    </select>
+
+    <select id="qryAdminRoleByAdminId" parameterType="map" resultMap="RoleMap">
+        select a.id, a.name, a.permissions, a.level
+        from role a, administrator_arole b
+        where a.id = b.role_id
+        <if test="administrator_id !=null">
+            <![CDATA[and b.administrator_id = #{administrator_id}]]>
+        </if>
+    </select>
+
+    <select id="selRolePermission" parameterType="map" resultMap="selRolePermissionMap">
+        select a.id,a.name, a.permissions,a.level from role a
+        where a.permissions = #{permissions}
+    </select>
+
+    <update id="upAdminDistrict" parameterType="map">
+        update administrator_district set district_id=#{district_id}
+        <if test="province_id !=null">
+            , <![CDATA[and province_id = (#{province_id})]]>
+        </if>
+        <if test="city_id !=null">
+            , <![CDATA[and city_id = (#{city_id})]]>
+        </if>
+        <if test="zone_id !=null">
+            , <![CDATA[and zone_id = (#{zone_id})]]>
+        </if>
+        from administrator_district
+        where administrator_id=#{administrator_id}
+    </update>
+
+    <delete id="delAdminDistrict" parameterType="map">
+        delete from administrator_district where administrator_id=#{administrator_id}
+    </delete>
+
+    <insert id="inAdminDistrict" parameterType="map">
+        insert into administrator_district(administrator_id,district_id,province_id,city_id,zone_id)
+        values(#{administrator_id},#{district_id},#{province_id},#{city_id},#{zone_id})
+    </insert>
+
+    <delete id="delAdminDevice" parameterType="map">
+        delete from administrator_device_type where administrator_id=#{administrator_id}
+    </delete>
+
+    <insert id="inAdminDevice" parameterType="map">
+        insert into administrator_device_type(device_type_id,administrator_id) values(#{device_type_id},
+        #{administrator_id})
+    </insert>
+
+    <update id="upAdminPermission" parameterType="map">
+        update administrator_arole set role_id=#{role_id}
+        where administrator_id=#{administrator_id}
+    </update>
+
+    <select id="postCatagory" parameterType="map" resultMap="postCatagoryMap">
+        select terminal_catagory_id , name from terminal_catagory
+        where manufactory_id=#{manufactory_id};
+    </select>
+
+    <resultMap id="qryCategoryMap" type="map">
+        <result column="manufactory_id" property="manufactory_id"/>
+        <result column="manufactory_name" property="manufactory_name"/>
+        <result column="device_type_id" property="device_type_id"/>
+        <result column="terminal_catagory_id" property="terminal_catagory_id"/>
+        <result column="terminal_catagory_name" property="terminal_catagory_name"/>
+    </resultMap>
+
+    <select id="qryCategoryByPage" parameterType="map" resultMap="qryCategoryMap">
+        select a.manufactory_id, b.full_name as manufactory_name, a.device_type_id,
+        a.terminal_catagory_id, a.name as terminal_catagory_name
+        from terminal_catagory a left join manufactory b on a.manufactory_id = b.manufactory_id
+        where 1 = 1
+        <if test="manufactory_name != null">
+            <![CDATA[and b.full_name like "%${manufactory_name}%"]]>
+        </if>
+        <if test="device_type_id != null">
+            <![CDATA[and a.device_type_id = #{device_type_id}]]>
+        </if>
+        <if test="terminal_catagory_name != null">
+            <![CDATA[and a.name like "%${terminal_catagory_name}%"]]>
+        </if>
+        <if test="query_date != null">
+            <![CDATA[and a.created_at <= #{query_date}]]>
+        </if>
+    </select>
+
+    <!--页面设置-->
+    <select id="selWeb_templates" parameterType="map" resultMap="selWeb_templatesMap">
+        select terminal_catagory_id, template, template_type
+        from terminal_catagory_template
+        where template_type=#{template_type}
+    </select>
+
+    <insert id="upWeb_templates" parameterType="map">
+        update terminal_catagory_template
+        set
+        <if test="template != null">
+            template = #{template},
+        </if>
+        <if test="uploaded_at != null">
+            uploaded_at = #{uploaded_at},
+        </if>
+        <if test="status != null">
+            status = #{status},
+        </if>
+        template_type = #{template_type}
+        where template_type = #{template_type}
+    </insert>
+
+    <select id="selExhibition" parameterType="map" resultMap="selExhibitionMap">
+        select b.exhibition_resource_id , b.pic_url from exhibition a ,exhibition_resource b
+        where a.exhibition_id=b.exhibition_id
+    </select>
+
+    <select id="qryExhibitionByPage" parameterType="map" resultMap="selExhibitionMap">
+        select b.exhibition_resource_id, b.pic_url
+        from exhibition a, exhibition_resource b
+        where a.exhibition_id = b.exhibition_id
+    </select>
+
+    <insert id="addExhibition" parameterType="map">
+        insert into exhibition (manager_id,uploaded_at) values(#{manager_id},#{uploaded_at});
+        <selectKey resultType="int" order="AFTER" keyProperty="exhibition_id">
+            select LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <insert id="addExhibitionRes" parameterType="map">
+        insert into exhibition_resource (pic_url,exhibition_id) values(#{pic_url},#{exhibition_id});
+        <selectKey resultType="int" order="AFTER" keyProperty="exhibition_resource_id">
+            select LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <update id="upExhibitionRes" parameterType="map">
+        update exhibition_resource set pic_url=#{pic_url} where exhibition_resource_id=#{exhibition_resource_id};
+    </update>
+
+    <update id="upExhibition" parameterType="map">
+        update exhibition set manager_id=#{manager_id},uploaded_at=#{uploaded_at} where exhibition_id=
+        (select exhibition_id from exhibition_resource where exhibition_resource_id=#{exhibition_resource_id} );
+    </update>
+
+    <delete id="delExhibition" parameterType="map">
+        delete from exhibition_resource where exhibition_resource_id=#{id};
+    </delete>
+
+    <!--新闻页-->
+    <select id="qryNewsByPage" parameterType="map" resultMap="selNewsMap">
+        select b.news_resource_id , b.pic_url ,b.news_link
+        from news a ,news_resource b
+        where a.news_id = b.news_id
+    </select>
+
+    <select id="selNews" parameterType="map" resultMap="selNewsMap">
+        select b.news_resource_id , b.pic_url ,b.news_link from news a ,news_resource b
+        where a.news_id=b.news_id
+    </select>
+
+    <insert id="addNews" parameterType="map">
+        insert into news (manager_id,uploaded_at) values(#{manager_id},#{uploaded_at});
+        <selectKey resultType="int" order="AFTER" keyProperty="news_id">
+            select LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <insert id="addNewsRes" parameterType="map">
+        insert into news_resource (pic_url,news_link,news_id) values(#{pic_url},#{news_link},#{news_id});
+        <selectKey resultType="int" order="AFTER" keyProperty="news_resource_id">
+            select LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <update id="upNewsRes" parameterType="map">
+        update news_resource set pic_url=#{pic_url},news_link=#{news_link} where news_resource_id=#{news_resource_id};
+    </update>
+
+    <update id="upNews" parameterType="map">
+        update news set manager_id=#{manager_id},uploaded_at=#{uploaded_at} where news_id=
+        (select news_id from news_resource where news_resource_id=#{news_resource_id} );
+    </update>
+
+    <delete id="delNewsResources" parameterType="map">
+        delete from news_resource where news_resource_id=#{id};
+    </delete>
+
+
+    <!--区域常量-->
+    <select id="selProduct_types" parameterType="map" resultMap="selProduct_typesMap">
+        select product_type_id, name as product_type_name from product_type ;
+    </select>
+
+    <select id="selDevice_types" parameterType="map" resultMap="selDevice_typesMap">
+        select device_type_id, name as device_type_name, product_type_id from device_type where 1=1
+        <if test="product_type_id !=null">
+            <![CDATA[and product_type_id = (#{product_type_id})]]>
+        </if>
+    </select>
+
+    <select id="selAdminByLoginName" parameterType="com.jxyq.model.admin.Administrator" resultMap="adminMap">
+        select administrator_id, login_name, password, full_name, avatar_url,
+        gender, birthday, phone, email, status
+        from administrator where login_name=#{login_name};
+    </select>
+
+    <select id="selManagerByPage" parameterType="map" resultMap="adminMap">
+        select administrator_id, login_name, password, full_name, avatar_url,
+        gender, birthday, phone, email, status
+        from administrator
+        where administrator_id not in (select administrator_id from administrator_arole where role_id = 1)
+        <if test="login_name != null">
+            <![CDATA[and login_name like "%${login_name}%"]]>
+        </if>
+    </select>
+
+    <select id="selAdminById" parameterType="com.jxyq.model.admin.Administrator" resultMap="adminInfoMap">
+        select administrator_id, login_name, password, full_name, avatar_url,
+        gender, birthday, phone, email, status
+        from administrator where administrator_id=#{administrator_id};
+    </select>
+
+    <select id="selRolesByAdmin" parameterType="com.jxyq.model.admin.Administrator" resultMap="RoleMap">
+        select a.id, a.name, a.permissions, a.level
+        from role as a, administrator_arole as b
+        where a.id = b.role_id
+        and b.administrator_id = #{administrator_id}
+    </select>
+
+    <update id="updaAdminInfo" parameterType="map">
+        update administrator set
+        <if test="password != null">
+            password = #{password},
+        </if>
+        <if test="phone != null">
+            phone = #{phone},
+        </if>
+        <if test="avatar_url != null">
+            avatar_url = #{avatar_url},
+        </if>
+        <if test="full_name != null">
+            full_name = #{full_name},
+        </if>
+        <if test="email != null">
+            email = #{email},
+        </if>
+        <if test="gender != null">
+            gender = #{gender},
+        </if>
+        <if test="birthday != null">
+            birthday = #{birthday},
+        </if>
+        <if test="status != null">
+            status = #{status},
+        </if>
+        administrator_id = #{administrator_id}
+        where administrator_id = #{administrator_id}
+    </update>
+
+    <update id="updaAdminPass" parameterType="com.jxyq.model.admin.Administrator">
+        update administrator set password=#{password} where administrator_id = #{administrator_id}
+    </update>
+
+    <select id="selMeasurementsByPage" parameterType="map" resultMap="MeasurementsByPage">
+        select a.name,b.full_name,c.full_name,d.phone,e.measured_at
+        from terminal t join device_type a on t.device_type_id=a.device_type_id
+        join manufactory b on t.manufactory_id=b.manufactory_id
+        join user_terminal c on t.terminal_id=c.terminal_id
+        join user d on c.user_id=d.user_id
+    </select>
+
+    <select id="getWristbands" parameterType="map" resultMap="wristbandMap">
+        select wristband_data_id, measured_at, step_count, distance, calories,
+        walk_count, walk_distance, walk_calories, run_count, run_distance,
+        run_calories, deep_duration, shallow_duration, heart_rate,proposal
+        from wristband_file
+        where wristband_file_id = #{id};
+    </select>
+
+    <update id="editWristbands" parameterType="map">
+        update wristband_file set proposal=#{proposal} where wristband_file_id = #{id};
+    </update>
+
+    <select id="getSphygmomanometers" parameterType="int" resultMap="sphygmomanometersMap">
+        select sphygmomanometer_file_id,measured_at,systolic_pressure,diastolic_pressure,heart_rate,
+        proposal from sphygmomanometer_file where sphygmomanometer_file_id=#{id};
+    </select>
+
+    <update id="editSphygmomanometers" parameterType="map">
+        update sphygmomanometer_file set proposal=#{proposal}
+        where sphygmomanometer_file_id=#{id};
+    </update>
+
+    <select id="getOximeter" parameterType="int" resultMap="oximeterMap">
+        select oximeter_file_id,measured_at,oximeter_value,,proposal
+        from oximeter_file where oximeter_file_id=#{id};
+    </select>
+
+    <update id="editOximeter" parameterType="map">
+        update oximeter_file set proposal=#{proposal} where oximeter_file_id=#{id};
+    </update>
+
+    <select id="getGlucosemeter" parameterType="map" resultMap="glucosemeterMap">
+        select glucosemeter_file_id, measured_at, glucosemeter_value, proposal
+        from glucosemeter_file where glucosemeter_file_id=#{id};
+    </select>
+
+    <update id="editGlucosemeter" parameterType="map">
+        update glucosemeter_file set proposal=#{proposal} where glucosemeter_file_id = #{id};
+    </update>
+
+    <select id="getThermometer" parameterType="map" resultMap="thermometerMap">
+        select thermometer_file_id, measured_at, thermometer_value, proposal
+        from thermometer_file where thermometer_file_id=#{id};
+    </select>
+
+    <update id="editThermometer" parameterType="map">
+        update thermometer_file set proposal=#{proposal} where thermometer_file_id = #{id};
+    </update>
+
+    <select id="selDistricts" parameterType="map" resultMap="selDistrictsMap">
+        select district_id, name as district_name from district ;
+    </select>
+
+    <select id="selProvinces" parameterType="map" resultMap="selProvincesMap">
+        select id as province_id, title as province_name, district_id from province where 1=1
+        <if test="district_id !=null">
+            <![CDATA[and district_id = #{district_id}]]>
+        </if>
+        <if test="province_id !=null">
+            <![CDATA[and id = #{province_id}]]>
+        </if>
+    </select>
+
+    <select id="selCities" parameterType="map" resultMap="selCitiesMap">
+        select id as city_id, title as city_name, province_id from city where 1=1
+        <if test="province_id !=null">
+            <![CDATA[and province_id = (#{province_id})]]>
+        </if>
+    </select>
+
+    <select id="selZones" parameterType="map" resultMap="selZonesMap">
+        select id as zone_id, title as zone_name, city_id from zone where 1=1
+        <if test="city_id !=null">
+            <![CDATA[and city_id = (#{city_id})]]>
+        </if>
+    </select>
+
+    <delete id="delAdministrator" parameterType="map">
+        delete from administrator where administrator_id = #{id}
+    </delete>
+
+    <insert id="inAdmin" parameterType="map">
+        insert into administrator ( login_name, password, full_name, avatar_url,
+        gender, birthday, phone, email, status) values(
+        #{login_name},#{password},#{full_name},#{avatar_url},
+        #{gender},#{birthday},#{phone},#{email},#{status}
+        )
+        <selectKey resultType="int" order="AFTER" keyProperty="administrator_id">
+            select LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <delete id="delAdminRoleByAdminId" parameterType="map">
+        delete from administrator_arole where administrator_id = #{administrator_id}
+    </delete>
+
+    <insert id="inAdminRole" parameterType="map">
+        insert into administrator_arole(administrator_id, role_id)
+        values(#{administrator_id}, #{role_id})
+    </insert>
+
+</mapper>

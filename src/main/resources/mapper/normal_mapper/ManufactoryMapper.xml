@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxyq.mapper.normal_mapper.ManufactoryMapper">
+    <resultMap id="manufactoryMap" type="com.jxyq.model.health.Manufactory">
+        <result column="manufactory_id" property="manufactory_id" />
+        <result column="login_name" property="login_name" />
+        <result column="password" property="password" />
+        <result column="contactor" property="contactor" />
+        <result column="department" property="department" />
+        <result column="telephone" property="telephone" />
+        <result column="phone" property="phone" />
+        <result column="email" property="email" />
+        <result column="full_name" property="full_name" />
+        <result column="code" property="code" />
+        <result column="profile" property="profile" />
+        <result column="logo_url" property="logo_url" />
+        <result column="province_id" property="province_id" />
+        <result column="city_id" property="city_id" />
+        <result column="zone_id" property="zone_id" />
+        <result column="address" property="address" />
+        <result column="members" property="members" />
+        <result column="industry" property="industry" />
+        <result column="nature" property="nature" />
+        <result column="business_licence" property="business_licence" />
+        <result column="internal_certificate" property="internal_certificate" />
+        <result column="local_certificate" property="local_certificate" />
+        <result column="code_certificate" property="code_certificate" />
+        <result column="registered_at" property="registered_at" />
+        <result column="updated_at" property="updated_at" />
+        <result column="creator" property="creator" />
+        <result column="status" property="status" />
+    </resultMap>
+    <resultMap id="manufactorysMap" type="map">
+        <result column="manufactory_id" property="manufactory_id" />
+        <result column="login_name" property="login_name" />
+        <result column="password" property="password" />
+        <result column="full_name" property="full_name" />
+        <result column="code" property="code" />
+        <result column="profile" property="profile" />
+        <result column="contactor" property="contactor" />
+        <result column="phone" property="phone" />
+        <result column="email" property="email" />
+        <result column="logo" property="logo" />
+        <result column="tag" property="tag" />
+        <result column="status" property="status" />
+        <result column="registered_at" property="registered_at" />
+        <result column="updated_at" property="updated_at" />
+        <result column="creator" property="creator" />
+    </resultMap>
+
+    <resultMap id="selManufacotriesByPageMap" type="map">
+        <result column="manufactory_id" property="manufactory_id" />
+        <result column="login_name" property="login_name" />
+        <result column="full_name" property="full_name" />
+        <result column="status" property="status" />
+        <result column="registered_at" property="registered_at" />
+        <result column="device_type_names" property="device_type_names" />
+    </resultMap>
+
+    <resultMap id="roleMap" type="com.jxyq.model.Role">
+        <result column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="permissions" property="permissions" />
+        <result column="level" property="level" />
+    </resultMap>
+
+    <resultMap id="selectManDeviceMap" type="int">
+        <result column="device_type_id" property="device_type_id" />
+    </resultMap>
+
+    <resultMap id="selUserDeviceId" type="int">
+        <result column="device_type_id" property="device_type_id" />
+    </resultMap>
+
+    <resultMap id="selTerminalCatagoryMap" type="map">
+        <result column="terminal_catagory_id" property="terminal_catagory_id" />
+        <result column="name" property="terminal_catagory_name" />
+        <result column="code" property="code" />
+        <result column="manufactory_id" property="manufactory_id" />
+        <result column="product_type_id" property="product_type_id" />
+        <result column="device_type_id" property="device_type_id" />
+        <result column="status" property="status" />
+        <result column="created_at" property="created_at" />
+    </resultMap>
+
+    <resultMap id="CategoryMap" type="com.jxyq.model.health.TerminalCatagory">
+        <result column="terminal_catagory_id" property="terminal_catagory_id" />
+        <result column="name" property="name" />
+        <result column="code" property="code" />
+        <result column="manufactory_id" property="manufactory_id" />
+        <result column="product_type_id" property="product_type_id" />
+        <result column="device_type_id" property="device_type_id" />
+        <result column="price" property="price" />
+        <result column="picture" property="picture" />
+        <result column="profile" property="profile" />
+        <result column="created_at" property="created_at" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <select id="selManufactoryByLoginName" parameterType="com.jxyq.model.health.Manufactory" resultMap="manufactoryMap">
+        select manufactory_id, login_name, password, contactor, department,
+            telephone, phone, email, full_name, code,
+            profile, logo_url, province_id, city_id, zone_id,
+            address, members, industry, nature, business_licence,
+            internal_certificate, local_certificate, code_certificate, registered_at, updated_at,
+            creator, status
+        from manufactory
+        where login_name = #{login_name}
+        limit 1;
+    </select>
+
+    <select id="selManufacotryById" parameterType="com.jxyq.model.health.Manufactory" resultMap="manufactoryMap">
+        select manufactory_id, login_name, password, contactor, department,
+            telephone, phone, email, full_name, code,
+            profile, logo_url, province_id, city_id, zone_id,
+            address, members, industry, nature, business_licence,
+            internal_certificate, local_certificate, code_certificate, registered_at, updated_at,
+            creator, status
+        from manufactory
+        where manufactory_id = #{manufactory_id}
+        limit 1;
+    </select>
+
+    <select id="selManufacotrysById" parameterType="map" resultMap="manufactorysMap">
+        select contactor,department,telephone,phone,email,full_name,a.code,a.profile,province_id,a.logo_url,
+        city_id,zone_id,address,group_concat(c.device_type_id SEPARATOR ',') as device_type_ids,members,industry,nature,business_licence,internal_certificate
+        local_certificate,code_certificate,a.manufactory_id  from manufactory a left join terminal_catagory b
+        on a.manufactory_id=b.manufactory_id
+        left join device_type c on b.device_type_id=c.device_type_id
+        where a.manufactory_id = #{manufactory_id}
+        group by a.manufactory_id
+    </select>
+
+    <select id="selRolesByManufactory" parameterType="com.jxyq.model.health.Manufactory" resultMap="roleMap">
+        select a.id, a.name, a.permissions, a.level
+        from role as a, manufactory_mrole as b
+        where a.id = b.role_id
+        and b.manufactory_id = #{manufactory_id}
+    </select>
+
+    <select id="selManufacotryDetail" parameterType="map" resultMap="manufactoryMap">
+        select manufactory_id, login_name, password, full_name, code,
+            profile, contactor, phone, email, logo_url,
+            registered_at, updated_at, creator, status
+        from manufactory
+        where manufactory_id = #{manufactory_id}
+    </select>
+
+    <select id="selManufacotriesByPage" parameterType="map" resultMap="selManufacotriesByPageMap">
+        select a.manufactory_id, a.login_name, a.full_name, a.registered_at, a.status
+        from manufactory a
+        where 1 = 1
+        <if test="device_type_ids != null">
+            and a.manufactory_id in (
+            select manufactory_id from manufactory_device_type where device_type_id in
+            <foreach item="item" index="index" collection="device_type_ids" open="(" separator="," close=")">#{item}</foreach>
+            )
+        </if>
+        <if test="manufactory_ids != null">
+            and a.manufactory_id in
+            <foreach item="item" index="index" collection="manufactory_ids" open="(" separator="," close=")">#{item}</foreach>
+        </if>
+        <if test="minRegisterTime != null">
+            <![CDATA[and a.registered_at >= #{minRegisterTime}]]>
+        </if>
+        <if test="maxRegisterTime != null">
+            <![CDATA[and a.registered_at <= #{maxRegisterTime}]]>
+        </if>
+        <if test="name != null">
+            <![CDATA[and a.full_name like  "%${name}%"]]>
+        </if>
+        <if test="query_date != null">
+            <![CDATA[and a.registered_at <= (#{query_date})]]>
+        </if>
+        group by a.manufactory_id
+    </select>
+
+    <select id="selFactory4PermByPage" parameterType="map" resultMap="manufactoryMap">
+        select manufactory_id, status, registered_at from manufactory
+        where 1 = 1
+        <if test="manufactory_ids != null">
+            and manufactory_id in
+            <foreach item="item" index="index" collection="manufactory_ids" open="(" separator="," close=")">#{item}</foreach>
+        </if>
+        <if test="registered_from != null">
+            <![CDATA[and registered_at > #{registered_from}]]>
+        </if>
+        <if test="registered_to != null">
+            <![CDATA[and registered_at < #{registered_to}]]>
+        </if>
+        <if test="full_name != null">
+            <![CDATA[and full_name like '%${full_name}%']]>
+        </if>
+        <if test="query_date != null">
+            <![CDATA[and registered_at < #{query_date}]]>
+        </if>
+    </select>
+
+    <insert id="insertManufactory" useGeneratedKeys="true" keyProperty="manufactory_id"   parameterType="com.jxyq.model.health.Manufactory">
+        insert into manufactory (
+        manufactory_id, login_name, password, contactor,department,telephone,phone,
+        email,full_name,code,profile, logo_url,province_id,city_id,zone_id,address,
+        members,industry,nature,business_licence,internal_certificate,local_certificate,
+        code_certificate,registered_at,updated_at,creator,status)
+        values(
+        #{manufactory_id}, #{login_name}, #{password}, #{contactor}, #{department}, #{telephone}, #{phone},
+        #{email}, #{full_name}, #{code}, #{profile}, #{logo_url}, #{province_id},#{city_id}, #{zone_id}, #{address},
+        #{members}, #{industry}, #{nature},#{business_licence}, #{internal_certificate}, #{local_certificate},
+        #{code_certificate}, #{registered_at}, #{updated_at}, #{creator}, #{status})
+    </insert>
+
+    <insert id="insertManDevice" parameterType="map">
+    insert into manufactory_device_type
+        (manufactory_id,device_type_id)values(#{manufactory_id},#{device_type_id})
+    </insert>
+
+    <select id="selectManDevice" parameterType="map" resultMap="selectManDeviceMap">
+        select device_type_id from manufactory_device_type where manufactory_id=#{manufactory_id}
+    </select>
+
+    <select id="selUserDeviceId" parameterType="map" resultMap="selUserDeviceId">
+        select device_type_id from user_terminal where user_id = #{user_id} group by device_type_id
+    </select>
+
+    <delete id="delManDevice" parameterType="map">
+        delete from manufactory_device_type  where manufactory_id=#{manufactory_id}
+    </delete>
+
+    <update id="upManufactoryStatus" parameterType="map">
+        update manufactory
+        set status = #{status}
+        where manufactory_id = #{manufactory_id}
+    </update>
+
+    <update id="upManufactoryInf" parameterType="map">
+        update manufactory
+        set  contactor = #{contactor}, department = #{department},
+        telephone = #{telephone}, phone = #{phone},
+        email = #{email}, full_name = #{full_name}, code = #{code},profile = #{profile}, province_id = #{province_id},
+        city_id = #{city_id},zone_id = #{zone_id}, address = #{address}, members = #{members},
+        industry = #{industry}, nature = #{nature},business_licence = #{business_licence}, internal_certificate = #{internal_certificate},
+        local_certificate = #{local_certificate}, code_certificate = #{code_certificate},
+        updated_at=#{updated_at}
+        <if test="password != null">
+            ,password = #{password}
+        </if>
+        <if test="logo_url != null">
+            ,logo_url = #{logo_url}
+        </if>
+        <if test="creator != null">
+            ,creator=#{creator}
+        </if>
+        where manufactory_id = #{manufactory_id}
+    </update>
+
+    <update id="upManufactoryLogo" parameterType="map">
+            update manufactory set logo_url=#{logo_url}  where manufactory_id = #{manufactory_id}
+    </update>
+
+    <delete id="delManufactory" parameterType="map">
+        delete from manufactory where manufactory_id = #{manufactory_id}
+    </delete>
+
+    <update id="upManuPwd"  parameterType="map">
+        update manufactory set password=#{password} where manufactory_id=#{manufactory_id}
+    </update>
+
+    <insert id="inTerminalCategory" useGeneratedKeys="true" keyProperty="terminal_catagory_id" parameterType="com.jxyq.model.health.TerminalCatagory">
+        insert into terminal_catagory(terminal_catagory_id, name, code, manufactory_id, product_type_id,
+            device_type_id, price, picture, profile, created_at,
+            status)
+        values(#{terminal_catagory_id}, #{name}, #{code}, #{manufactory_id}, #{product_type_id},
+            #{device_type_id}, #{price}, #{picture}, #{profile}, #{created_at},
+            #{status});
+    </insert>
+
+    <update id="upTerminalCategory" parameterType="com.jxyq.model.health.TerminalCatagory">
+        update terminal_catagory set
+            terminal_catagory_id = #{terminal_catagory_id},
+            name = #{name},
+            code = #{code},
+            manufactory_id = #{manufactory_id},
+            product_type_id = #{product_type_id},
+            device_type_id = #{device_type_id},
+            price = #{price},
+            picture = #{picture},
+            profile = #{profile},
+            created_at = #{created_at},
+            status = #{status}
+        where terminal_catagory_id = #{terminal_catagory_id}
+    </update>
+
+    <select id="selTerminalCatagory" parameterType="map" resultMap="selTerminalCatagoryMap">
+        select terminal_catagory_id, name, code, manufactory_id, product_type_id,
+        device_type_id, status, created_at from terminal_catagory
+        where device_type_id = #{device_type_id} and manufactory_id=#{manufactory_id}
+    </select>
+
+    <select id="qryCategoryByPage" parameterType="map" resultMap="CategoryMap">
+        select terminal_catagory_id, name, code, manufactory_id, product_type_id,
+            device_type_id, price, picture, profile, created_at,
+            status
+        from terminal_catagory
+        where 1 = 1
+        <if test="manufactory_id != null">
+            <![CDATA[and manufactory_id = #{manufactory_id}]]>
+        </if>
+        <if test="device_type_id != null">
+            <![CDATA[and device_type_id = #{device_type_id}]]>
+        </if>
+        <if test="name != null">
+            <![CDATA[and name like "%${name}%"]]>
+        </if>
+        <if test="query_date != null">
+            <![CDATA[and created_at < #{query_date}]]>
+        </if>
+    </select>
+
+    <select id="selCategory" parameterType="map" resultMap="CategoryMap">
+        select terminal_catagory_id, name, code, manufactory_id, product_type_id,
+        device_type_id, price, picture, profile, created_at,
+        status
+        from terminal_catagory
+        where 1 = 1
+        <if test="terminal_catagory_id != null">
+            <![CDATA[and terminal_catagory_id = #{terminal_catagory_id}]]>
+        </if>
+        limit 1
+    </select>
+
+    <insert id="inTemple" parameterType="map" >
+        insert into terminal_catagory_template
+        ( terminal_catagory_id, template_type, template,
+        manufactory_id, product_type_id,
+        device_type_id, status, uploaded_at)values
+        ( #{terminal_catagory_id}, #{template_type}, #{template},
+        #{manufactory_id}, #{product_type_id},
+        #{device_type_id}, #{status}, #{uploaded_at})
+    </insert>
+
+    <update id="upTerminalStatus"  parameterType="map">
+        update terminal set status=#{status} where terminal_id=#{terminal_id}
+    </update>
+
+
+    <resultMap id="FactoryIdAndNameMap" type="map">
+        <result column="manufactory_id" property="manufactory_id" />
+        <result column="full_name" property="manufactory_name" />
+    </resultMap>
+
+    <select id="qryFactoryIdAndName" resultMap="FactoryIdAndNameMap">
+        select manufactory_id, full_name
+        from manufactory
+    </select>
+    
+    <insert id="inFactoryRole" parameterType="map">
+        insert into manufactory_mrole(manufactory_id, role_id)
+        values(#{manufactory_id}, #{role_id})
+    </insert>
+
+    <resultMap id="CountMap" type="map">
+        <result column="count" property="count" />
+    </resultMap>
+
+    <select id="selFactoryCount" parameterType="map" resultMap="CountMap">
+        select count(*) as count from manufactory
+    </select>
+
+    <resultMap id="qryTerminalCatagoryByPageMap" type="map">
+        <result column="manufactory_id" property="manufactory_id" />
+        <result column="manufactory_name" property="manufactory_name" />
+        <result column="device_type_id" property="device_type_id" />
+        <result column="terminal_catagory_id" property="terminal_catagory_id" />
+        <result column="terminal_catagory_name" property="terminal_catagory_name" />
+        <result column="code" property="code" />
+        <result column="price" property="price" />
+        <result column="picture" property="picture" />
+        <result column="profile" property="profile" />
+        <result column="created_at" property="created_at" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <select id="qryTerminalCatagoryByPage" parameterType="map" resultMap="qryTerminalCatagoryByPageMap">
+        select a.manufactory_id as manufactory_id, b.full_name as manufactory_name, device_type_id, terminal_catagory_id,
+            a.name as terminal_catagory_name, a.code as code, price, picture, a.profile as profile, a.created_at as created_at,
+            a.status as status
+        from terminal_catagory a left join manufactory b on a.manufactory_id = b.manufactory_id
+        where 1 = 1
+        <if test="manufactory_name != null">
+            <![CDATA[and a.manufactory_id in (select manufactory_id from manufactory where full_name like "%${manufactory_name}%")]]>
+        </if>
+        <if test="device_type_id != null">
+            <![CDATA[and a.device_type_id = #{device_type_id}]]>
+        </if>
+        <if test="terminal_catagory_name != null">
+            <![CDATA[and a.name like "%${terminal_catagory_name}%"]]>
+        </if>
+    </select>
+
+</mapper>

@@ -1,0 +1,96 @@
+<div class="modal-header">
+  <div class="row">
+    <div class="col-md-6">
+      <h4 class="modal-title">编辑产品模板</h4>
+    </div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="alert alert-{{alert.type}} alert-dismissable" style="text-align: center;" role="alert" ng-repeat="alert in alerts" type="{{alert.type}}">
+    <button type="button" class="close" ng-click="closeAlert($index)">
+    </button>
+    {{alert.msg}}
+  </div>
+  <form class="form-horizontal" role="form" id="modelForm" ng-submit="putProductModel()">
+    <div class="form-group">
+      <div class="col-md-10">
+        <div class="col-md-4 text-right">
+          <label class="control-label">设备类型</label>
+        </div>
+        <div class="col-md-8">
+          <div class="input-group">
+            <ui-select ng-model="editTemplate.device_type_id" theme="bootstrap" ng-disabled="true">
+              <ui-select-match placeholder="请选择设备类型">{{$select.selected.device_type_name}}</ui-select-match>
+              <ui-select-choices repeat="item.device_type_id as item in  device_types | filter: $select.search">
+                <div ng-bind-html="item.device_type_name"></div>
+              </ui-select-choices>
+            </ui-select>
+            <span class="input-group-addon"><i class="fa fa-list"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-10">
+        <div class="col-md-4 text-right">
+          <label class="control-label" for="user_name">终端型号</label>
+        </div>
+        <div class="col-md-8">
+          <div class="input-group">
+            <input type="text" class="form-control" id="user_name" placeholder="请输入终端型号" ng-model="editTemplate.terminal_catagory_name" required="required" ng-disabled="true">
+            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-10">
+        <div class="col-md-4 text-right">
+          <label class="control-label" for="gender">模板类型</label>
+        </div>
+        <div class="col-md-8">
+          <div class="input-group input-group ">
+            <ui-select ng-model="editTemplate.template_type" theme="bootstrap">
+              <ui-select-match placeholder="请选择模板类型">{{$select.selected.template_type_name}}</ui-select-match>
+              <ui-select-choices repeat="item.template_type_id as item in type_list | filter: $select.search">
+                <div ng-bind-html="item.template_type_name"></div>
+              </ui-select-choices>
+            </ui-select>
+            <span class="input-group-addon"><i class="fa fa-list"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" ng-show="editTemplate.template_type == 2">
+      <div class="col-md-10">
+        <div class="col-md-4 text-right">
+          <label class="control-label" for="user_name">产品模板</label>
+        </div>
+        <div class="col-md-8">
+          <input type="file" file-model="templatefile" />
+        </div>
+        <div class="form-group">
+          <div class="col-sm-4" style="margin-top: 15px">
+            <img ng-src="{{newmodel.template}}" style="width:150px;">
+          </div>
+          <div class="col-sm-offset-5 col-md-4">
+            <label for="terminal_name" class="control-label">当前产品模板</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <!-- <button form="modelForm" type="reset" class="btn btn-primary col-md-offset-2 col-md-3">重置</button> -->
+        <button form="modelForm" type="submit" class="btn btn-success col-md-offset-1 col-md-10" ng-disabled="disenableSaveButton">保存</button>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <div class="col-sm-offset-7 col-sm-5">
+<!--     <button form="modelForm" type="submit" class="btn btn-success">提交</button> -->
+    <!-- <button form="modelForm" type="reset" class="btn btn-primary" ng-click="clear()">重置</button> -->
+    <button ng-click="cancel()" type="button" class="btn btn-default">取消</button>
+  </div>
+</div>

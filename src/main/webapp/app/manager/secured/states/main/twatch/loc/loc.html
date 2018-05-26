@@ -1,0 +1,225 @@
+</br>
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h1 class="panel-title">位置查询</h1>
+  </div>
+  <div class="panel-body">
+    <!-- 查询区域 -->
+    <div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">查询条件</h3>
+            </div>
+            <div class="panel-body">
+              <form class="form-horizontal">
+                <div class="alert alert-{{alert.type}} alert-dismissable" style="text-align: center;" role="alert" ng-repeat="alert in alerts" type="{{alert.type}}">
+                  <button type="button" class="close" ng-click="closeAlert($index)"></button>
+                  {{alert.msg}}
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label">IMEI号码</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group">
+                          <input type="text" class="form-control" placeholder="儿童腕表IMEI号码" ng-model="locSearchData.imei">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label">开始时间：</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group">
+                          <input type="date" class="form-control" ng-model="query_date.from" disabled datepicker-popup ng-model="dt" id="start_date" is-open="from_opened" max-date="dt" datepicker-options="dateOptions" clear-text="清除" current-text="今天" close-text="关闭" />
+                          <span class="input-group-btn">
+                          <button type="button" class="btn btn-default" ng-click="open_form_from($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label">结束时间：</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group">
+                          <input type="date" class="form-control" ng-model="query_date.to" disabled datepicker-popup ng-model="dt" id="start_date" is-open="to_opened" max-date="dt" datepicker-options="dateOptions" clear-text="清除" current-text="今天" close-text="关闭" />
+                          <span class="input-group-btn">
+                          <button type="button" class="btn btn-default" ng-click="open_form_to($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <div class="col-md-offset-4 col-md-8 text-right">
+                        <div class="col-md-12 text-right">
+                          <div class="form-group">
+                            <button class="btn btn-success col-md-12" ng-click="getLocations()">搜索</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 操作面板 -->
+    <div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">操作面板</h3>
+            </div>
+            <div class="panel-body">
+              <!-- 腕表号码 -->
+              <form class="form-horizontal">
+                <div class="row">
+                  <div class="col-md-8">
+                    <div class="form-group">
+                      <div class="col-md-2">
+                        <label class="control-label">IMEI号码：</label>
+                      </div>
+                      <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="请输入儿童腕表的IMEI号码" ng-model="monitorData.imei" disabled="true">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="panel panel-info">
+                      <div class="panel-heading">
+                        <h3 class="panel-title">位置信息</h3>
+                      </div>
+                      <div class="panel-body">
+                        <form class="form-horizontal">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <!-- 地图区域 -->
+                              <div id="map_canvas"></div>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <!-- 位置信息 -->
+                    <div ui-grid="gridOptions" class="gridStyle" ui-grid-pagination>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <!-- 当前位置 -->
+                <div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="panel panel-info">
+                        <div class="panel-heading">
+                          <h3 class="panel-title">当前位置</h3>
+                        </div>
+                        <div class="panel-body">
+                          <form class="form-horizontal">
+                            <div class="row">
+                              <div class="col-md-8">
+                                <div class="form-group">
+                                  <div class="col-md-2">
+                                    <label class="control-label">当前位置：</label>
+                                  </div>
+                                  <div class="col-md-10">
+                                    <!-- <div class="input-group"> -->
+                                    <input type="text" class="form-control" placeholder="当前位置" disabled="true">
+                                    <!-- </div> -->
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-4 text-right">
+                                <div class="form-group">
+                                  <div class="col-md-offset-4 col-md-8 text-right">
+                                    <button type="submit" class="btn btn-primary form-control" ng-click="getCurentLocation()">现在获取</button>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- 实时监听 -->
+                <div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="panel panel-info">
+                        <div class="panel-heading">
+                          <h3 class="panel-title">实时监听</h3>
+                        </div>
+                        <div class="panel-body">
+                          <form class="form-horizontal">
+                            <div class="row">
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <div class="col-md-4">
+                                    <label class="control-label">接收号码：</label>
+                                  </div>
+                                  <div class="col-md-8">
+                                    <div class="input-group">
+                                      <ui-select ng-model="monitorData.rec_number" theme="bootstrap" ng-disabled="disabled" close-on-select="true">
+                                        <ui-select-match placeholder="接收号码">{{$select.selected}}</ui-select-match>
+                                        <ui-select-choices repeat="phone as phone in phones | filter: $select.search">
+                                          <div ng-bind-html="phone | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                      </ui-select>
+                                      <span class="input-group-btn">
+                                        <button type="button" ng-click="monitorData.rec_number = undefined" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                      </button>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-offset-4 col-md-4 text-right">
+                                <div class="form-group">
+                                  <div class="col-md-offset-4 col-md-8 text-right">
+                                    <button type="submit" class="btn btn-primary form-control" ng-click="monitor()">实时监听</button>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

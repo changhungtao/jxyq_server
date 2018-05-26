@@ -1,0 +1,37 @@
+<div class="navbar navbar-static-top my-nav" style="height:50px">
+    <div class="container">
+        <div class="navbar-header">
+            <img alt="Brand" src="../../img/logo.png" class="center-block img-responsive" style="width:50px;height:50px"></a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="active">
+                    <img ng-src="{{avatarurl}}" class="center-block img-circle img-responsive" style="width:50px;height:50px">
+                </li>
+                <li>
+                    <a class="nav-text" href="#">{{superName}}</a>
+                </li>
+                <!-- <li>
+                    <a class="nav-text" href="#"><i class="fa fa-phone"></i>123456789</a>
+                </li> -->
+                <li>
+                    <a class="nav-text" href="#" class="" ng-click="signOut()">退出</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-left navbar-nav">
+                <li>
+                    <a class="nav-text" ui-sref="main.db_operation">数据库操作</a>
+                </li>
+                <li>
+                    <a class="nav-text" ui-sref="main.log_manage">日志管理</a>
+                </li>
+                <li dropdown="">
+                    <a href="#" dropdown-toggle="" class="nav-text" aria-expanded="false">个人中心 <b class="caret"></b></a>
+                    <tree tree="main.user_center_submenus" ></tree>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div ui-view="" class="subpage" id="view"></div>

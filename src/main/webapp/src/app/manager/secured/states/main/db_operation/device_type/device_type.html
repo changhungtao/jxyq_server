@@ -1,0 +1,116 @@
+</br>
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h1 class="panel-title">设备类型</h1>
+  </div>
+  <div class="panel-body">
+    <div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">查询条件</h3>
+            </div>
+            <div class="panel-body">
+              <form class="form-horizontal">
+              <div class="alert alert-{{alert.type}} alert-dismissable" style="text-align: center;" role="alert" ng-repeat="alert in alerts" type="{{alert.type}}">
+                  <button type="button" class="close" ng-click="closeAlert($index)"></button>
+                  {{alert.msg}}
+              </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <div class="col-md-4">
+                        <label class="control-label">开始时间：</label>
+                      </div>
+                      <div class="col-md-8">
+                        <!-- <input type="date" class="form-control" ng-model="deviceType.registered_from" /> -->
+                        <div class="input-group">
+                          <input type="text" class="form-control" ng-model="deviceType.registered_from" datepicker-popup id="start_date" is-open="form1_opened" max-date="dt" datepicker-options="dateOptions" clear-text="清除" current-text="今天" close-text="关闭" disabled />
+                          <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open_form_1($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <div class="col-md-4">
+                        <label class="control-label">结束时间：</label>
+                      </div>
+                      <div class="col-md-8">
+                        <!-- <input type="date" class="form-control" ng-model="deviceType.registered_to" /> -->
+                        <div class="input-group">
+                          <input type="text" class="form-control" ng-model="deviceType.registered_to" datepicker-popup id="end_date" is-open="form2_opened" max-date="dt" datepicker-options="dateOptions" clear-text="清除" current-text="今天" close-text="关闭" disabled/>
+                          <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open_form_2($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4" ng-show="false">
+                    <div class="form-group">
+                      <div class="col-md-4">
+                        <label class="control-label">设备类型：</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group">
+                          <ui-select ng-model="deviceType.device_types_selected" theme="bootstrap" ng-disabled="disabled" close-on-select="false">
+                            <ui-select-match placeholder="选择设备类型">{{$item.device_type_name}}</ui-select-match>
+                            <ui-select-choices repeat="item.device_type_id as item in deviceType.device_types | filter: $select.search">
+                              <div ng-bind-html="item.device_type_name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                          </ui-select>
+                          <span class="input-group-btn">
+                         <button type="button" ng-click="deviceType.device_types_selected = []" class="btn btn-default">
+                         <span class="glyphicon glyphicon-trash"></span>
+                          </button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 text-right">
+                    <div class="col-md-offset-4 col-md-8 text-right">
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-success col-md-12" ng-click="queryFile()">查询</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <div class="col-md-4">
+                        <label class="control-label">关键词：</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group">
+                          <input type="text" class="form-control" placeholder="设备名称关键词" ng-model="deviceType.devicekeyWord">
+                          <span class="input-group-btn">
+                          <button class="btn btn-success" type="submit" ng-click="searchFile()"><i class="fa fa-search"></i></button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-offset-4 col-md-4 text-right">
+                    <div class="form-group">
+                      <div class="col-md-12">
+                        <button type="button" class="btn btn-info col-md-offset-4 col-md-8" ng-click="deviceType.addDeviceType()">添加<i class="fa fa-plus"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div ui-grid="gridOptions" class="gridStyle" ui-grid-pagination>
+    </div>
+  </div>
+</div>

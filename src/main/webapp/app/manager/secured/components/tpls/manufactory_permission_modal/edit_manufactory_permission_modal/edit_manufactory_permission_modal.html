@@ -1,0 +1,63 @@
+<div class="modal-header">
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class="modal-title">编辑数据权限</h4>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <!--start of alert block-->
+    <div class="alert alert-{{alert.type}} alert-dismissable" style="text-align: center;" role="alert" ng-repeat="alert in alerts" type="{{alert.type}}">
+        <button type="button" class="close" ng-click="closeAlert($index)">
+        </button>
+        {{alert.msg}}
+    </div>
+    <div class="row">
+        <form class="form-horizontal" id="manPermission">
+            <!--<div class="col-md-6">-->
+                <!--<div class="col-sm-offset-1 col-sm-10">-->
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-8 text-right">
+                                <label class="control-label">
+                                    添加权限<span style="color: green">（最多4个）</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <!--<div class="col-md-4 text-right">-->
+                                <!--<label class="control-label" for="device_type">-->
+                                    <!--已有权限<span style="color: green">（最多4个）</span>-->
+                                <!--</label>-->
+                            <!--</div>-->
+                            <div class="col-md-offset-2 col-md-9">
+                                <div class="input-group">
+                                    <ui-select  multiple ng-model="entity.device_type_ids" theme="bootstrap" close-on-select="false">
+                                        <ui-select-match placeholder="已有权限类型">{{$item.device_type_name}}</ui-select-match>
+                                        <ui-select-choices repeat="item.device_type_id as item in deviceTypes_selects | filter: $select.search">
+                                            <div ng-bind-html="item.device_type_name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                     <span class="input-group-btn">
+                                         <button type="button" ng-click="clear()" class="btn btn-default">
+                                             <span class="glyphicon glyphicon-trash"></span>
+                                         </button>
+                                     </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!--</div>-->
+            <!--</div>-->
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="col-sm-offset-7 col-sm-5">
+        <button form="manPermission" type="button" class="btn btn-success" ng-click="updateManufactoryPermission()" ng-disabled="disabledBtn">提交</button>
+        <!--<button form="wristbandForm" type="reset" class="btn btn-primary" ng-click="reset()">重置</button>-->
+        <button ng-click="cancel()" type="button" class="btn btn-default">取消</button>
+    </div>
+</div>

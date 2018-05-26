@@ -1,0 +1,997 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxyq.mapper.normal_mapper.PatientMapper">
+    <resultMap id="PatientMap" type="com.jxyq.model.health.Patient">
+        <result column="patient_id" property="patient_id"/>
+        <result column="doctor_id" property="doctor_id"/>
+        <result column="phone" property="phone"/>
+        <result column="name" property="name"/>
+        <result column="gender" property="gender"/>
+        <result column="birthday" property="birthday"/>
+        <result column="address" property="address"/>
+        <result column="profile" property="profile"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <resultMap id="WrFile4DocMap" type="map">
+        <result column="wristband_file_id" property="id"/>
+        <result column="measured_at" property="measured_at"/>
+        <result column="step_count" property="step_count"/>
+        <result column="distance" property="distance"/>
+        <result column="calories" property="calories"/>
+        <result column="walk_count" property="walk_count"/>
+        <result column="walk_distance" property="walk_distance"/>
+        <result column="walk_calories" property="walk_calories"/>
+        <result column="run_count" property="run_count"/>
+        <result column="run_distance" property="run_distance"/>
+        <result column="run_calories" property="run_calories"/>
+        <result column="deep_duration" property="deep_duration"/>
+        <result column="shallow_duration" property="shallow_duration"/>
+        <result column="heart_rate" property="heart_rate"/>
+    </resultMap>
+
+    <resultMap id="SphyFile4DocMap" type="map">
+        <result column="sphygmomanometer_file_id" property="id"/>
+        <result column="measured_at" property="measured_at"/>
+        <result column="systolic_pressure" property="systolic_pressure"/>
+        <result column="diastolic_pressure" property="diastolic_pressure"/>
+        <result column="heart_rate" property="heart_rate"/>
+    </resultMap>
+
+    <resultMap id="OxiFile4DocMap" type="map">
+        <result column="oximeter_file_id" property="id"/>
+        <result column="measured_at" property="measured_at"/>
+        <result column="oximeter_value" property="oximeter_value"/>
+    </resultMap>
+
+    <resultMap id="GluFile4DocMap" type="map">
+        <result column="glucosemeter_file_id" property="id"/>
+        <result column="measured_at" property="measured_at"/>
+        <result column="period" property="period"/>
+        <result column="glucosemeter_value" property="glucosemeter_value"/>
+    </resultMap>
+
+    <resultMap id="TheFile4DocMap" type="map">
+        <result column="thermometer_file_id" property="id"/>
+        <result column="measured_at" property="measured_at"/>
+        <result column="thermometer_value" property="thermometer_value"/>
+    </resultMap>
+
+    <resultMap id="FatFile4DocMap" type="map">
+        <result column="thermometer_file_id" property="id"/>
+        <result column="measured_at" property="measured_at"/>
+        <result column="bmi_value" property="bmi_value"/>
+        <result column="weight_value" property="weight_value"/>
+        <result column="fat_value" property="fat_value"/>
+        <result column="calorie_value" property="calorie_value"/>
+        <result column="moisture_value" property="moisture_value"/>
+        <result column="muscle_value" property="muscle_value"/>
+        <result column="visceral_fat_value" property="visceral_fat_value"/>
+        <result column="bone_value" property="bone_value"/>
+    </resultMap>
+
+    <resultMap id="OtherFile4DocMap" type="map">
+        <result column="other_file_id" property="id"/>
+        <result column="measured_at" property="measured_at"/>
+    </resultMap>
+
+    <select id="selPatient" parameterType="map" resultMap="PatientMap">
+        select patient_id, doctor_id, phone, name, gender,
+        birthday, address, profile, status
+        from patient
+        where 1 = 1
+        <if test="patient_id != null">
+            and patient_id = #{patient_id}
+        </if>
+        <if test="phone != null">
+            and phone = #{phone}
+        </if>
+        limit 1
+    </select>
+
+    <select id="qryWristbandFile4DocByPage" parameterType="map" resultMap="WrFile4DocMap">
+        select wristband_file_id, measured_at, step_count, distance, calories,
+        walk_count, walk_distance, walk_calories, run_count, run_distance,
+        run_calories, deep_duration, shallow_duration, heart_rate
+        from wristband_file
+        where 1 = 1
+        <if test="patient_id != null">
+            and patient_id = #{patient_id}
+        </if>
+        order by measured_at DESC
+    </select>
+
+    <select id="qrySphyFile4DocByPage" parameterType="map" resultMap="SphyFile4DocMap">
+        select sphygmomanometer_file_id, measured_at, systolic_pressure, diastolic_pressure, heart_rate
+        from sphygmomanometer_file
+        where 1 = 1
+        <if test="patient_id != null">
+            and patient_id = #{patient_id}
+        </if>
+        order by measured_at DESC
+    </select>
+
+    <select id="qryOxiFile4DocByPage" parameterType="map" resultMap="OxiFile4DocMap">
+        select oximeter_file_id, measured_at, oximeter_value
+        from oximeter_file
+        where 1 = 1
+        <if test="patient_id != null">
+            and patient_id = #{patient_id}
+        </if>
+        order by measured_at DESC
+    </select>
+
+    <select id="qryGluFile4DocByPage" parameterType="map" resultMap="GluFile4DocMap">
+        select glucosemeter_file_id, measured_at, glucosemeter_value, period
+        from glucosemeter_file
+        where 1 = 1
+        <if test="patient_id != null">
+            and patient_id = #{patient_id}
+        </if>
+        order by measured_at DESC
+    </select>
+
+    <select id="qryTheFile4DocByPage" parameterType="map" resultMap="TheFile4DocMap">
+        select thermometer_file_id, measured_at, thermometer_value
+        from thermometer_file
+        where 1 = 1
+        <if test="patient_id != null">
+            and patient_id = #{patient_id}
+        </if>
+        order by measured_at DESC
+    </select>
+
+    <select id="qryFatFile4DocByPage" parameterType="map" resultMap="FatFile4DocMap">
+        select fat_file_id, measured_at, bmi_value, weight_value, fat_value,
+        calorie_value, moisture_value, muscle_value, visceral_fat_value, bone_value
+        from fat_file
+        where 1 = 1
+        <if test="patient_id != null">
+            and patient_id = #{patient_id}
+        </if>
+        order by measured_at DESC
+    </select>
+
+    <select id="qryOtherFile4DocByPage" parameterType="map" resultMap="OtherFile4DocMap">
+        select other_file_id, measured_at
+        from other_file
+        where 1 = 1
+        <if test="patient_id != null">
+            and patient_id = #{patient_id}
+        </if>
+        order by measured_at DESC
+    </select>
+
+    <select id="qryWristbandFile4Doc" parameterType="map" resultMap="WrFile4DocMap">
+        select wristband_file_id, measured_at, step_count, distance, calories,
+        walk_count, walk_distance, walk_calories, run_count, run_distance,
+        run_calories, deep_duration, shallow_duration, heart_rate
+        from wristband_file
+        where 1 = 1
+        <if test="patient_id != null">
+            and patient_id = #{patient_id}
+        </if>
+    </select>
+
+    <select id="qrySphyFile4Doc" parameterType="map" resultMap="SphyFile4DocMap">
+        select sphygmomanometer_file_id, measured_at, systolic_pressure, diastolic_pressure, heart_rate
+        from sphygmomanometer_file
+        where 1 = 1
+        <if test="patient_id != null">
+            and patient_id = #{patient_id}
+        </if>
+    </select>
+
+    <select id="qryOxiFile4Doc" parameterType="map" resultMap="OxiFile4DocMap">
+        select oximeter_file_id, measured_at, oximeter_value
+        from oximeter_file
+        where 1 = 1
+        <if test="patient_id != null">
+            and patient_id = #{patient_id}
+        </if>
+    </select>
+
+    <select id="qryGluFile4Doc" parameterType="map" resultMap="GluFile4DocMap">
+        select glucosemeter_file_id, measured_at, glucosemeter_value
+        from glucosemeter_file
+        where 1 = 1
+        <if test="patient_id != null">
+            and patient_id = #{patient_id}
+        </if>
+    </select>
+
+    <select id="qryTheFile4Doc" parameterType="map" resultMap="TheFile4DocMap">
+        select thermometer_file_id, measured_at, thermometer_value
+        from thermometer_file
+        where 1 = 1
+        <if test="patient_id != null">
+            and patient_id = #{patient_id}
+        </if>
+    </select>
+
+    <select id="qryFatFile4Doc" parameterType="map" resultMap="FatFile4DocMap">
+        select thermometer_file_id, measured_at, bmi_value, weight_value, fat_value,
+        calorie_value, moisture_value, muscle_value, visceral_fat_value, bone_value
+        from fat_file
+        where 1 = 1
+        <if test="patient_id != null">
+            and patient_id = #{patient_id}
+        </if>
+    </select>
+
+    <resultMap id="WristbandFileMap" type="com.jxyq.model.health.PatWristbandFile">
+        <result column="wristband_file_id" property="wristband_file_id"/>
+        <result column="patient_id" property="patient_id"/>
+        <result column="measured_at" property="measured_at"/>
+        <result column="step_count" property="step_count"/>
+        <result column="distance" property="distance"/>
+        <result column="calories" property="calories"/>
+        <result column="walk_count" property="walk_count"/>
+        <result column="walk_distance" property="walk_distance"/>
+        <result column="walk_calories" property="walk_calories"/>
+        <result column="run_count" property="run_count"/>
+        <result column="run_distance" property="run_distance"/>
+        <result column="run_calories" property="run_calories"/>
+        <result column="deep_duration" property="deep_duration"/>
+        <result column="shallow_duration" property="shallow_duration"/>
+        <result column="heart_rate" property="heart_rate"/>
+        <result column="user_symptom" property="user_symptom"/>
+        <result column="proposal" property="proposal"/>
+        <result column="doctor_id" property="doctor_id"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <select id="selWristbandFile" parameterType="map" resultMap="WristbandFileMap">
+        select wristband_file_id, patient_id, measured_at, step_count, distance,
+        calories, walk_count, walk_distance, walk_calories, run_count,
+        run_distance, run_calories, deep_duration, shallow_duration, heart_rate,
+        user_symptom, proposal, doctor_id, status
+        from wristband_file
+        where 1 = 1
+        <if test="wristband_file_id != null">
+            and wristband_file_id = #{wristband_file_id}
+        </if>
+        limit 1
+    </select>
+
+    <update id="upWristbandFile" parameterType="com.jxyq.model.health.PatWristbandFile">
+        update wristband_file set
+        <if test="patient_id != null">
+            patient_id = #{patient_id},
+        </if>
+        <if test="step_count != null">
+            step_count = #{step_count},
+        </if>
+        <if test="distance != null">
+            distance = #{distance},
+        </if>
+        <if test="calories != null">
+            calories = #{calories},
+        </if>
+        <if test="walk_count != null">
+            walk_count = #{walk_count},
+        </if>
+        <if test="walk_distance != null">
+            walk_distance = #{walk_distance},
+        </if>
+        <if test="walk_calories != null">
+            walk_calories = #{walk_calories},
+        </if>
+        <if test="run_count != null">
+            run_count = #{run_count},
+        </if>
+        <if test="run_distance != null">
+            run_distance = #{run_distance},
+        </if>
+        <if test="run_calories != null">
+            run_calories = #{run_calories},
+        </if>
+        <if test="deep_duration != null">
+            deep_duration = #{deep_duration},
+        </if>
+        <if test="shallow_duration != null">
+            shallow_duration = #{shallow_duration},
+        </if>
+        <if test="heart_rate != null">
+            heart_rate = #{heart_rate},
+        </if>
+        <if test="user_symptom != null">
+            user_symptom = #{user_symptom},
+        </if>
+        <if test="proposal != null">
+            proposal = #{proposal},
+        </if>
+        wristband_file_id = #{wristband_file_id}
+        where wristband_file_id = #{wristband_file_id}
+    </update>
+
+    <resultMap id="SphFileMap" type="com.jxyq.model.health.PatSphygmomanometerFile">
+        <result column="sphygmomanometer_file_id" property="sphygmomanometer_file_id"/>
+        <result column="patient_id" property="patient_id"/>
+        <result column="measured_at" property="measured_at"/>
+        <result column="systolic_pressure" property="systolic_pressure"/>
+        <result column="diastolic_pressure" property="diastolic_pressure"/>
+        <result column="heart_rate" property="heart_rate"/>
+        <result column="user_symptom" property="user_symptom"/>
+        <result column="proposal" property="proposal"/>
+        <result column="doctor_id" property="doctor_id"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <select id="selSphygmomanometerFile" parameterType="map" resultMap="SphFileMap">
+        select sphygmomanometer_file_id, patient_id, measured_at, systolic_pressure, diastolic_pressure,
+        heart_rate, user_symptom, proposal, doctor_id, status
+        from sphygmomanometer_file
+        where 1 = 1
+        <if test="sphygmomanometer_file_id != null">
+            and sphygmomanometer_file_id = #{sphygmomanometer_file_id}
+        </if>
+        limit 1
+    </select>
+
+    <update id="upSphygmomanometerFile" parameterType="com.jxyq.model.health.PatSphygmomanometerFile">
+        update sphygmomanometer_file set
+        <if test="patient_id != null">
+            patient_id = #{patient_id},
+        </if>
+        <if test="systolic_pressure != null">
+            systolic_pressure = #{systolic_pressure},
+        </if>
+        <if test="diastolic_pressure != null">
+            diastolic_pressure = #{diastolic_pressure},
+        </if>
+        <if test="heart_rate != null">
+            heart_rate = #{heart_rate},
+        </if>
+        <if test="user_symptom != null">
+            user_symptom = #{user_symptom},
+        </if>
+        <if test="proposal != null">
+            proposal = #{proposal},
+        </if>
+        sphygmomanometer_file_id = #{sphygmomanometer_file_id}
+        where sphygmomanometer_file_id = #{sphygmomanometer_file_id}
+    </update>
+
+
+    <resultMap id="OxiFileMap" type="com.jxyq.model.health.PatOximeterFile">
+        <result column="oximeter_file_id" property="oximeter_file_id"/>
+        <result column="patient_id" property="patient_id"/>
+        <result column="measured_at" property="measured_at"/>
+        <result column="oximeter_value" property="oximeter_value"/>
+        <result column="user_symptom" property="user_symptom"/>
+        <result column="proposal" property="proposal"/>
+        <result column="doctor_id" property="doctor_id"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <select id="selOximeterFile" parameterType="map" resultMap="OxiFileMap">
+        select oximeter_file_id, patient_id, measured_at, oximeter_value, user_symptom,
+        proposal, doctor_id, status
+        from oximeter_file
+        where 1 = 1
+        <if test="oximeter_file_id != null">
+            and oximeter_file_id = #{oximeter_file_id}
+        </if>
+        limit 1
+    </select>
+
+    <update id="upOximeterFile" parameterType="com.jxyq.model.health.PatOximeterFile">
+        update oximeter_file set
+        <if test="patient_id != null">
+            patient_id = #{patient_id},
+        </if>
+        <if test="oximeter_value != null">
+            oximeter_value = #{oximeter_value},
+        </if>
+        <if test="user_symptom != null">
+            user_symptom = #{user_symptom},
+        </if>
+        <if test="proposal != null">
+            proposal = #{proposal},
+        </if>
+        oximeter_file_id = #{oximeter_file_id}
+        where oximeter_file_id = #{oximeter_file_id}
+    </update>
+
+    <resultMap id="GluFileMap" type="com.jxyq.model.health.PatGlucosemeterFile">
+        <result column="glucosemeter_file_id" property="glucosemeter_file_id"/>
+        <result column="patient_id" property="patient_id"/>
+        <result column="measured_at" property="measured_at"/>
+        <result column="glucosemeter_value" property="glucosemeter_value"/>
+        <result column="user_symptom" property="user_symptom"/>
+        <result column="proposal" property="proposal"/>
+        <result column="doctor_id" property="doctor_id"/>
+        <result column="status" property="status"/>
+        <result column="period" property="period"/>
+    </resultMap>
+
+    <select id="selGlucosemeterFile" parameterType="map" resultMap="GluFileMap">
+        select glucosemeter_file_id, patient_id, measured_at, glucosemeter_value, user_symptom,
+        proposal, doctor_id, status,period
+        from glucosemeter_file
+        where 1 = 1
+        <if test="glucosemeter_file_id != null">
+            and glucosemeter_file_id = #{glucosemeter_file_id}
+        </if>
+        limit 1
+    </select>
+
+    <update id="upGlucosemeterFile" parameterType="com.jxyq.model.health.PatGlucosemeterFile">
+        update glucosemeter_file set
+        <if test="patient_id != null">
+            patient_id = #{patient_id},
+        </if>
+        <if test="glucosemeter_value != null">
+            glucosemeter_value = #{glucosemeter_value},
+        </if>
+        <if test="user_symptom != null">
+            user_symptom = #{user_symptom},
+        </if>
+        <if test="proposal != null">
+            proposal = #{proposal},
+        </if>
+        <if test="period != null">
+            period = #{period},
+        </if>
+        glucosemeter_file_id = #{glucosemeter_file_id}
+        where glucosemeter_file_id = #{glucosemeter_file_id}
+    </update>
+
+    <resultMap id="TheFileMap" type="com.jxyq.model.health.PatThermometersFile">
+        <result column="thermometer_file_id" property="thermometer_file_id"/>
+        <result column="patient_id" property="patient_id"/>
+        <result column="measured_at" property="measured_at"/>
+        <result column="thermometer_value" property="thermometer_value"/>
+        <result column="user_symptom" property="user_symptom"/>
+        <result column="proposal" property="proposal"/>
+        <result column="doctor_id" property="doctor_id"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <select id="selThermometersFile" parameterType="map" resultMap="TheFileMap">
+        select thermometer_file_id, patient_id, measured_at, thermometer_value, user_symptom,
+        proposal, doctor_id, status
+        from thermometer_file
+        where 1 = 1
+        <if test="thermometer_file_id != null">
+            and thermometer_file_id = #{thermometer_file_id}
+        </if>
+        limit 1
+    </select>
+
+    <update id="upThermometersFile" parameterType="com.jxyq.model.health.PatThermometersFile">
+        update thermometer_file set
+        <if test="patient_id != null">
+            patient_id = #{patient_id},
+        </if>
+        <if test="thermometer_value != null">
+            thermometer_value = #{thermometer_value},
+        </if>
+        <if test="user_symptom != null">
+            user_symptom = #{user_symptom},
+        </if>
+        <if test="proposal != null">
+            proposal = #{proposal},
+        </if>
+        thermometer_file_id = #{thermometer_file_id}
+        where thermometer_file_id = #{thermometer_file_id}
+    </update>
+
+    <resultMap id="FatFileMap" type="com.jxyq.model.health.PatFatFile">
+        <result column="fat_file_id" property="fat_file_id"/>
+        <result column="patient_id" property="patient_id"/>
+        <result column="measured_at" property="measured_at"/>
+        <result column="bmi_value" property="bmi_value"/>
+        <result column="weight_value" property="weight_value"/>
+        <result column="fat_value" property="fat_value"/>
+        <result column="calorie_value" property="calorie_value"/>
+        <result column="moisture_value" property="moisture_value"/>
+        <result column="muscle_value" property="muscle_value"/>
+        <result column="visceral_fat_value" property="visceral_fat_value"/>
+        <result column="bone_value" property="bone_value"/>
+        <result column="user_symptom" property="user_symptom"/>
+        <result column="proposal" property="proposal"/>
+        <result column="doctor_id" property="doctor_id"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <select id="selFatFile" parameterType="map" resultMap="FatFileMap">
+        select fat_file_id, patient_id, measured_at, bmi_value, weight_value,
+        fat_value, calorie_value, moisture_value, muscle_value, visceral_fat_value,
+        bone_value, user_symptom, proposal, doctor_id, status
+        from fat_file
+        where 1 = 1
+        <if test="fat_file_id != null">
+            and fat_file_id = #{fat_file_id}
+        </if>
+        limit 1
+    </select>
+
+    <update id="upFatFile" parameterType="com.jxyq.model.health.PatFatFile">
+        update fat_file set
+        <if test="patient_id != null">
+            patient_id = #{patient_id},
+        </if>
+        <if test="bmi_value != null">
+            bmi_value = #{bmi_value},
+        </if>
+        <if test="weight_value != null">
+            weight_value = #{weight_value},
+        </if>
+        <if test="fat_value != null">
+            fat_value = #{fat_value},
+        </if>
+        <if test="calorie_value != null">
+            calorie_value = #{calorie_value},
+        </if>
+        <if test="moisture_value != null">
+            moisture_value = #{moisture_value},
+        </if>
+        <if test="muscle_value != null">
+            muscle_value = #{muscle_value},
+        </if>
+        <if test="visceral_fat_value != null">
+            visceral_fat_value = #{visceral_fat_value},
+        </if>
+        <if test="bone_value != null">
+            bone_value = #{bone_value},
+        </if>
+        <if test="user_symptom != null">
+            user_symptom = #{user_symptom},
+        </if>
+        <if test="proposal != null">
+            proposal = #{proposal},
+        </if>
+        fat_file_id = #{fat_file_id}
+        where fat_file_id = #{fat_file_id}
+    </update>
+
+    <!--档案-->
+    <select id="selPatientByPhone" parameterType="map" resultMap="PatientMap">
+        select patient_id, doctor_id, phone, name, gender,
+        birthday, address, profile, status
+        from patient
+        where 1 = 1
+        <if test="phone != null">
+            <![CDATA[and phone like '%${phone}%']]>
+        </if>
+        <if test="name != null">
+            <![CDATA[and name like '%${name}%']]>
+        </if>
+        <if test="gender != null">
+            and gender = #{gender}
+        </if>
+        <if test="begin_age != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) >= #{begin_age}]]>
+        </if>
+        <if test="end_age != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) <= #{end_age}]]>
+        </if>
+        limit 1
+    </select>
+
+    <select id="qryPatientByPage" parameterType="map" resultMap="PatientMap">
+        select patient_id, doctor_id, phone, name, gender,
+        birthday, address, profile, status
+        from patient
+        where 1 = 1
+        <if test="doctor_id != null">
+            <![CDATA[and doctor_id = #{doctor_id}]]>
+        </if>
+        <if test="phone != null">
+            <![CDATA[and phone like '%${phone}%']]>
+        </if>
+        <if test="name != null">
+            <![CDATA[and name like '%${name}%']]>
+        </if>
+        <if test="gender != null">
+            <![CDATA[and gender = #{gender}]]>
+        </if>
+        <if test="begin_age != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) >= #{begin_age}]]>
+        </if>
+        <if test="end_age != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) <= #{end_age}]]>
+        </if>
+        order by patient_id DESC
+    </select>
+
+    <insert id="insertPatient" parameterType="com.jxyq.model.health.Patient">
+        insert into patient
+        (patient_id, doctor_id, phone, name, gender,
+        birthday, address, profile, status)
+        values( #{patient_id}, #{doctor_id}, #{phone}, #{name}, #{gender},
+        #{birthday}, #{address}, #{profile}, #{status})
+    </insert>
+    <update id="putPatient" parameterType="com.jxyq.model.health.Patient">
+        update patient set
+        <if test="phone != null">
+            phone = #{phone},
+        </if>
+        <if test="name != null">
+            name = #{name},
+        </if>
+        <if test="gender != null">
+            gender = #{gender},
+        </if>
+        <if test="birthday != null">
+            birthday = #{birthday},
+        </if>
+        <if test="address != null">
+            address = #{address},
+        </if>
+        <if test="profile != null">
+            profile = #{profile},
+        </if>
+        <if test="status != null">
+            status = #{status},
+        </if>
+        doctor_id = #{doctor_id}
+        where patient_id = #{patient_id}
+    </update>
+    <insert id="insertWristbandFile" useGeneratedKeys="true" keyProperty="wristband_file_id"
+            parameterType="com.jxyq.model.health.PatWristbandFile">
+        insert into wristband_file (
+        measured_at, step_count, distance, calories, walk_count,
+        walk_distance, walk_calories, run_count,run_distance, run_calories,
+        deep_duration, shallow_duration, heart_rate,user_symptom, proposal,
+        doctor_id, status,patient_id
+        )
+        values (
+        #{measured_at}, #{step_count}, #{distance}, #{calories}, #{walk_count},
+        #{walk_distance}, #{walk_calories}, #{run_count}, #{run_distance}, #{run_calories},
+        #{deep_duration}, #{shallow_duration}, #{heart_rate}, #{user_symptom}, #{proposal},
+        #{doctor_id}, #{status}, #{patient_id}
+        )
+    </insert>
+
+    <insert id="insertSphygmomanometerFile" useGeneratedKeys="true" keyProperty="sphygmomanometer_file_id"
+            parameterType="com.jxyq.model.health.PatSphygmomanometerFile">
+        insert into sphygmomanometer_file (
+        measured_at, systolic_pressure, diastolic_pressure,
+        heart_rate, user_symptom, proposal, doctor_id, status,patient_id
+        )
+        values (
+        #{measured_at},#{systolic_pressure},#{diastolic_pressure},
+        #{heart_rate},#{user_symptom},#{proposal},#{doctor_id},#{status},#{patient_id}
+        )
+    </insert>
+
+    <insert id="insertOximeterFile" useGeneratedKeys="true" keyProperty="oximeter_file_id"
+            parameterType="com.jxyq.model.health.PatOximeterFile">
+        insert into oximeter_file (
+        measured_at, oximeter_value, user_symptom,
+        proposal, doctor_id, status,patient_id
+        )
+        values (
+        #{measured_at},#{oximeter_value},#{user_symptom},
+        #{proposal},#{doctor_id},#{status},#{patient_id}
+        )
+    </insert>
+
+    <insert id="insertGlucosemeterFile" useGeneratedKeys="true" keyProperty="glucosemeter_file_id"
+            parameterType="com.jxyq.model.health.PatGlucosemeterFile">
+        insert into glucosemeter_file (
+        measured_at, glucosemeter_value, user_symptom,
+        proposal, doctor_id, status,patient_id,period
+        )
+        values (
+        #{measured_at},#{glucosemeter_value},#{user_symptom},
+        #{proposal},#{doctor_id},#{status},#{patient_id},#{period}
+        )
+    </insert>
+
+    <insert id="insertThermometersFile" useGeneratedKeys="true" keyProperty="thermometer_file_id"
+            parameterType="com.jxyq.model.health.PatThermometersFile">
+        insert into thermometer_file (
+        measured_at, thermometer_value, user_symptom,
+        proposal, doctor_id, status,patient_id
+        )
+        values (
+        #{measured_at}, #{thermometer_value}, #{user_symptom},
+        #{proposal}, #{doctor_id},
+        #{status},#{patient_id}
+        )
+    </insert>
+
+    <insert id="insertFatFile" useGeneratedKeys="true" keyProperty="fat_file_id"
+            parameterType="com.jxyq.model.health.PatFatFile">
+        insert into fat_file (
+        measured_at, bmi_value, weight_value,
+        fat_value, calorie_value, moisture_value, muscle_value, visceral_fat_value,
+        bone_value, user_symptom, proposal, doctor_id, status,patient_id
+        )
+        values (
+        #{measured_at}, #{bmi_value}, #{weight_value},
+        #{fat_value}, #{calorie_value}, #{moisture_value}, #{muscle_value}, #{visceral_fat_value},
+        #{bone_value}, #{user_symptom}, #{proposal}, #{doctor_id}, #{status}, #{patient_id}
+        )
+    </insert>
+
+    <insert id="insertOtherFile" useGeneratedKeys="true" keyProperty="other_file_id"
+            parameterType="com.jxyq.model.health.PatOtherFile">
+        insert into other_file(other_file_id, patient_id, measured_at, user_symptom, proposal,
+        doctor_id, status)
+        values(#{other_file_id}, #{patient_id}, #{measured_at}, #{user_symptom}, #{proposal},
+        #{doctor_id}, #{status})
+    </insert>
+
+    <resultMap id="FilePatientMap" type="map">
+        <result column="file_type" property="file_type"/>
+        <result column="file_id" property="file_id"/>
+        <result column="patient_id" property="patient_id"/>
+        <result column="patient_name" property="patient_name"/>
+        <result column="patient_age" property="patient_age"/>
+        <result column="patient_gender" property="patient_gender"/>
+        <result column="patient_phone" property="patient_phone"/>
+        <result column="measured_at" property="measured_at"/>
+    </resultMap>
+
+    <select id="qryWristbandPatientByPage" parameterType="map" resultMap="FilePatientMap">
+        select 1 as file_type, wristband_file_id as file_id, a.patient_id as patient_id, name as patient_name,
+        (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5) &lt; RIGHT(birthday,5)) AS patient_age,
+        gender as patient_gender, phone as patient_phone, measured_at
+        from wristband_file a, patient b
+        where a.patient_id = b.patient_id
+        <if test="doctor_id != null">
+            <![CDATA[and b.doctor_id = #{doctor_id}]]>
+        </if>
+        <if test="age_from != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) >= #{age_from}]]>
+        </if>
+        <if test="age_to != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) <= #{age_to}]]>
+        </if>
+        <if test="phone != null">
+            <![CDATA[and b.phone like '%${phone}%']]>
+        </if>
+        <if test="name != null">
+            <![CDATA[and name like '%${name}%']]>
+        </if>
+        <if test="gender != null">
+            <![CDATA[and gender = #{gender}]]>
+        </if>
+        <if test="measured_from != null">
+            <![CDATA[and measured_at >= #{measured_from}]]>
+        </if>
+        <if test="measured_to != null">
+            <![CDATA[and measured_at <= #{measured_to}]]>
+        </if>
+        order by measured_at DESC
+    </select>
+
+    <select id="qrySphyPatientByPage" parameterType="map" resultMap="FilePatientMap">
+        select 2 as file_type, sphygmomanometer_file_id as file_id, a.patient_id as patient_id, name as patient_name,
+        (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5) &lt; RIGHT(birthday,5)) AS patient_age,
+        gender as patient_gender, phone as patient_phone, measured_at
+        from sphygmomanometer_file a, patient b
+        where a.patient_id = b.patient_id
+        <if test="doctor_id != null">
+            <![CDATA[and b.doctor_id = #{doctor_id}]]>
+        </if>
+        <if test="age_from != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) >= #{age_from}]]>
+        </if>
+        <if test="age_to != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) <= #{age_to}]]>
+        </if>
+        <if test="phone != null">
+            <![CDATA[and b.phone like '%${phone}%']]>
+        </if>
+        <if test="name != null">
+            <![CDATA[and name like '%${name}%']]>
+        </if>
+        <if test="gender != null">
+            <![CDATA[and gender = #{gender}]]>
+        </if>
+        <if test="measured_from != null">
+            <![CDATA[and measured_at >= #{measured_from}]]>
+        </if>
+        <if test="measured_to != null">
+            <![CDATA[and measured_at <= #{measured_to}]]>
+        </if>
+        order by measured_at DESC
+    </select>
+
+    <select id="qryOxiPatientByPage" parameterType="map" resultMap="FilePatientMap">
+        select 3 as file_type, oximeter_file_id as file_id, a.patient_id as patient_id, name as patient_name,
+        (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5) &lt; RIGHT(birthday,5)) AS patient_age,
+        gender as patient_gender, phone as patient_phone, measured_at
+        from oximeter_file a, patient b
+        where a.patient_id = b.patient_id
+        <if test="doctor_id != null">
+            <![CDATA[and b.doctor_id = #{doctor_id}]]>
+        </if>
+        <if test="age_from != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) >= #{age_from}]]>
+        </if>
+        <if test="age_to != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) <= #{age_to}]]>
+        </if>
+        <if test="phone != null">
+            <![CDATA[and b.phone like '%${phone}%']]>
+        </if>
+        <if test="name != null">
+            <![CDATA[and name like '%${name}%']]>
+        </if>
+        <if test="gender != null">
+            <![CDATA[and gender = #{gender}]]>
+        </if>
+        <if test="measured_from != null">
+            <![CDATA[and measured_at >= #{measured_from}]]>
+        </if>
+        <if test="measured_to != null">
+            <![CDATA[and measured_at <= #{measured_to}]]>
+        </if>
+        order by measured_at DESC
+    </select>
+
+    <select id="qryGluPatientByPage" parameterType="map" resultMap="FilePatientMap">
+        select 4 as file_type, glucosemeter_file_id as file_id, a.patient_id as patient_id, name as patient_name,
+        (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5) &lt; RIGHT(birthday,5)) AS patient_age,
+        gender as patient_gender, phone as patient_phone, measured_at
+        from glucosemeter_file a, patient b
+        where a.patient_id = b.patient_id
+        <if test="doctor_id != null">
+            <![CDATA[and b.doctor_id = #{doctor_id}]]>
+        </if>
+        <if test="age_from != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) >= #{age_from}]]>
+        </if>
+        <if test="age_to != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) <= #{age_to}]]>
+        </if>
+        <if test="phone != null">
+            <![CDATA[and b.phone like '%${phone}%']]>
+        </if>
+        <if test="name != null">
+            <![CDATA[and name like '%${name}%']]>
+        </if>
+        <if test="gender != null">
+            <![CDATA[and gender = #{gender}]]>
+        </if>
+        <if test="measured_from != null">
+            <![CDATA[and measured_at >= #{measured_from}]]>
+        </if>
+        <if test="measured_to != null">
+            <![CDATA[and measured_at <= #{measured_to}]]>
+        </if>
+        order by measured_at DESC
+    </select>
+
+    <select id="qryThePatientByPage" parameterType="map" resultMap="FilePatientMap">
+        select 5 as file_type, thermometer_file_id as file_id, a.patient_id as patient_id, name as patient_name,
+        (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5) &lt; RIGHT(birthday,5)) AS patient_age,
+        gender as patient_gender, phone as patient_phone, measured_at
+        from thermometer_file a, patient b
+        where a.patient_id = b.patient_id
+        <if test="doctor_id != null">
+            <![CDATA[and b.doctor_id = #{doctor_id}]]>
+        </if>
+        <if test="age_from != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) >= #{age_from}]]>
+        </if>
+        <if test="age_to != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) <= #{age_to}]]>
+        </if>
+        <if test="phone != null">
+            <![CDATA[and b.phone like '%${phone}%']]>
+        </if>
+        <if test="name != null">
+            <![CDATA[and name like '%${name}%']]>
+        </if>
+        <if test="gender != null">
+            <![CDATA[and gender = #{gender}]]>
+        </if>
+        <if test="measured_from != null">
+            <![CDATA[and measured_at >= #{measured_from}]]>
+        </if>
+        <if test="measured_to != null">
+            <![CDATA[and measured_at <= #{measured_to}]]>
+        </if>
+        order by measured_at DESC
+    </select>
+
+    <select id="qryFatPatientByPage" parameterType="map" resultMap="FilePatientMap">
+        select 6 as file_type, fat_file_id as file_id, a.patient_id as patient_id, name as patient_name,
+        (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5) &lt; RIGHT(birthday,5)) AS patient_age,
+        gender as patient_gender, phone as patient_phone, measured_at
+        from fat_file a, patient b
+        where a.patient_id = b.patient_id
+        <if test="doctor_id != null">
+            <![CDATA[and b.doctor_id = #{doctor_id}]]>
+        </if>
+        <if test="age_from != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) >= #{age_from}]]>
+        </if>
+        <if test="age_to != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) <= #{age_to}]]>
+        </if>
+        <if test="phone != null">
+            <![CDATA[and b.phone like '%${phone}%']]>
+        </if>
+        <if test="name != null">
+            <![CDATA[and name like '%${name}%']]>
+        </if>
+        <if test="gender != null">
+            <![CDATA[and gender = #{gender}]]>
+        </if>
+        <if test="measured_from != null">
+            <![CDATA[and measured_at >= #{measured_from}]]>
+        </if>
+        <if test="measured_to != null">
+            <![CDATA[and measured_at <= #{measured_to}]]>
+        </if>
+        order by measured_at DESC
+    </select>
+
+    <select id="qryOtherPatientByPage" parameterType="map" resultMap="FilePatientMap">
+        select 7 as file_type, other_file_id as file_id, a.patient_id as patient_id, name as patient_name,
+        (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5) &lt; RIGHT(birthday,5)) AS patient_age,
+        gender as patient_gender, phone as patient_phone, measured_at
+        from other_file a, patient b
+        where a.patient_id = b.patient_id
+        <if test="doctor_id != null">
+            <![CDATA[and b.doctor_id = #{doctor_id}]]>
+        </if>
+        <if test="age_from != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) >= #{age_from}]]>
+        </if>
+        <if test="age_to != null">
+            <![CDATA[and (YEAR(CURDATE())-YEAR(birthday))-(RIGHT(CURDATE(),5)<RIGHT(birthday,5)) <= #{age_to}]]>
+        </if>
+        <if test="phone != null">
+            <![CDATA[and b.phone like '%${phone}%']]>
+        </if>
+        <if test="name != null">
+            <![CDATA[and name like '%${name}%']]>
+        </if>
+        <if test="gender != null">
+            <![CDATA[and gender = #{gender}]]>
+        </if>
+        <if test="measured_from != null">
+            <![CDATA[and measured_at >= #{measured_from}]]>
+        </if>
+        <if test="measured_to != null">
+            <![CDATA[and measured_at <= #{measured_to}]]>
+        </if>
+        order by measured_at DESC
+    </select>
+
+    <resultMap id="OtherFileMap" type="com.jxyq.model.health.PatOtherFile">
+        <result column="other_file_id" property="other_file_id"/>
+        <result column="patient_id" property="patient_id"/>
+        <result column="measured_at" property="measured_at"/>
+        <result column="user_symptom" property="user_symptom"/>
+        <result column="proposal" property="proposal"/>
+        <result column="doctor_id" property="doctor_id"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <select id="selOtherFile" parameterType="map" resultMap="OtherFileMap">
+        select other_file_id, patient_id, measured_at, user_symptom, proposal,
+            doctor_id, status
+        from other_file
+        where 1 = 1
+        <if test="other_file_id != null">
+            and other_file_id = #{other_file_id}
+        </if>
+        limit 1
+    </select>
+
+    <update id="upOtherFile" parameterType="com.jxyq.model.health.PatOtherFile">
+        update other_file set
+        <if test="patient_id != null">
+            patient_id = #{patient_id},
+        </if>
+        <if test="user_symptom != null">
+            user_symptom = #{user_symptom},
+        </if>
+        <if test="proposal != null">
+            proposal = #{proposal},
+        </if>
+        other_file_id = #{other_file_id}
+        where other_file_id = #{other_file_id}
+    </update>
+</mapper>

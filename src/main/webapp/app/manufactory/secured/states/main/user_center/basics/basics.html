@@ -1,0 +1,423 @@
+</br>
+<div class="panel panel-default">
+  <div class="alert alert-{{alert.type}} alert-dismissable" style="text-align: center;" role="alert" ng-repeat="alert in alerts" type="{{alert.type}}">
+    <button type="button" class="close" ng-click="closeAlert($index)">
+    </button>
+    {{alert.msg}}
+  </div>
+  <!--end of alert block-->
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-offset-2 col-md-8">
+        <form class="form-horizontal" name="myForm" role="form" ng-submit="saveManufactoryBasic()" novalidate>
+          <div id="id-contact-info">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-offset-6">
+                        <div class="col-sm-3 text-right">
+                            <label class="control-label">上次登录</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <label class="control-label text-right">{{manufactory.last_login}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">联系人信息</h3>
+                </div>
+                <div class="panel-body">
+                  <div class="form-group" ng-class="{'has-success':manufactory.contactor,'has-error':!manufactory.contactor}" id="contactor_name_group">
+                    <div class="col-md-10">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label" for="contact_name">姓名</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group input-group ">
+                          <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                          <input type="text" class="form-control" id="contact_name" placeholder="请输入您的姓名" ng-model="manufactory.contactor" ng-change="checkContactorName()" required="required">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <p class="help-block" id="contactor_name_helper">{{manufactory.contactor?'已填':'必填'}}</p>
+                    </div>
+                  </div>
+                  <div class="form-group" ng-class="{'has-success':manufactory.department,'has-error':!manufactory.department}" id="department_group">
+                    <div class="col-md-10">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label" for="department">公司部门</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group input-group ">
+                          <ui-select ng-change="checkDepartment()" ng-model="manufactory.department" theme="bootstrap">
+                            <ui-select-match placeholder="选择公司部门">{{$select.selected.department_name}}</ui-select-match>
+                            <ui-select-choices repeat="item.department_id as item in company_departments | filter: $select.search">
+                              <div ng-bind-html="item.department_name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                          </ui-select>
+                          <span class="input-group-btn">
+                          <button ng-click="manufactory.department= undefined" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-trash"></span>
+                          </button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <p class="help-block" id="department_helper">{{manufactory.department?'已填':'必填'}}</p>
+                    </div>
+                  </div>
+                  <div class="form-group" ng-class="{'has-success':manufactory.device_type_ids,'has-error':!manufactory.device_type_ids}" id="devices_group">
+                    <div class="col-md-10">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label" for="device">设备类型</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group">
+                          <ui-select multiple ng-change="checkDevices()" ng-model="manufactory.device_type_ids" theme="bootstrap" ng-disabled="disabled" close-on-select="false">
+                            <ui-select-match placeholder="选择设备类型">{{$item.device_type_name}}</ui-select-match>
+                            <ui-select-choices repeat="dtype.device_type_id as dtype in device_types | filter: $select.search">
+                              <div ng-bind-html="dtype.device_type_name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                          </ui-select>
+                          <span class="input-group-btn">
+                          <button ng-click="manufactory.device_type_ids = undefined" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-trash"></span>
+                          </button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <p class="help-block" id="devices_helper">{{manufactory.device_type_ids?'已填':'必填'}}</p>
+                    </div>
+                  </div>
+                  <div class="form-group" ng-class="{'has-success':manufactory.telephone,'has-error':!manufactory.telephone}" id="telephone_group">
+                    <div class="col-md-10">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label" for="phone">固定电话</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group input-group ">
+                          <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                          <input type="tel" class="form-control" id="phone" placeholder="请输入您的固定电话" ng-model="manufactory.telephone" ng-change="checkTelephone()" required="required">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <p class="help-block" id="telephone_helper">{{manufactory.telephone?'已填':'必填'}}</p>
+                    </div>
+                  </div>
+                  <div class="form-group" ng-class="{'has-success':manufactory.phone,'has-error':!manufactory.phone}" id="mobile_group">
+                    <div class="col-md-10">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label" for="phone">移动电话</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group input-group ">
+                          <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
+                          <input type="tel" class="form-control" id="phone" placeholder="请输入您的移动电话" ng-model="manufactory.phone" ng-change="checkMobile()" required="required">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <p class="help-block" id="mobile_helper">{{manufactory.phone?'已填':'必填'}}</p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-md-10">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label" for="mail">邮箱：</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group input-group ">
+                          <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                          <input type="email" class="form-control" id="mail" placeholder="请输入您的邮箱" ng-model="manufactory.email">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                    <!--<div class="form-group">-->
+                        <!--<div class="col-md-10">-->
+                            <!--<div class="col-md-4 text-right">-->
+                                <!--<label class="control-label" for="last_login">上次登录时间：</label>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-8">-->
+                                <!--<div class="input-group input-group ">-->
+                                    <!--<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>-->
+                                    <!--<input type="email" class="form-control" id="last_login" ng-model="manufactory.last_login" ng-disabled="true">-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+              </div>
+            </div>
+          </div>
+          <div id="id-contact-info">
+            <div class="col-md-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">公司信息</h3>
+                </div>
+                <div class="panel-body">
+                  <div class="form-group" ng-class="{'has-success':manufactory.full_name,'has-error':!manufactory.full_name}" id="company_name_group">
+                    <div class="col-md-10">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label" for="contact_name">公司名称</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group input-group ">
+                          <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                          <input type="text" class="form-control" id="contact_name" placeholder="请输入公司名称" ng-model="manufactory.full_name" ng-change="checkCompanyName()" required="required">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <p class="help-block" id="company_name_helper">{{manufactory.full_name?'已填':'必填'}}</p>
+                    </div>
+                  </div>
+                  <div class="form-group" ng-class="{'has-success':manufactory.code,'has-error':!manufactory.code}" id="company_code_group">
+                    <div class="col-md-10">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label" for="department">公司编码</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group input-group ">
+                          <span class="input-group-addon"><i class="fa fa-barcode"></i></span>
+                          <input type="text" class="form-control" placeholder="请输入公司编码" ng-model="manufactory.code" required="required" ng-change="checkCompanyCode()">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <p class="help-block" id="company_code_helper">{{manufactory.code?'已填':'必填'}}</p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-md-10">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label" for="device">公司简介</label>
+                      </div>
+                      <div class="col-md-8">
+                        <textarea class="col-md-12 form-control" placeholder="请输入公司简介" ng-model="manufactory.profile"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group" ng-class="{'has-success':manufactory.province_id,'has-error':!manufactory.province_id}" id="district_group">
+                    <div class="col-md-10">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label" for="phone">公司所在地</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="row">
+                          <div class="col-md-4">
+                            <ui-select ng-change="changeProvince(manufactory.province_id)" ng-model="manufactory.province_id" theme="bootstrap">
+                              <ui-select-match placeholder="省">{{$select.selected.province_name}}</ui-select-match>
+                              <ui-select-choices repeat="item.province_id as item  in province_list | filter: $select.search">
+                                <div ng-bind-html="item.province_name | highlight: $select.search"></div>
+                              </ui-select-choices>
+                            </ui-select>
+                          </div>
+                          <div class="col-md-4">
+                            <ui-select ng-change="changeCity(manufactory.city_id)" ng-model="manufactory.city_id" theme="bootstrap">
+                              <ui-select-match placeholder="市">{{$select.selected.city_name}}</ui-select-match>
+                              <ui-select-choices repeat="item.city_id as item in city_select_list | filter: $select.search">
+                                <div ng-bind-html="item.city_name | highlight: $select.search"></div>
+                              </ui-select-choices>
+                            </ui-select>
+                          </div>
+                          <div class="col-md-4">
+                            <ui-select ng-change="changeCounty()" ng-model="manufactory.zone_id" theme="bootstrap">
+                              <ui-select-match placeholder="县">{{$select.selected.zone_name}}</ui-select-match>
+                              <ui-select-choices repeat="item.zone_id as item in county_select_list | filter: $select.search">
+                                <div ng-bind-html="item.zone_name | highlight: $select.search"></div>
+                              </ui-select-choices>
+                            </ui-select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <p class="help-block" id="district_helper">{{manufactory.province_id?'已填':'必填'}}</p>
+                    </div>
+                  </div>
+                  <div class="form-group" ng-class="{'has-success':manufactory.address,'has-error':!manufactory.address}" id="address_group">
+                    <div class="col-md-10">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label" for="phone">详细地址</label>
+                      </div>
+                      <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="请输入详细地址" ng-model="manufactory.address" ng-change="checkAddress()" required="required">
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <p class="help-block" id="address_helper">{{manufactory.address?'已填':'必填'}}</p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-md-10">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label" for="department">企业人数</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group input-group ">
+                          <ui-select ng-model="manufactory.members" theme="bootstrap">
+                            <ui-select-match placeholder="选择企业人数">{{$select.selected.member_name}}</ui-select-match>
+                            <ui-select-choices repeat="item.member_id as item in company_members_list | filter: $select.search">
+                              <div ng-bind-html="item.member_name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                          </ui-select>
+                          <span class="input-group-btn">
+                          <button ng-click="manufactory.members = undefined" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-trash"></span>
+                          </button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-md-10">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label" for="department">公司行业</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group input-group ">
+                          <ui-select ng-model="manufactory.industry" theme="bootstrap">
+                            <ui-select-match placeholder="选择公司行业">{{$select.selected.industry_name}}</ui-select-match>
+                            <ui-select-choices repeat="item.industry_id as item in company_industry_list | filter: $select.search">
+                              <div ng-bind-html="item.industry_name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                          </ui-select>
+                          <span class="input-group-btn">
+                          <button ng-click="manufactory.industry = undefined" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-trash"></span>
+                          </button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-md-10">
+                      <div class="col-md-4 text-right">
+                        <label class="control-label" for="department">公司性质</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group input-group ">
+                          <ui-select ng-model="manufactory.nature" theme="bootstrap">
+                            <ui-select-match placeholder="选择公司性质">{{$select.selected.nature_name}}</ui-select-match>
+                            <ui-select-choices repeat="item.nature_id as item in company_nature_list | filter: $select.search">
+                              <div ng-bind-html="item.nature_name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                          </ui-select>
+                          <span class="input-group-btn">
+                          <button ng-click="company_nature.selected = undefined" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-trash"></span>
+                          </button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--<div class="form-group" ng-class="{'has-success':business_licencefile || manufactory.business_licence,'has-error':(!business_licencefile)&&(!manufactory.business_licence)}" id="business_licence_group">-->
+                    <!--<div class="col-md-10">-->
+                      <!--<div class="col-md-4 text-right">-->
+                        <!--<label class="control-label" for="phone">工商营业执照</label>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-8">-->
+                        <!--&lt;!&ndash; <input type="file" class="form-control" placeholder="请输入工商营业执照" file-model="business_licencefile" required="required"> &ndash;&gt;-->
+                        <!--<div class="row">-->
+                          <!--<div class="col-md-4">-->
+                            <!--<img ng-src={{manufactory.business_licence}} style="width: 50px">-->
+                          <!--</div>-->
+                          <!--<div class="col-md-6" style="margin-top: 10px">-->
+                            <!--<input type="file" file-model="business_licencefile" />-->
+                          <!--</div>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-2">-->
+                      <!--<p class="help-block" id="business_licence_helper">{{business_licencefile?'已填':'必填'}}</p>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                  <!--<div class="form-group">-->
+                    <!--<div class="col-md-10">-->
+                      <!--<div class="col-md-4 text-right">-->
+                        <!--<label class="control-label" for="phone">组织机构代码证</label>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-8">-->
+                        <!--&lt;!&ndash;  <input type="file" class="form-control" placeholder="请输入组织机构代码证" file-model="internal_certificatefile" required="required"> &ndash;&gt;-->
+                        <!--<div class="row">-->
+                          <!--<div class="col-md-4">-->
+                            <!--<img ng-src={{manufactory.internal_certificate}} style="width: 50px">-->
+                          <!--</div>-->
+                          <!--<div class="col-md-6" style="margin-top: 10px">-->
+                            <!--<input type="file" file-model="internal_certificatefile" />-->
+                          <!--</div>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                  <!--<div class="form-group">-->
+                    <!--<div class="col-md-10">-->
+                      <!--<div class="col-md-4 text-right">-->
+                        <!--<label class="control-label" for="phone">税务登记证(国)</label>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-8">-->
+                        <!--&lt;!&ndash; <input type="file" class="form-control" placeholder="请输入税务登记证(国)" file-model="local_certificatefile" required="required"> &ndash;&gt;-->
+                        <!--<div class="row">-->
+                          <!--<div class="col-md-4">-->
+                            <!--<img ng-src={{manufactory.local_certificate}} style="width: 50px">-->
+                          <!--</div>-->
+                          <!--<div class="col-md-6" style="margin-top: 10px">-->
+                            <!--<input type="file" file-model="local_certificatefile" />-->
+                          <!--</div>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                  <!--<div class="form-group">-->
+                    <!--<div class="col-md-10">-->
+                      <!--<div class="col-md-4 text-right">-->
+                        <!--<label class="control-label" for="phone">税务登记证(地)</label>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-8">-->
+                        <!--&lt;!&ndash;  <input type="file" class="form-control" placeholder="请输入税务登记证(地)" file-model="code_certificatefile" required="required"> &ndash;&gt;-->
+                        <!--<div class="row">-->
+                          <!--<div class="col-md-4">-->
+                            <!--<img ng-src={{manufactory.code_certificate}} style="width: 50px">-->
+                          <!--</div>-->
+                          <!--<div class="col-md-6" style="margin-top: 10px">-->
+                            <!--<input type="file" file-model="code_certificatefile" />-->
+                          <!--</div>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                  <div class="row">
+                      <div class="col-sm-offset-2 col-md-8">
+                          <div class="alert alert-info" role="alert" style="text-align: center">
+                              <label style="text-align:center">修改工商营业执照、组织机构代码证、税务登记证(国)、税务登记证(地)，请联系管理员。</label>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-md-10">
+                      <div class="col-md-offset-4 col-md-8 text-right">
+                        <button class="btn btn-primary btn-lg btn-block" type="submit" ng-click="">保存</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

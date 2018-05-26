@@ -1,0 +1,141 @@
+</br>
+<div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h1 class="panel-title">用户登录日志</h1>
+        </div>
+        <div class="panel-body">
+            <div>
+                <!--start of alert block-->
+                <div class="alert alert-{{alert.type}} alert-dismissable" style="text-align: center;" role="alert" ng-repeat="alert in alerts" type="{{alert.type}}">
+                    <button type="button" class="close" ng-click="closeAlert($index)">
+                    </button>
+                    {{alert.msg}}
+                </div>
+                <!--end of alert block-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">查询条件</h3>
+                            </div>
+                            <div class="panel-body">
+                                <form class="form-horizontal" role="form">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="col-md-4">
+                                                    <label class="control-label" for="user_login_name">
+                                                       用户名称
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" ng-model="log.user_login_name" class="form-control" id="user_login_name" placeholder="用户名称">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="col-md-4">
+                                                    <label class="control-label" for="user_role">
+                                                        用户角色
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <!--<input type="text" ng-model="log.user_role" class="form-control" id="user_role" placeholder="用户角色">-->
+                                                    <div class="input-group">
+                                                        <ui-select ng-model="log.user_role" id="op_title" theme="bootstrap" id="user_role">
+                                                            <ui-select-match placeholder="用户角色">{{$select.selected.user_role_name}}</ui-select-match>
+                                                            <ui-select-choices repeat="item.user_role_id as item in  roles| filter: $select.search">
+                                                                <div ng-bind-html="item.user_role_name"></div>
+                                                            </ui-select-choices>
+                                                        </ui-select>
+                                                        <span class="input-group-btn">
+                                                          <button type="button" ng-click="log.user_role = undefined" class="btn btn-default">
+                                                              <span class="glyphicon glyphicon-trash"></span>
+                                                          </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="col-md-4 ">
+                                                    <label class="control-label" for="op_title">
+                                                        操作类型
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="input-group">
+                                                        <ui-select ng-model="log.op_title" id="op_title" theme="bootstrap">
+                                                            <ui-select-match placeholder="操作类型">{{$select.selected.op_title_name}}</ui-select-match>
+                                                            <ui-select-choices repeat="item.op_title_id as item in  ops| filter: $select.search">
+                                                                <div ng-bind-html="item.op_title_name"></div>
+                                                            </ui-select-choices>
+                                                        </ui-select>
+                                                        <span class="input-group-btn">
+                                                          <button type="button" ng-click="log.op_title = undefined" class="btn btn-default">
+                                                              <span class="glyphicon glyphicon-trash"></span>
+                                                          </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="col-md-4">
+                                                    <label class="control-label" for="start_date">
+                                                        开始时间
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" ng-model="query_date.happened_from" datepicker-popup id="start_date" is-open="form1_opened" max-date="dt" ng-disabled="true" datepicker-options="dateOptions" clear-text="清除" current-text="今天" close-text="关闭" />
+                                                        <span class="input-group-btn">
+                                                          <button type="button" class="btn btn-default" ng-click="open_form_1($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="col-md-4">
+                                                    <label class="control-label" for="end_date">
+                                                        结束时间
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" ng-change="dateToChange()" ng-model="query_date.happened_to" datepicker-popup id="end_date" is-open="form2_opened" max-date="dt" ng-disabled="true" datepicker-options="dateOptions" clear-text="清除" current-text="今天" close-text="关闭" />
+                                                        <span class="input-group-btn">
+                                                          <button type="button" class="btn btn-default" ng-click="open_form_2($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="col-md-offset-4 col-md-8">
+                                                    <button type="submit" ng-click="getOperationLogs()" class="btn btn-success btn-block">查询</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ui-grid="gridOptions" class="gridStyle" ui-grid-pagination ui-grid-pinning></div>
+        </div>
+    </div>
+</div>

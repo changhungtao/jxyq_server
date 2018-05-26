@@ -1,0 +1,207 @@
+</br>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h1 class="panel-title">健康咨询列表</h1>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">查询条件</h3>
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-12">
+                <form class="form-horizontal" role="form">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <form class="form-horizontal" role="form">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="col-sm-offset-1 col-sm-10">
+                              <div class="form-group">
+                                <div class="row">
+                                  <div class="col-md-4 text-right">
+                                    <label class="control-label" for="district">
+                                      地区：
+                                    </label>
+                                  </div>
+                                  <!--<div class="col-md-8">-->
+                                  <!--<div class="input-group">-->
+                                  <!--<ui-select multiple ng-model="consultation.district_id" theme="bootstrap" id="district" ng-disabled="disabled" close-on-select="false">-->
+                                  <!--<ui-select-match placeholder="选择地区">{{$item.district_name}}</ui-select-match>-->
+                                  <!--<ui-select-choices repeat="item.district_id as item in healthconsultation.districts | filter: $select.search">-->
+                                  <!--<div ng-bind-html="item.district_name | highlight: $select.search"></div>-->
+                                  <!--</ui-select-choices>-->
+                                  <!--</ui-select>-->
+                                  <!--<span class="input-group-btn">-->
+                                  <!--<button ng-click="healthConsultation.district_selected = undefined" class="btn btn-default">-->
+                                  <!--<span class="glyphicon glyphicon-trash"></span>-->
+                                  <!--</button>-->
+                                  <!--</span>-->
+                                  <!--</div>-->
+                                  <!--</div>-->
+                                  <!--单选-->
+                                  <div class="col-md-8">
+                                    <div class="input-group">
+                                      <ui-select ng-model="tmp.district_id" id="reply_selected" theme="bootstrap">
+                                        <ui-select-match placeholder="选择地区">{{$select.selected.district_name}}</ui-select-match>
+                                        <ui-select-choices repeat="item.district_id as item in   healthconsultation.districts | filter: $select.search">
+                                          <div ng-bind-html="item.district_name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                      </ui-select>
+                                      <span class="input-group-btn">
+                                        <button type="button" ng-click="clearDistrict()" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                      </button>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="col-sm-offset-1 col-sm-10">
+                              <div class="form-group">
+                                <div class="row">
+                                  <div class="col-md-4 text-right">
+                                    <label class="control-label" for="department">
+                                      科室：
+                                    </label>
+                                  </div>
+                                  <!--<div class="col-md-8">-->
+                                  <!--<div class="input-group">-->
+                                  <!--<ui-select multiple ng-model="consultation.department_id" theme="bootstrap" id="department" ng-disabled="disabled" close-on-select="false">-->
+                                  <!--<ui-select-match placeholder="选择科室">{{$item.department_name}}</ui-select-match>-->
+                                  <!--<ui-select-choices repeat="item.department_id as item in healthconsultation.departments | filter: $select.search">-->
+                                  <!--<div ng-bind-html="item.department_name | highlight: $select.search"></div>-->
+                                  <!--</ui-select-choices>-->
+                                  <!--</ui-select>-->
+                                  <!--<span class="input-group-btn">-->
+                                  <!--<button ng-click="healthConsultation.department_selected = undefined" class="btn btn-default">-->
+                                  <!--<span class="glyphicon glyphicon-trash"></span>-->
+                                  <!--</button>-->
+                                  <!--</span>-->
+                                  <!--</div>-->
+                                  <!--</div>-->
+                                  <div class="col-md-8">
+                                    <div class="input-group">
+                                      <ui-select ng-model="tmp.department_id" id="department" theme="bootstrap">
+                                        <ui-select-match placeholder="选择科室">{{$select.selected.department_name}}</ui-select-match>
+                                        <ui-select-choices repeat="item.department_id as item in   healthconsultation.departments | filter: $select.search">
+                                          <div ng-bind-html="item.department_name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                      </ui-select>
+                                      <span class="input-group-btn">
+                                        <button type="button" ng-click="clearDepartment()" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                      </button>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="col-sm-offset-1 col-sm-10">
+                              <div class="form-group">
+                                <div class="row">
+                                  <div class="col-md-4 text-right">
+                                    <label class="control-label" for="start_date">
+                                      开始时间
+                                    </label>
+                                  </div>
+                                  <div class="col-md-8">
+                                    <div class="input-group">
+                                      <input type="date" class="form-control" ng-model="query_date.created_from" disabled datepicker-popup ng-model="dt" id="start_date" is-open="form1_opened" max-date="dt" datepicker-options="dateOptions" clear-text="清除" current-text="今天" close-text="关闭" />
+                                      <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open_form_1($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="col-sm-offset-1 col-sm-10">
+                              <div class="form-group">
+                                <div class="row">
+                                  <div class="col-md-4 text-right">
+                                    <label class="control-label" for="end_date">
+                                      结束时间
+                                    </label>
+                                  </div>
+                                  <div class="col-md-8">
+                                    <div class="input-group">
+                                      <input type="date" class="form-control" ng-model="query_date.created_to" disabled datepicker-popup ng-model="dt" id="end_date" is-open="form2_opened" max-date="dt" datepicker-options="dateOptions" clear-text="清除" current-text="今天" close-text="关闭" />
+                                      <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open_form_2($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="col-sm-offset-1 col-sm-10">
+                              <div class="form-group">
+                                <div class="row">
+                                  <div class="col-md-4 text-right">
+                                    <label class="control-label" for="reply_selected">
+                                      状态：
+                                    </label>
+                                  </div>
+                                  <div class="col-md-8">
+                                    <div class="input-group">
+                                      <ui-select ng-model="consultation.status" id="reply_selected" theme="bootstrap">
+                                        <ui-select-match placeholder="回复与否">{{$select.selected.consultation_status_name}}</ui-select-match>
+                                        <ui-select-choices repeat="item.consultation_status_id as item in  consultation_status | filter: $select.search">
+                                          <div ng-bind-html="item.consultation_status_name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                      </ui-select>
+                                      <span class="input-group-btn">
+                                        <button type="button" ng-click="consultation.status = undefined" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                      </button>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="col-sm-offset-1 col-sm-10">
+                              <div class="form-group">
+                                <div class="row">
+                                  <div class="col-md-offset-4 col-md-8">
+                                    <button type="submit" class="btn btn-success col-md-12" ng-click="queryConsultation()">查询</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div ui-grid="gridOptions" class="gridStyle" ui-grid-pagination>
+    </div>
+  </div>
+</div>

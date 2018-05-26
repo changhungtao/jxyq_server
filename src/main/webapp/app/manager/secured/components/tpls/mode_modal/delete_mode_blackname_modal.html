@@ -1,0 +1,38 @@
+<div class="modal-header">
+  <div class="row">
+    <div class="col-md-6">
+      <h4 class="modal-title">删除黑名单</h4>
+    </div>
+    <div class="col-md-6 text-right">
+      <h4 class="modal-title"></h4>
+    </div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <form class="form-horizontal" id="deleteBlackForm" role="form" ng-submit="deleteBlack()">
+      <div class="form-group">
+        <div class="col-md-3 text-right">
+          <label class="control-label">姓名：</label>
+        </div>
+        <div class="col-md-6">
+          <input class="form-control" ng-model="black.name" type="text" placeholder="输入姓名" disabled>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-3 text-right">
+          <label class="control-label">电话：</label>
+        </div>
+        <div class="col-md-6">
+          <input class="form-control" ng-model="black.number" type="text" placeholder="输入电话" disabled>
+        </div>
+      </div>
+     </form>
+  </div>
+</div>
+<div class="modal-footer">
+    <div class="col-sm-offset-7 col-sm-5 text-right">
+      <button form="deleteBlackForm" type="submit" class="btn btn-danger">删除</button>
+        <button ng-click="cancel()" type="button" class="btn btn-default">关闭</button>
+    </div>
+</div>

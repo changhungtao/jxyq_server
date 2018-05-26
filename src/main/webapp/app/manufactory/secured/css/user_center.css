@@ -1,0 +1,35 @@
+#grey{ 
+    width:100%;    
+    background-color: #ebebeb;
+    padding-bottom: 20px;
+}
+
+#choose-nav{
+    width:70%;
+     margin-left:15%;
+     border-bottom: 1px solid #cfcfcf;
+     font-family: 黑体;
+     font-size:16px;
+}
+
+a:link { 
+font-size: 16px; 
+color: #000000; 
+text-decoration: none; 
+} 
+a:visited { 
+font-size: 16px; 
+color: #000000; 
+text-decoration: none; 
+} 
+a:hover { 
+font-size: 16px; 
+color: #000000; 
+text-decoration: none; 
+} 
+
+.table td span{
+text-align: right;
+}
+
+
